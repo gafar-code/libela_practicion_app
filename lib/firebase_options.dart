@@ -59,12 +59,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDCFXXEswG_9hHcp8noqt3JPxNr8V_sRiQ',
-    appId: '1:423911887089:ios:60745bf8ae6cace4785950',
+    appId: '1:423911887089:ios:cae03be6837d05e8785950',
     messagingSenderId: '423911887089',
     projectId: 'libela-411302',
     storageBucket: 'libela-411302.appspot.com',
     androidClientId: '423911887089-l1f3nff23gf1d8qvharae9ii7a62sdss.apps.googleusercontent.com',
-    iosClientId: '423911887089-99uk112lu3ie1cbgds05bbk358ot1uue.apps.googleusercontent.com',
+    iosClientId: '423911887089-rsgdc8mku08str6d3q2aor0l4po1j108.apps.googleusercontent.com',
     iosBundleId: 'tratalion.libela.practition',
   );
 }

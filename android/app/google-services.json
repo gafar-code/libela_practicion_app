@@ -31,10 +31,10 @@
               "client_type": 3
             },
             {
-              "client_id": "423911887089-kt7lis5flphutjdsjdqoj47isp5l00fn.apps.googleusercontent.com",
+              "client_id": "423911887089-99uk112lu3ie1cbgds05bbk358ot1uue.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.libela.auth"
+                "bundle_id": "com.example.libelaPractition"
               }
             }
           ]
@@ -75,10 +75,10 @@
               "client_type": 3
             },
             {
-              "client_id": "423911887089-kt7lis5flphutjdsjdqoj47isp5l00fn.apps.googleusercontent.com",
+              "client_id": "423911887089-99uk112lu3ie1cbgds05bbk358ot1uue.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.libela.auth"
+                "bundle_id": "com.example.libelaPractition"
               }
             }
           ]
@@ -111,10 +111,10 @@
               "client_type": 3
             },
             {
-              "client_id": "423911887089-kt7lis5flphutjdsjdqoj47isp5l00fn.apps.googleusercontent.com",
+              "client_id": "423911887089-99uk112lu3ie1cbgds05bbk358ot1uue.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.libela.auth"
+                "bundle_id": "com.example.libelaPractition"
               }
             }
           ]
