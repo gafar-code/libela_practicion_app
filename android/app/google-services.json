@@ -1,0 +1,126 @@
+{
+  "project_info": {
+    "project_number": "423911887089",
+    "project_id": "libela-411302",
+    "storage_bucket": "libela-411302.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423911887089:android:c71d7992d0dc6398785950",
+        "android_client_info": {
+          "package_name": "com.jetmarket.customer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "423911887089-dfqk0flvo95fhie2a3jgdjkl39f5q4hj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1ts482RMoEU8iDK5u8vmgg4Gg-yXrMR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "423911887089-dfqk0flvo95fhie2a3jgdjkl39f5q4hj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "423911887089-kt7lis5flphutjdsjdqoj47isp5l00fn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.libela.auth"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423911887089:android:bb3284eac94f7578785950",
+        "android_client_info": {
+          "package_name": "com.libela.auth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "423911887089-l1f3nff23gf1d8qvharae9ii7a62sdss.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.libela.auth",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "423911887089-dfqk0flvo95fhie2a3jgdjkl39f5q4hj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1ts482RMoEU8iDK5u8vmgg4Gg-yXrMR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "423911887089-dfqk0flvo95fhie2a3jgdjkl39f5q4hj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "423911887089-kt7lis5flphutjdsjdqoj47isp5l00fn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.libela.auth"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423911887089:android:430bfa6ef96c3280785950",
+        "android_client_info": {
+          "package_name": "tratalion.libela.practition"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "423911887089-dfqk0flvo95fhie2a3jgdjkl39f5q4hj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1ts482RMoEU8iDK5u8vmgg4Gg-yXrMR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "423911887089-dfqk0flvo95fhie2a3jgdjkl39f5q4hj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "423911887089-kt7lis5flphutjdsjdqoj47isp5l00fn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.libela.auth"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

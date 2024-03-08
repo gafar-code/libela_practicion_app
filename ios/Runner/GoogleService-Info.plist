@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>423911887089-99uk112lu3ie1cbgds05bbk358ot1uue.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.423911887089-99uk112lu3ie1cbgds05bbk358ot1uue</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>423911887089-l1f3nff23gf1d8qvharae9ii7a62sdss.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDCFXXEswG_9hHcp8noqt3JPxNr8V_sRiQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>423911887089</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>tratalion.libela.practition</string>
+	<key>PROJECT_ID</key>
+	<string>libela-411302</string>
+	<key>STORAGE_BUCKET</key>
+	<string>libela-411302.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:423911887089:ios:60745bf8ae6cace4785950</string>
+</dict>
+</plist>
