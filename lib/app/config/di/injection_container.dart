@@ -17,6 +17,8 @@ import 'package:libela_practition/app/features/auth/domain/usecase/update_servic
 import 'package:libela_practition/app/features/auth/domain/usecase/upload_image.dart';
 import 'package:libela_practition/app/features/auth/domain/usecase/verify_forgot_phone.dart';
 import 'package:libela_practition/app/features/profile/domain/usecase/get_user_profile.dart';
+import 'package:libela_practition/app/features/schedule/domain/usecase/get_detail_appointment.dart';
+import 'package:libela_practition/app/features/schedule/domain/usecase/set_reminder.dart';
 
 import '../../features/auth/data/data_sources/auth_remote_data_sources.dart';
 import '../../features/auth/data/repositories/auth_repositories_impl.dart';
@@ -27,10 +29,20 @@ import '../../features/auth/domain/usecase/login.dart';
 import '../../features/auth/domain/usecase/login_verify_otp.dart';
 import '../../features/auth/domain/usecase/register.dart';
 import '../../features/auth/domain/usecase/upload_file.dart';
+import '../../features/notification/data/data_sources/notification_remote_data_source.dart';
+import '../../features/notification/data/data_sources/notification_remote_data_source_impl.dart';
+import '../../features/notification/data/repositories/notification_repositories_impl.dart';
+import '../../features/notification/domain/repositories/notification_repositories.dart';
+import '../../features/notification/domain/usecase/get_notification.dart';
 import '../../features/profile/data/data_sources/profile_remote_data_source.dart';
 import '../../features/profile/data/data_sources/profile_remote_data_source_impl.dart';
 import '../../features/profile/data/repositories/profile_repositories_impl.dart';
 import '../../features/profile/domain/repositories/profile_repositories.dart';
+import '../../features/schedule/data/data_source/schedule_remote_data_sources.dart';
+import '../../features/schedule/data/data_source/schedule_remote_data_sources_impl.dart';
+import '../../features/schedule/data/repositories/schedule_repositories_impl.dart';
+import '../../features/schedule/domain/repositories/schedule_repositories.dart';
+import '../../features/schedule/domain/usecase/get_appointments.dart';
 
 final sl = GetIt.instance;
 
@@ -45,6 +57,15 @@ Future<void> initializeDepedencies() async {
   sl.registerSingleton<ProfileRemoteDataSource>(
       ProfileRemoteDataSourcesImpl(DioClient()));
   sl.registerSingleton<ProfileRepositories>(ProfileRepositoriesImpl(sl()));
+
+  sl.registerSingleton<ScheduleRemoteDataSource>(
+      ScheduleRemoteDataSourcesImpl(DioClient()));
+  sl.registerSingleton<ScheduleRepositories>(ScheduleRepositoriesImpl(sl()));
+
+  sl.registerSingleton<NotificationRemoteDataSource>(
+      NotificationRemoteDataSourcesImpl(DioClient()));
+  sl.registerSingleton<NotificationRepositories>(
+      NotificationRepositoriesImpl(sl()));
 
   // Auth Use Case
   sl.registerSingleton<ForgotPhoneNumber>(ForgotPhoneNumber(sl()));
@@ -72,4 +93,12 @@ Future<void> initializeDepedencies() async {
 
   // Profile Use Case
   sl.registerSingleton<GetUserProfile>(GetUserProfile(sl()));
+
+  // Schedule Use Case
+  sl.registerSingleton<GetAppointments>(GetAppointments(sl()));
+  sl.registerSingleton<SetReminder>(SetReminder(sl()));
+  sl.registerSingleton<GetDetailAppointments>(GetDetailAppointments(sl()));
+
+  // Notification Use Case
+  sl.registerSingleton<GetNotifications>(GetNotifications(sl()));
 }

@@ -30,8 +30,8 @@ import '../features/auth/presentation/pages/verification_info/bindings/verificat
 import '../features/auth/presentation/pages/verification_info/views/verification_info_view.dart';
 import '../features/home/presentation/pages/dashboard/bindings/dashboard_binding.dart';
 import '../features/home/presentation/pages/dashboard/views/dashboard_view.dart';
-import '../features/home/presentation/pages/detail_appointment/bindings/detail_appointment_binding.dart';
-import '../features/home/presentation/pages/detail_appointment/views/detail_appointment_view.dart';
+import '../features/schedule/presentation/pages/detail_appointment/bindings/detail_appointment_binding.dart';
+import '../features/schedule/presentation/pages/detail_appointment/views/detail_appointment_view.dart';
 import '../features/home/presentation/pages/form_action/bindings/form_action_binding.dart';
 import '../features/home/presentation/pages/form_action/views/form_action_view.dart';
 import '../features/home/presentation/pages/incoming_request/bindings/incoming_request_binding.dart';
@@ -40,6 +40,8 @@ import '../features/home/presentation/pages/visit_is_over/bindings/visit_is_over
 import '../features/home/presentation/pages/visit_is_over/views/visit_is_over_view.dart';
 import '../features/main/presentation/pages/main_pages/bindings/main_pages_binding.dart';
 import '../features/main/presentation/pages/main_pages/views/main_pages_view.dart';
+import '../features/notification/presentation/pages/notification_page/bindings/notification_page_binding.dart';
+import '../features/notification/presentation/pages/notification_page/views/notification_page_view.dart';
 import '../features/profile/presentation/pages/bank_rekening/bindings/bank_rekening_binding.dart';
 import '../features/profile/presentation/pages/bank_rekening/views/bank_rekening_view.dart';
 import '../features/profile/presentation/pages/chat_support/bindings/chat_support_binding.dart';
@@ -215,6 +217,11 @@ class AppPages {
       name: _Paths.LOGIN_OTP,
       page: () => const LoginOtpView(),
       binding: LoginOtpBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFICATION_PAGE,
+      page: () => const NotificationPageView(),
+      binding: NotificationPageBinding(),
     ),
   ];
 }

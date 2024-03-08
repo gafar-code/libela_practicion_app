@@ -1,6 +1,5 @@
 class Endpoints {
-  static const String url = 'https://jetmarket-server.fly.dev/api/v1/';
-
+  // Auth
   static const String login = 'auths/practitioner/login/phone';
   static const String registerPhone = 'auths/practitioner/register/phone';
   static const String registerVerifyOtp =
@@ -31,9 +30,15 @@ class Endpoints {
   static const String changePhone =
       'auths/practitioner/forgot-phone/change-phone';
 
+  // Schedule
+  static const String appointments = 'appointments';
+
   static const String uploadImage = 'internal/tools/upload/file';
   static const String uploadFile = 'internal/tools/upload/file';
   static const String userProfile = 'practitioner/profile';
+
+  // notification
+  static const String notifications = 'notifications';
 
   static const Duration connectTimeout = Duration(milliseconds: 15000);
   static const Duration receiveTimeout = Duration(milliseconds: 15000);

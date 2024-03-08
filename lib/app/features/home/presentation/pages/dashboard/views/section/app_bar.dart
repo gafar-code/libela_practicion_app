@@ -8,6 +8,7 @@ import 'package:libela_practition/app/config/theme/theme.dart';
 import 'package:libela_practition/app/core/utils/assets/assets.dart';
 import 'package:libela_practition/app/core/utils/assets/local_assets.dart';
 import 'package:libela_practition/app/features/profile/presentation/pages/profile_page/controllers/profile_page_controller.dart';
+import 'package:libela_practition/app/routes/app_pages.dart';
 
 class AppBarDashboard extends StatelessWidget implements PreferredSizeWidget {
   const AppBarDashboard({Key? key}) : super(key: key);
@@ -28,7 +29,13 @@ class AppBarDashboard extends StatelessWidget implements PreferredSizeWidget {
           ],
         );
       }),
-      actions: [LocalAssets.svg(notification), Gap(16.w)],
+      actions: [
+        GestureDetector(
+          onTap: () => Get.toNamed(Routes.NOTIFICATION_PAGE),
+          child: LocalAssets.svg(notification),
+        ),
+        Gap(16.w)
+      ],
     );
   }
 

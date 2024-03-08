@@ -21,6 +21,10 @@ abstract class RemoteDataSourceImpl {
     return _client.put(path, body: body, queryParameters: query);
   }
 
+  Future<Response> patch(String path, {RequestBody? body, QueryParam? query}) {
+    return _client.patch(path, body: body, queryParameters: query);
+  }
+
   Future<Response> del(String path, [QueryParam? query]) {
     return _client.delete(path, queryParameters: query);
   }

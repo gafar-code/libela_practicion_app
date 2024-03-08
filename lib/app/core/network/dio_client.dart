@@ -99,6 +99,32 @@ class DioClient {
     }
   }
 
+  // PATCH METHOD
+  Future<Response> patch(
+    String url, {
+    RequestBody? body,
+    QueryParam? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    try {
+      final Response response = await _dio.patch(
+        url,
+        data: body?.toJson(),
+        queryParameters: queryParameters?.toJson(),
+        options: options,
+        cancelToken: cancelToken,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   // DELETE METHOD
   Future<Response> delete(
     String url, {

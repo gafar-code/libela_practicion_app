@@ -34,6 +34,7 @@ abstract class Routes {
   static const DETAIL_APPOINTMENT = _Paths.DETAIL_APPOINTMENT;
   static const FORM_ACTION = _Paths.FORM_ACTION;
   static const LOGIN_OTP = _Paths.LOGIN_OTP;
+  static const NOTIFICATION_PAGE = _Paths.NOTIFICATION_PAGE;
 }
 
 abstract class _Paths {
@@ -67,4 +68,5 @@ abstract class _Paths {
   static const DETAIL_APPOINTMENT = '/detail-appointment';
   static const FORM_ACTION = '/form-action';
   static const LOGIN_OTP = '/login-otp';
+  static const NOTIFICATION_PAGE = '/notification-page';
 }

@@ -54,3 +54,4 @@ const String chatLine = '$baseDirSvg/chat-line.svg';
 const String questionLine = '$baseDirSvg/question-line.svg';
 const String logoutLine = '$baseDirSvg/logout-line.svg';
 const String folder = '$baseDirSvg/folder.svg';
+const String reminder = '$baseDirSvg/reminder.svg';
