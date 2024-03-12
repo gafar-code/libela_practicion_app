@@ -16,7 +16,7 @@ class InformationAction extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<DetailAppointmentController>(builder: (controller) {
       return Visibility(
-        visible: controller.appointmentStatus == DetailAppointmentStatus.done,
+        visible: controller.detailAppointment?.status == 'finished',
         child: CustomExpansion(
           title: 'Informasi Tindakan',
           isExpanded: controller.isExpandedAction,

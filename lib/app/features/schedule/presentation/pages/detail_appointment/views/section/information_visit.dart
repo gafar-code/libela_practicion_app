@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:libela_practition/app/config/theme/colors.dart';
 import 'package:libela_practition/app/config/theme/font.dart';
 import 'package:libela_practition/app/config/theme/theme.dart';
+import 'package:libela_practition/app/core/utils/extension/convert_local.dart';
 import 'package:libela_practition/app/features/schedule/presentation/pages/detail_appointment/controllers/detail_appointment_controller.dart';
 
 import '../../../../../../../core/components/components_lib.dart';
@@ -28,7 +29,7 @@ class InformationVisit extends StatelessWidget {
             ),
             Gap(4.h),
             Text(
-              '28/03/2024  09.00 - 10.00',
+              '${controller.detailAppointment?.startAt?.convertToLocaleDate}  ${controller.detailAppointment?.startAt?.convertToLocaleTime} - ${controller.detailAppointment?.endAt?.convertToLocaleTime}',
               style: theme.font.f12.semibold,
             ),
             Gap(12.h),
@@ -38,7 +39,7 @@ class InformationVisit extends StatelessWidget {
             ),
             Gap(4.h),
             Text(
-              '09.00 - 10.00',
+              '${controller.detailAppointment?.startAt?.convertToLocaleTime} - ${controller.detailAppointment?.endAt?.convertToLocaleTime}',
               style: theme.font.f12.semibold,
             ),
             Gap(12.h),
@@ -49,9 +50,11 @@ class InformationVisit extends StatelessWidget {
             Gap(4.h),
             Row(
               children: [
-                Text(
-                  'Jalan Merapi Raya 02, Bandung, Jawa Barat',
-                  style: theme.font.f12.semibold.copyWith(color: kInfoColor),
+                Expanded(
+                  child: Text(
+                    '${controller.detailAppointment?.patient?.address}',
+                    style: theme.font.f12.semibold.copyWith(color: kInfoColor),
+                  ),
                 ),
                 Gap(4.w),
               ],

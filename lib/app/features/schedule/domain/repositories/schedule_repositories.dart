@@ -14,4 +14,16 @@ abstract class ScheduleRepositories {
       {required SetReminderBody body, required String appointmentCode});
   Future<Either<RemoteFailure, DetailAppointmentEntity>> getDetailAppointments(
       {required String appointmentCode});
+
+  Future<Either<RemoteFailure, dynamic>> confirmAppointment(
+      String appointmentCode);
+
+  Future<Either<RemoteFailure, dynamic>> acceptAppointment(
+      String appointmentCode);
+
+  Future<Either<RemoteFailure, dynamic>> rejectAppointment(
+      String appointmentCode);
+
+  Future<Either<RemoteFailure, dynamic>> startSessionAppointment(
+      String appointmentCode);
 }

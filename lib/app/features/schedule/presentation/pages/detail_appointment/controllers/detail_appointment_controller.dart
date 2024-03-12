@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:libela_practition/app/core/components/dialog/confirmation_dialog.dart';
+import 'package:libela_practition/app/features/schedule/domain/usecase/accept_appointment.dart';
+import 'package:libela_practition/app/features/schedule/domain/usecase/reject_appointment.dart';
 import 'package:libela_practition/app/routes/app_pages.dart';
 
+import '../../../../../../core/components/snackbar/app_snackbar.dart';
 import '../../../../domain/usecase/get_detail_appointment.dart';
 import '../../../../../home/presentation/utils/models/typedef.dart';
+import '../../../../domain/usecase/start_session_appointment.dart';
 
 enum DetailAppointmentStatus {
   willStart,
@@ -18,9 +23,16 @@ enum RejectReason { fillQueue, other }
 
 class DetailAppointmentController extends GetxController {
   final GetDetailAppointments _getDetailAppointments;
-  DetailAppointmentController(this._getDetailAppointments);
-  DetailAppointmentStatus appointmentStatus =
-      DetailAppointmentStatus.newPatient;
+  final AcceptAppointment _acceptAppointment;
+  final RejectAppointment _rejectAppointment;
+  final StartSessionAppointment _startSessionAppointment;
+
+  DetailAppointmentController(
+      this._getDetailAppointments,
+      this._acceptAppointment,
+      this._rejectAppointment,
+      this._startSessionAppointment);
+  // DetailAppointmentStatus? appointmentStatus;
   List<TextEditingController> firstPhysicalExaminationsController = [];
   List<TextEditingController> servicePatientsController = [];
   TextEditingController treatmentGoalsController = TextEditingController();
@@ -110,20 +122,58 @@ class DetailAppointmentController extends GetxController {
       print(l.message);
     }, (data) {
       detailAppointment = data;
-      setStatus(data.status ?? '');
       update();
     });
     loadingPages(false);
   }
 
-  void setStatus(String status) {
-    if (status == 'panding') {
-      appointmentStatus = DetailAppointmentStatus.newPatient;
-    }
-  }
+  void setStatus(String status) {}
 
   void endSession() {
     Get.toNamed(Routes.FORM_ACTION);
+  }
+
+  void confirmationAcceptAppointment() {
+    ConfirmationDialog.show(
+      title: 'Terima Pasien',
+      message: 'Yakin ingin menerima pasien?',
+      onTapText: 'terima',
+      isCenterMessage: true,
+      onPressed: () {
+        Get.back();
+        acceptAppointment(Get.arguments);
+      },
+    );
+  }
+
+  Future<void> acceptAppointment(String appointmentCode) async {
+    final response = await _acceptAppointment(appointmentCode);
+    response.fold((error) {
+      AppSnackbar.show(message: error.message, type: SnackType.error);
+    }, (data) {
+      detailAppointment = detailAppointment?.copyWith(status: 'assinged');
+      update();
+    });
+  }
+
+  Future<void> rejectAppointment(String appointmentCode) async {
+    final response = await _rejectAppointment(appointmentCode);
+    response.fold((error) {
+      AppSnackbar.show(message: error.message, type: SnackType.error);
+    }, (data) {
+      detailAppointment = detailAppointment?.copyWith(status: 'cancel');
+      update();
+    });
+  }
+
+  Future<void> startSessionAppointment(String appointmentCode) async {
+    final response = await _startSessionAppointment(appointmentCode);
+    response.fold((error) {
+      AppSnackbar.show(message: error.message, type: SnackType.error);
+    }, (data) {
+      detailAppointment = detailAppointment?.copyWith(status: 'in_progress');
+      update();
+    });
   }
 
   @override

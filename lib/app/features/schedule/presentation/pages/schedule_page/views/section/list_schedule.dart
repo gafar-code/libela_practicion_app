@@ -48,7 +48,13 @@ class ListSchedule extends StatelessWidget {
                           tab: tab,
                           data: item,
                           setReminder: () => controller.setReminder(
-                              appointmentCode: item.appointmentCode ?? ''),
+                              appointmentCode: item.appointmentCode ?? '',
+                              activateReminder: item.setReminder ?? 0),
+                          toDetail: () => controller
+                              .toDetailAppointment(item.appointmentCode ?? ''),
+                          confirmAppointment: () =>
+                              controller.openDialogConfirmationAppointment(
+                                  item.appointmentCode ?? ''),
                         );
                       },
                       newPageProgressIndicatorBuilder: InfinitiPage.progress,

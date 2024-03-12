@@ -7,7 +7,7 @@ class SchedulePageBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<SchedulePageController>(
-      () => SchedulePageController(sl(), sl()),
+      () => SchedulePageController(sl(), sl(), sl()),
     );
   }
 }

@@ -21,7 +21,7 @@ extension ScheduleTabExtension on ScheduleTab {
       case ScheduleTab.all:
         return '';
       case ScheduleTab.coming:
-        return 'in_progress';
+        return 'assinged';
       case ScheduleTab.finished:
         return 'finish';
       case ScheduleTab.rejected:

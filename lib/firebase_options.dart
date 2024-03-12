@@ -63,8 +63,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '423911887089',
     projectId: 'libela-411302',
     storageBucket: 'libela-411302.appspot.com',
-    androidClientId: '423911887089-l1f3nff23gf1d8qvharae9ii7a62sdss.apps.googleusercontent.com',
-    iosClientId: '423911887089-rsgdc8mku08str6d3q2aor0l4po1j108.apps.googleusercontent.com',
+    androidClientId:
+        '423911887089-l1f3nff23gf1d8qvharae9ii7a62sdss.apps.googleusercontent.com',
+    iosClientId:
+        '423911887089-rsgdc8mku08str6d3q2aor0l4po1j108.apps.googleusercontent.com',
     iosBundleId: 'tratalion.libela.practition',
   );
 }

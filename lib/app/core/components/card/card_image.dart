@@ -116,12 +116,15 @@ class CardImage extends StatelessWidget {
     return Container(
       width: size.r,
       height: size.r,
-      color: kErrorColor.withOpacity(0.2),
+      decoration: BoxDecoration(
+        color: kErrorColor.withOpacity(0.2),
+        borderRadius: theme.style.borderRadius.allSmall,
+      ),
       child: Center(
         child: Icon(
           Icons.error,
           color: kErrorColor,
-          size: (size - 6).r,
+          size: (size - 12).r,
         ),
       ),
     );

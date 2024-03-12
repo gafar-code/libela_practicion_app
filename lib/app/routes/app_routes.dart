@@ -35,6 +35,11 @@ abstract class Routes {
   static const FORM_ACTION = _Paths.FORM_ACTION;
   static const LOGIN_OTP = _Paths.LOGIN_OTP;
   static const NOTIFICATION_PAGE = _Paths.NOTIFICATION_PAGE;
+  static const WITHDRAW = _Paths.WITHDRAW;
+  static const HISTORY_WITHDRAW = _Paths.HISTORY_WITHDRAW;
+  static const ADD_REKENING_WITHDRAW = _Paths.ADD_REKENING_WITHDRAW;
+  static const WAITING_WITHDRAW = _Paths.WAITING_WITHDRAW;
+  static const DETAIL_WITHDRAW = _Paths.DETAIL_WITHDRAW;
 }
 
 abstract class _Paths {
@@ -69,4 +74,9 @@ abstract class _Paths {
   static const FORM_ACTION = '/form-action';
   static const LOGIN_OTP = '/login-otp';
   static const NOTIFICATION_PAGE = '/notification-page';
+  static const WITHDRAW = '/withdraw';
+  static const HISTORY_WITHDRAW = '/history-withdraw';
+  static const ADD_REKENING_WITHDRAW = '/add-rekening-withdraw';
+  static const WAITING_WITHDRAW = '/waiting-withdraw';
+  static const DETAIL_WITHDRAW = '/detail-withdraw';
 }

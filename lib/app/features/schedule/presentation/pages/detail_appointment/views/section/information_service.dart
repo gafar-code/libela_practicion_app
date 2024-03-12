@@ -23,18 +23,19 @@ class InformationService extends StatelessWidget {
         onTap: () => controller.expandService(),
         content: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [content(controller.appointmentStatus, controller)],
+          children: [
+            content(controller.detailAppointment?.status ?? '', controller)
+          ],
         ),
       );
     });
   }
 
-  Widget content(
-      DetailAppointmentStatus status, DetailAppointmentController controller) {
+  Widget content(String status, DetailAppointmentController controller) {
     switch (status) {
-      case DetailAppointmentStatus.sessionStart:
+      case 'assinged':
         return _sessionStart(controller);
-      case DetailAppointmentStatus.done:
+      case 'finish':
         return _done(controller);
       default:
         return _notStarted(controller);

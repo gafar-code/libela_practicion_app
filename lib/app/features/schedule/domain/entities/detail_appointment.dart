@@ -39,6 +39,24 @@ class DetailAppointmentEntity extends Equatable {
             : null);
   }
 
+  DetailAppointmentEntity copyWith(
+      {String? startAt,
+      String? endAt,
+      String? status,
+      CustomerDetailEntity? customer,
+      PatientDetailEntity? patient,
+      ServiceEntity? service,
+      PatientTreatmentsEntity? patientTreatments}) {
+    return DetailAppointmentEntity(
+        startAt: startAt ?? this.startAt,
+        endAt: endAt ?? this.endAt,
+        status: status ?? this.status,
+        customer: customer ?? this.customer,
+        patient: patient ?? this.patient,
+        service: service ?? this.service,
+        patientTreatments: patientTreatments ?? this.patientTreatments);
+  }
+
   @override
   List<Object?> get props =>
       [startAt, endAt, status, customer, patient, service, patientTreatments];

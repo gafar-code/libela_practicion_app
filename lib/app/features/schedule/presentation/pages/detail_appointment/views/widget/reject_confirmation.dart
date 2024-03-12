@@ -101,8 +101,10 @@ class ConfirmationReject {
                                 text: "Batal", onPressed: () => Get.back())),
                         SizedBox(
                             width: getWidthScale(2.84),
-                            child:
-                                PrimaryButton(text: "Kirim", onPressed: () {})),
+                            child: PrimaryButton(
+                                text: "Kirim",
+                                onPressed: () => controller
+                                    .rejectAppointment(Get.arguments))),
                       ],
                     )
                   ],

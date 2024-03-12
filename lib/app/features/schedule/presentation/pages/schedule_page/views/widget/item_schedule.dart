@@ -20,12 +20,14 @@ class ItemSchedule extends StatelessWidget {
       required this.tab,
       required this.data,
       this.setReminder,
-      this.toDetail});
+      this.toDetail,
+      this.confirmAppointment});
 
   final ScheduleTab tab;
   final Appointment data;
   final Function()? setReminder;
   final Function()? toDetail;
+  final Function()? confirmAppointment;
 
   @override
   Widget build(BuildContext context) {
@@ -146,16 +148,19 @@ class ItemSchedule extends StatelessWidget {
   }
 
   Widget _coming() {
-    return Container(
-      padding: theme.style.padding.allMedium,
-      decoration: BoxDecoration(
-          borderRadius: theme.style.borderRadius.allSmall,
-          color: kWhiteColor,
-          border: Border.all(color: kInfoColor, width: 1.2)),
-      child: Center(
-        child: Text(
-          'Konfirmasi Kedatangan',
-          style: theme.font.f12.copyWith(color: kInfoColor).medium,
+    return GestureDetector(
+      onTap: confirmAppointment,
+      child: Container(
+        padding: theme.style.padding.allMedium,
+        decoration: BoxDecoration(
+            borderRadius: theme.style.borderRadius.allSmall,
+            color: kWhiteColor,
+            border: Border.all(color: kInfoColor, width: 1.2)),
+        child: Center(
+          child: Text(
+            'Konfirmasi Kedatangan',
+            style: theme.font.f12.copyWith(color: kInfoColor).medium,
+          ),
         ),
       ),
     );

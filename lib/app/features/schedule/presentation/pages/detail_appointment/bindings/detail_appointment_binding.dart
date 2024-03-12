@@ -7,7 +7,7 @@ class DetailAppointmentBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<DetailAppointmentController>(
-      () => DetailAppointmentController(sl()),
+      () => DetailAppointmentController(sl(), sl(), sl(), sl()),
     );
   }
 }

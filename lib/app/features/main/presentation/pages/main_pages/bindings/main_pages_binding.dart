@@ -11,7 +11,7 @@ class MainPagesBinding extends Bindings {
     Get.lazyPut<MainPagesController>(
       () => MainPagesController(),
     );
-    Get.put(SchedulePageController(sl(), sl()));
+    Get.put(SchedulePageController(sl(), sl(), sl()));
     Get.put(ProfilePageController(sl()));
   }
 }

@@ -49,4 +49,52 @@ class ScheduleRepositoriesImpl implements ScheduleRepositories {
       return Left(RemoteFailure(e));
     }
   }
+
+  @override
+  Future<Either<RemoteFailure, dynamic>> confirmAppointment(
+      String appointmentCode) async {
+    try {
+      final data =
+          await _scheduleRemoteDataSource.confirmAppointment(appointmentCode);
+      return Right(data);
+    } on ServerException catch (e) {
+      return Left(RemoteFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<RemoteFailure, dynamic>> acceptAppointment(
+      String appointmentCode) async {
+    try {
+      final data =
+          await _scheduleRemoteDataSource.acceptAppointment(appointmentCode);
+      return Right(data);
+    } on ServerException catch (e) {
+      return Left(RemoteFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<RemoteFailure, dynamic>> rejectAppointment(
+      String appointmentCode) async {
+    try {
+      final data =
+          await _scheduleRemoteDataSource.rejectAppointment(appointmentCode);
+      return Right(data);
+    } on ServerException catch (e) {
+      return Left(RemoteFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<RemoteFailure, dynamic>> startSessionAppointment(
+      String appointmentCode) async {
+    try {
+      final data = await _scheduleRemoteDataSource
+          .startSessionAppointment(appointmentCode);
+      return Right(data);
+    } on ServerException catch (e) {
+      return Left(RemoteFailure(e));
+    }
+  }
 }

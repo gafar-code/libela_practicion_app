@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import '../../../../core/network/endpoints.dart';
 import '../../../../core/network/remote_data_source_impl.dart';
 import '../../../../core/network/request_remote.dart';
@@ -29,7 +27,6 @@ class ScheduleRemoteDataSourcesImpl extends RemoteDataSourceImpl
     final response = await hitAPI(() => patch(
         Endpoints.appointments + '/${appointmentCode}/set-reminder',
         body: body));
-    log(response['data']);
     return SetReminderModel.fromJson(response['data']);
   }
 
@@ -39,5 +36,33 @@ class ScheduleRemoteDataSourcesImpl extends RemoteDataSourceImpl
     final response =
         await hitAPI(() => get(Endpoints.appointments + '/$appointmentCode'));
     return DetailAppointmentModel.fromJson(response['data']);
+  }
+
+  @override
+  Future<dynamic> confirmAppointment(String appointmentCode) async {
+    final response = await hitAPI(
+        () => patch(Endpoints.appointments + '/$appointmentCode/confirm'));
+    return response['data'];
+  }
+
+  @override
+  Future<dynamic> acceptAppointment(String appointmentCode) async {
+    final response = await hitAPI(
+        () => patch(Endpoints.appointments + '/$appointmentCode/accept'));
+    return response['data'];
+  }
+
+  @override
+  Future<dynamic> rejectAppointment(String appointmentCode) async {
+    final response = await hitAPI(
+        () => patch(Endpoints.appointments + '/$appointmentCode/reject'));
+    return response['data'];
+  }
+
+  @override
+  Future<dynamic> startSessionAppointment(String appointmentCode) async {
+    final response = await hitAPI(
+        () => patch(Endpoints.appointments + '/$appointmentCode/start'));
+    return response['data'];
   }
 }

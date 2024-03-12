@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:libela_practition/app/core/components/dialog/confirmation_dialog.dart';
 import 'package:libela_practition/app/core/components/snackbar/app_snackbar.dart';
 import 'package:libela_practition/app/features/schedule/domain/usecase/set_reminder.dart';
 import 'package:libela_practition/app/features/schedule/presentation/utils/model/appointment_params.dart';
@@ -10,6 +11,7 @@ import 'package:libela_practition/app/features/schedule/presentation/utils/model
 import 'package:libela_practition/app/routes/app_pages.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../../../domain/usecase/confirm_appointment.dart';
 import '../../../../domain/usecase/get_appointments.dart';
 import '../../../utils/model/set_reminder_body.dart';
 import '../../../utils/model/typedef.dart';
@@ -18,8 +20,10 @@ class SchedulePageController extends GetxController
     with GetSingleTickerProviderStateMixin {
   final GetAppointments _getAppointments;
   final SetReminder _setReminder;
+  final ConfirmAppointment _confirmAppointment;
 
-  SchedulePageController(this._getAppointments, this._setReminder);
+  SchedulePageController(
+      this._getAppointments, this._setReminder, this._confirmAppointment);
 
   late PagingController<int, Appointment> pagingController;
   int _limit = 5;
@@ -64,12 +68,8 @@ class SchedulePageController extends GetxController
 
   Future<void> setReminder(
       {required String appointmentCode, int? activateReminder}) async {
-    final body = SetReminderBody(
-        activateReminder: activateReminder == null
-            ? 1
-            : activateReminder == 1
-                ? 0
-                : 1);
+    final body =
+        SetReminderBody(activateReminder: activateReminder == 0 ? 1 : 0);
     final response = await _setReminder(appointmentCode, body);
     response.fold((error) {
       AppSnackbar.show(message: error.message, type: SnackType.error);
@@ -81,14 +81,44 @@ class SchedulePageController extends GetxController
         }
       }
       update();
-      AppSnackbar.show(
-          message: 'Kamu akan diingatkan 1 jam sebelum kunjungan',
-          type: SnackType.dark);
+      if (data.activateReminder == 1) {
+        AppSnackbar.show(
+            message: 'Kamu akan diingatkan 1 jam sebelum kunjungan',
+            type: SnackType.dark);
+      }
     });
   }
 
   void toDetailAppointment(String appointmentCode) {
     Get.toNamed(Routes.DETAIL_APPOINTMENT, arguments: appointmentCode);
+  }
+
+  void openDialogConfirmationAppointment(String appointmentCode) {
+    ConfirmationDialog.show(
+        title: 'Konfirmasi Kedatangan',
+        message:
+            'Yakin ingin mengkonfirmasi kedatangan ke tempat tinggal pasien?',
+        onTapText: 'konfirmasi',
+        isCenterMessage: true,
+        onPressed: () {
+          Get.back();
+          confirmAppointment(appointmentCode);
+        });
+  }
+
+  Future<void> confirmAppointment(String appointmentCode) async {
+    final response = await _confirmAppointment(appointmentCode);
+    response.fold((error) {
+      AppSnackbar.show(message: error.message, type: SnackType.error);
+    }, (data) {
+      for (int i = 0; i < pagingController.itemList!.length; i++) {
+        if (pagingController.itemList![i].appointmentCode == appointmentCode) {
+          pagingController.itemList![i] =
+              pagingController.itemList![i].copyWith(status: 'assinged');
+        }
+      }
+      update();
+    });
   }
 
   // Refresh

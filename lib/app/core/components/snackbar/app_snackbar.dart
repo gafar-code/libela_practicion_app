@@ -18,7 +18,7 @@ class AppSnackbar {
       backgroundColor: type == SnackType.success
           ? kSuccessColor
           : type == SnackType.dark
-              ? kBlackColor.withOpacity(0.9)
+              ? kBlackColor.withOpacity(0.8)
               : kErrorColor,
       messageText: Text(
         message == null || message == "" ? "Error not define" : message,

@@ -15,9 +15,10 @@ class ConfirmationDialog {
       {required String title,
       required String message,
       String? onTapText,
+      bool? isCenterMessage,
       Function()? onPressed}) {
     Get.dialog(Dialog(
-      insetPadding: EdgeInsets.symmetric(horizontal: 32.w),
+      insetPadding: EdgeInsets.symmetric(horizontal: 24.w),
       child: Container(
         padding: theme.style.padding.allLarge,
         decoration: BoxDecoration(
@@ -39,19 +40,26 @@ class ConfirmationDialog {
                   Text(
                     message,
                     style: theme.font.f14,
+                    textAlign: isCenterMessage == true
+                        ? TextAlign.center
+                        : TextAlign.left,
                   ),
                   Gap(26.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                          width: getWidthScale(2.84),
+                          width: getWidthScale(2.64),
                           child: SecondaryAccentButton(
-                              text: "Batal", onPressed: () => Get.back())),
+                              isExpanded: true,
+                              text: "Batal",
+                              onPressed: () => Get.back())),
                       SizedBox(
-                          width: getWidthScale(2.84),
+                          width: getWidthScale(2.64),
                           child: PrimaryButton(
-                              text: "Ya, $onTapText", onPressed: onPressed)),
+                              isExpanded: true,
+                              text: "Ya, $onTapText",
+                              onPressed: onPressed)),
                     ],
                   )
                 ],

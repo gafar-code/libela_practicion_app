@@ -11,4 +11,8 @@ abstract class ScheduleRemoteDataSource {
       {required SetReminderBody body, required String appointmentCode});
   Future<DetailAppointmentModel> getDetailAppointments(
       {required String appointmentCode});
+  Future<dynamic> confirmAppointment(String appointmentCode);
+  Future<dynamic> acceptAppointment(String appointmentCode);
+  Future<dynamic> rejectAppointment(String appointmentCode);
+  Future<dynamic> startSessionAppointment(String appointmentCode);
 }

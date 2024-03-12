@@ -30,8 +30,6 @@ import '../features/auth/presentation/pages/verification_info/bindings/verificat
 import '../features/auth/presentation/pages/verification_info/views/verification_info_view.dart';
 import '../features/home/presentation/pages/dashboard/bindings/dashboard_binding.dart';
 import '../features/home/presentation/pages/dashboard/views/dashboard_view.dart';
-import '../features/schedule/presentation/pages/detail_appointment/bindings/detail_appointment_binding.dart';
-import '../features/schedule/presentation/pages/detail_appointment/views/detail_appointment_view.dart';
 import '../features/home/presentation/pages/form_action/bindings/form_action_binding.dart';
 import '../features/home/presentation/pages/form_action/views/form_action_view.dart';
 import '../features/home/presentation/pages/incoming_request/bindings/incoming_request_binding.dart';
@@ -58,10 +56,22 @@ import '../features/profile/presentation/pages/personal_data/bindings/personal_d
 import '../features/profile/presentation/pages/personal_data/views/personal_data_view.dart';
 import '../features/profile/presentation/pages/profile_page/bindings/profile_page_binding.dart';
 import '../features/profile/presentation/pages/profile_page/views/profile_page_view.dart';
+import '../features/schedule/presentation/pages/detail_appointment/bindings/detail_appointment_binding.dart';
+import '../features/schedule/presentation/pages/detail_appointment/views/detail_appointment_view.dart';
 import '../features/schedule/presentation/pages/schedule_page/bindings/schedule_page_binding.dart';
 import '../features/schedule/presentation/pages/schedule_page/views/schedule_page_view.dart';
+import '../features/wallet/presentation/pages/add_rekening_withdraw/bindings/add_rekening_withdraw_binding.dart';
+import '../features/wallet/presentation/pages/add_rekening_withdraw/views/add_rekening_withdraw_view.dart';
+import '../features/wallet/presentation/pages/detail_withdraw/bindings/detail_withdraw_binding.dart';
+import '../features/wallet/presentation/pages/detail_withdraw/views/detail_withdraw_view.dart';
+import '../features/wallet/presentation/pages/history_withdraw/bindings/history_withdraw_binding.dart';
+import '../features/wallet/presentation/pages/history_withdraw/views/history_withdraw_view.dart';
+import '../features/wallet/presentation/pages/waiting_withdraw/bindings/waiting_withdraw_binding.dart';
+import '../features/wallet/presentation/pages/waiting_withdraw/views/waiting_withdraw_view.dart';
 import '../features/wallet/presentation/pages/wallet_page/bindings/wallet_page_binding.dart';
 import '../features/wallet/presentation/pages/wallet_page/views/wallet_page_view.dart';
+import '../features/wallet/presentation/pages/withdraw/bindings/withdraw_binding.dart';
+import '../features/wallet/presentation/pages/withdraw/views/withdraw_view.dart';
 
 // ignore_for_file: constant_identifier_names
 
@@ -222,6 +232,31 @@ class AppPages {
       name: _Paths.NOTIFICATION_PAGE,
       page: () => const NotificationPageView(),
       binding: NotificationPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.WITHDRAW,
+      page: () => const WithdrawView(),
+      binding: WithdrawBinding(),
+    ),
+    GetPage(
+      name: _Paths.HISTORY_WITHDRAW,
+      page: () => const HistoryWithdrawView(),
+      binding: HistoryWithdrawBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_REKENING_WITHDRAW,
+      page: () => const AddRekeningWithdrawView(),
+      binding: AddRekeningWithdrawBinding(),
+    ),
+    GetPage(
+      name: _Paths.WAITING_WITHDRAW,
+      page: () => const WaitingWithdrawView(),
+      binding: WaitingWithdrawBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_WITHDRAW,
+      page: () => const DetailWithdrawView(),
+      binding: DetailWithdrawBinding(),
     ),
   ];
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -60,10 +61,8 @@ class LoginController extends GetxController {
   Future<void> sendOtp() async {
     Get.back();
     loginLoading(true);
-    var body = LoginBody(
-      '62${numberController.text}',
-      "whatsapp".toLowerCase(),
-    );
+    final tokenFcm = await FirebaseMessaging.instance.getToken();
+    var body = LoginBody('62${numberController.text}', "whatsapp", tokenFcm);
     final response = await _login(body);
     response.fold((error) {
       print(error.message);

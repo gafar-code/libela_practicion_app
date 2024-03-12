@@ -24,8 +24,7 @@ class InformationPatient extends StatelessWidget {
           children: [
             CardImage.rectangle(
               size: 60.r,
-              image:
-                  'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              image: controller.detailAppointment?.patient?.avatar ?? '',
             ),
             Gap(12.h),
             Text(

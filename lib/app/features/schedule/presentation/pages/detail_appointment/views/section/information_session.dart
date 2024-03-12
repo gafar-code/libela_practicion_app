@@ -25,16 +25,16 @@ class InformationSession extends StatelessWidget {
   }
 
   Widget view(DetailAppointmentController controller) {
-    switch (controller.appointmentStatus) {
-      case DetailAppointmentStatus.willStart:
+    switch (controller.detailAppointment?.status) {
+      case 'assinged':
         return _willStart(controller);
-      case DetailAppointmentStatus.newPatient:
+      case 'pending':
         return _newPatient(controller);
-      case DetailAppointmentStatus.rejected:
+      case 'cancel':
         return _rejected(controller);
-      case DetailAppointmentStatus.accepted:
+      case 'in_progress':
         return _accepted(controller);
-      case DetailAppointmentStatus.sessionStart:
+      case 'assingeds':
         return _sessionStart(controller);
       default:
         return _done(controller);
@@ -51,13 +51,14 @@ class InformationSession extends StatelessWidget {
           Expanded(
               flex: 6,
               child: Text(
-                'Sesi Kunjungan akan dimulai pada 09:00 WIB',
+                'Sesi Kunjungan akan dimulai pada ${controller.detailAppointment?.startAt?.convertToLocaleTime} WIB',
                 style: theme.font.f14.medium,
               )),
           Gap(6.w),
           Expanded(
               flex: 4,
               child: GestureDetector(
+                onTap: () => controller.startSessionAppointment(Get.arguments),
                 child: Container(
                   height: 44.h,
                   decoration: BoxDecoration(
@@ -144,7 +145,8 @@ class InformationSession extends StatelessWidget {
                           Expanded(
                             child: PrimaryButton(
                               text: 'Terima',
-                              onPressed: () {},
+                              onPressed: () =>
+                                  controller.confirmationAcceptAppointment(),
                             ),
                           ),
                         ],
@@ -177,7 +179,7 @@ class InformationSession extends StatelessWidget {
                     style: theme.font.f12,
                   ),
                   Text(
-                    'A1234567890',
+                    '${Get.arguments}',
                     style: theme.font.f12.semibold,
                   ),
                 ],
@@ -234,7 +236,7 @@ class InformationSession extends StatelessWidget {
                     style: theme.font.f12,
                   ),
                   Text(
-                    'A1234567890',
+                    '${Get.arguments}',
                     style: theme.font.f12.semibold,
                   ),
                 ],
@@ -301,7 +303,7 @@ class InformationSession extends StatelessWidget {
                     style: theme.font.f12,
                   ),
                   Text(
-                    'A1234567890',
+                    '${Get.arguments}',
                     style: theme.font.f12.semibold,
                   ),
                 ],
@@ -364,7 +366,7 @@ class InformationSession extends StatelessWidget {
                     style: theme.font.f12,
                   ),
                   Text(
-                    'A1234567890',
+                    '${Get.arguments}',
                     style: theme.font.f12.semibold,
                   ),
                 ],

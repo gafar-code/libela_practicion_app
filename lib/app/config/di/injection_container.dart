@@ -17,7 +17,10 @@ import 'package:libela_practition/app/features/auth/domain/usecase/update_servic
 import 'package:libela_practition/app/features/auth/domain/usecase/upload_image.dart';
 import 'package:libela_practition/app/features/auth/domain/usecase/verify_forgot_phone.dart';
 import 'package:libela_practition/app/features/profile/domain/usecase/get_user_profile.dart';
+import 'package:libela_practition/app/features/schedule/domain/usecase/accept_appointment.dart';
+import 'package:libela_practition/app/features/schedule/domain/usecase/confirm_appointment.dart';
 import 'package:libela_practition/app/features/schedule/domain/usecase/get_detail_appointment.dart';
+import 'package:libela_practition/app/features/schedule/domain/usecase/reject_appointment.dart';
 import 'package:libela_practition/app/features/schedule/domain/usecase/set_reminder.dart';
 
 import '../../features/auth/data/data_sources/auth_remote_data_sources.dart';
@@ -43,6 +46,7 @@ import '../../features/schedule/data/data_source/schedule_remote_data_sources_im
 import '../../features/schedule/data/repositories/schedule_repositories_impl.dart';
 import '../../features/schedule/domain/repositories/schedule_repositories.dart';
 import '../../features/schedule/domain/usecase/get_appointments.dart';
+import '../../features/schedule/domain/usecase/start_session_appointment.dart';
 
 final sl = GetIt.instance;
 
@@ -98,6 +102,10 @@ Future<void> initializeDepedencies() async {
   sl.registerSingleton<GetAppointments>(GetAppointments(sl()));
   sl.registerSingleton<SetReminder>(SetReminder(sl()));
   sl.registerSingleton<GetDetailAppointments>(GetDetailAppointments(sl()));
+  sl.registerSingleton<ConfirmAppointment>(ConfirmAppointment(sl()));
+  sl.registerSingleton<AcceptAppointment>(AcceptAppointment(sl()));
+  sl.registerSingleton<RejectAppointment>(RejectAppointment(sl()));
+  sl.registerSingleton<StartSessionAppointment>(StartSessionAppointment(sl()));
 
   // Notification Use Case
   sl.registerSingleton<GetNotifications>(GetNotifications(sl()));
