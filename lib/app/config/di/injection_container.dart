@@ -16,13 +16,13 @@ import 'package:libela_practition/app/features/auth/domain/usecase/update_profes
 import 'package:libela_practition/app/features/auth/domain/usecase/update_service_area.dart';
 import 'package:libela_practition/app/features/auth/domain/usecase/upload_image.dart';
 import 'package:libela_practition/app/features/auth/domain/usecase/verify_forgot_phone.dart';
+import 'package:libela_practition/app/features/home/domain/usecase/get_pending_appointment.dart';
 import 'package:libela_practition/app/features/profile/domain/usecase/get_user_profile.dart';
 import 'package:libela_practition/app/features/schedule/domain/usecase/accept_appointment.dart';
 import 'package:libela_practition/app/features/schedule/domain/usecase/confirm_appointment.dart';
 import 'package:libela_practition/app/features/schedule/domain/usecase/get_detail_appointment.dart';
 import 'package:libela_practition/app/features/schedule/domain/usecase/reject_appointment.dart';
 import 'package:libela_practition/app/features/schedule/domain/usecase/set_reminder.dart';
-
 import '../../features/auth/data/data_sources/auth_remote_data_sources.dart';
 import '../../features/auth/data/repositories/auth_repositories_impl.dart';
 import '../../features/auth/domain/repositories/auth_repositories.dart';
@@ -32,6 +32,10 @@ import '../../features/auth/domain/usecase/login.dart';
 import '../../features/auth/domain/usecase/login_verify_otp.dart';
 import '../../features/auth/domain/usecase/register.dart';
 import '../../features/auth/domain/usecase/upload_file.dart';
+import '../../features/home/data/data_source/home_remote_data_source.dart';
+import '../../features/home/data/data_source/home_remote_data_source_impl.dart';
+import '../../features/home/data/repositories/home_repositories_impl.dart';
+import '../../features/home/domain/repositories/home_repositories.dart';
 import '../../features/notification/data/data_sources/notification_remote_data_source.dart';
 import '../../features/notification/data/data_sources/notification_remote_data_source_impl.dart';
 import '../../features/notification/data/repositories/notification_repositories_impl.dart';
@@ -71,6 +75,10 @@ Future<void> initializeDepedencies() async {
   sl.registerSingleton<NotificationRepositories>(
       NotificationRepositoriesImpl(sl()));
 
+  sl.registerSingleton<HomeRemoteDataSource>(
+      HomeRemoteDataSourcesImpl(DioClient()));
+  sl.registerSingleton<HomeRepositories>(HomeRepositoriesImpl(sl()));
+
   // Auth Use Case
   sl.registerSingleton<ForgotPhoneNumber>(ForgotPhoneNumber(sl()));
   sl.registerSingleton<VerifyForgotPhone>(VerifyForgotPhone(sl()));
@@ -106,6 +114,9 @@ Future<void> initializeDepedencies() async {
   sl.registerSingleton<AcceptAppointment>(AcceptAppointment(sl()));
   sl.registerSingleton<RejectAppointment>(RejectAppointment(sl()));
   sl.registerSingleton<StartSessionAppointment>(StartSessionAppointment(sl()));
+
+  // Home Use Case
+  sl.registerSingleton<GetPendingAppointments>(GetPendingAppointments(sl()));
 
   // Notification Use Case
   sl.registerSingleton<GetNotifications>(GetNotifications(sl()));

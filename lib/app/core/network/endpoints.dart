@@ -32,6 +32,8 @@ class Endpoints {
 
   // Schedule
   static const String appointments = 'appointments';
+  static const String appointmentsPending =
+      'appointments/pending/need-acceptations';
 
   static const String uploadImage = 'internal/tools/upload/file';
   static const String uploadFile = 'internal/tools/upload/file';

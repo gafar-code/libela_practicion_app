@@ -10,7 +10,8 @@ class IncomingRequestView extends GetView<IncomingRequestController> {
   const IncomingRequestView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-        appBar: AppBarIncomingRequest(), body: IncomingSection());
+    return Scaffold(
+        appBar: AppBarIncomingRequest(),
+        body: IncomingSection(controller: controller));
   }
 }

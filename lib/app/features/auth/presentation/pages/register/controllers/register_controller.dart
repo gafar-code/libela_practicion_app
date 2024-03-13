@@ -10,6 +10,7 @@ import 'package:libela_practition/app/features/auth/presentation/pages/register/
 import 'package:libela_practition/app/features/auth/presentation/utils/model/register_body.dart';
 import 'package:libela_practition/app/routes/app_pages.dart';
 
+import '../../../../../../core/components/snackbar/app_snackbar.dart';
 import '../../../../domain/entities/country.dart';
 import '../../../../domain/entities/register_phone.dart';
 import '../../../../domain/usecase/get_countries.dart';
@@ -100,6 +101,7 @@ class RegisterController extends GetxController {
           phoneNumber: '62${numberController.text}',
           otpToken: data.otpToken,
           expiryAt: data.expiryAt);
+      AppSnackbar.show(message: "OTP : ${data.otpCode}");
       storage.saveRegisterPhoneData(data: newRegisterPhoneData);
       Get.offAllNamed(Routes.REGISTER_OTP, arguments: [body]);
     });

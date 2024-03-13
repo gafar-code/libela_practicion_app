@@ -2,6 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:libela_practition/app/core/components/snackbar/app_snackbar.dart';
 import 'package:libela_practition/app/features/auth/domain/entities/country.dart';
 import 'package:libela_practition/app/features/auth/domain/usecase/get_countries.dart';
 import 'package:libela_practition/app/features/auth/presentation/utils/model/login_body.dart';
@@ -67,6 +68,7 @@ class LoginController extends GetxController {
     response.fold((error) {
       print(error.message);
     }, (data) {
+      AppSnackbar.show(message: "OTP : ${data.otpCode}");
       Get.offAllNamed(Routes.LOGIN_OTP, arguments: [body, data]);
     });
     loginLoading(false);

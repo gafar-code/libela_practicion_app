@@ -131,9 +131,9 @@ class ItemSchedule extends StatelessWidget {
 
   Widget _trailing(String status) {
     switch (status) {
-      case 'assinged':
-        return AppBadge(text: 'Dikonfirmasi');
       case 'in_progress':
+        return AppBadge(text: 'Dikonfirmasi');
+      case 'assinged':
         return _coming();
       case 'finish':
         return AppBadge(
