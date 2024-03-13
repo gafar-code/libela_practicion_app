@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:libela_practition/app/features/auth/domain/usecase/forgot_phone_number.dart';
@@ -33,6 +35,7 @@ class ForgotNumberController extends GetxController {
     var body = ForgotPhoneBody(email: emailController.text);
     final result = await _forgotPhoneNumber(body);
     result.fold((l) => Get.snackbar('Error', l.message), (otpToken) {
+      log(otpToken);
       Get.offNamed(Routes.FORGOT_OTP,
           arguments: [emailController.text, otpToken]);
     });
