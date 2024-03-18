@@ -1,17 +1,31 @@
-import 'dart:developer';
-
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:libela_practition/app/core/components/dialog/confirmation_dialog.dart';
 import 'package:libela_practition/app/core/utils/assets/assets.dart';
 import 'package:libela_practition/app/core/utils/snackbar_helper.dart';
 import 'package:libela_practition/app/features/profile/domain/usecase/get_user_profile.dart';
+import 'package:libela_practition/app/features/profile/domain/usecase/update_profile.dart';
+import 'package:libela_practition/app/features/profile/presentation/utils/model/profile_body.dart';
 import 'package:libela_practition/app/routes/app_pages.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../../../core/components/snackbar/app_snackbar.dart';
+import '../../../../domain/usecase/upload_image.dart';
+import '../../../utils/model/image_body.dart';
 import '../../../utils/model/typedef.dart';
 
 class ProfilePageController extends GetxController {
   final GetUserProfile _getUserProfile;
-  ProfilePageController(this._getUserProfile);
+  final UploadImage _uploadImage;
+  final UpdateProfile _updateProfile;
+  ProfilePageController(
+      this._getUserProfile, this._uploadImage, this._updateProfile);
+
+  TextEditingController aboutmeController = TextEditingController();
+  final FocusNode focusNode = FocusNode();
+
+  bool isEditAboutme = false;
+  bool isLoadingUpdateAboutme = false;
 
   List<dynamic> listMenu = [
     {'title': 'Personal Data', 'icon': personalDataLine},
@@ -27,7 +41,6 @@ class ProfilePageController extends GetxController {
   int? currentStepRegister;
 
   Future<void> getUserProfile() async {
-    log("GET PROFILE");
     final result = await _getUserProfile();
     result.fold((error) {
       SnackBarHelper.showSnackBarError(Get.context!, error.message);
@@ -36,6 +49,48 @@ class ProfilePageController extends GetxController {
       currentStepRegister = convertStepRegister(data.registrationCompletion);
       update();
     });
+  }
+
+  Future<void> uploadImage({String? path, String? fileName}) async {
+    var body = ImageUploadBody(fileName, '', path);
+    final result = await _uploadImage(body);
+    result.fold((error) {
+      AppSnackbar.show(message: error.message, type: SnackType.error);
+    }, (data) {
+      updateProfile(data);
+      AppSnackbar.show(message: 'Berhasil upload avatar');
+    });
+  }
+
+  Future<void> updateProfile(String? imageUrl) async {
+    var body = ProfileBody(
+      firstName: userProfileData?.firstName ?? "",
+      lastName: userProfileData?.firstName ?? "",
+      avatar: imageUrl,
+      aboutme: aboutmeController.text,
+    );
+
+    final result = await _updateProfile(body);
+    result.fold((error) {
+      AppSnackbar.show(message: error.message, type: SnackType.error);
+    }, (data) {
+      userProfileData = userProfileData?.copyWith(
+        avatar: data.avatar,
+        aboutme: data.aboutme,
+      );
+      isEditAboutme = false;
+      isLoadingUpdateAboutme = false;
+      update();
+      AppSnackbar.show(message: 'Berhasil update profile');
+    });
+  }
+
+  void editAboutme() {
+    isEditAboutme = !isEditAboutme;
+    if (isEditAboutme == true) {
+      aboutmeController.text = userProfileData?.aboutme ?? "";
+    } else {}
+    update();
   }
 
   int? convertStepRegister(StepRegistation? reg) {
@@ -67,7 +122,7 @@ class ProfilePageController extends GetxController {
         Get.toNamed(Routes.EDIT_EMAIL);
         break;
       case 4:
-        Get.toNamed(Routes.CHAT_SUPPORT);
+        toChatSupport();
         break;
       case 5:
         Get.toNamed(Routes.FAQ);
@@ -87,9 +142,30 @@ class ProfilePageController extends GetxController {
     );
   }
 
+  void submitAboutme() {
+    if (aboutmeController.text.isNotEmpty && !focusNode.hasFocus) {
+      isLoadingUpdateAboutme = true;
+      update();
+    }
+    if (!focusNode.hasFocus) {
+      updateProfile(null);
+    }
+  }
+
+  void toChatSupport() async {
+    final Uri _url = Uri.parse(
+        'https://api.whatsapp.com/send/?phone=6285141760125&text=Halo+Libela+&type=phone_number&app_absent=0');
+    if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch $_url');
+    }
+  }
+
   @override
   void onInit() {
     getUserProfile();
+    focusNode.addListener(() {
+      submitAboutme();
+    });
     super.onInit();
   }
 }

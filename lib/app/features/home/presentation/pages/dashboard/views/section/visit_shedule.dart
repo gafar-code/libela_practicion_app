@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -9,8 +9,8 @@ import 'package:libela_practition/app/config/theme/theme.dart';
 import 'package:libela_practition/app/core/components/components_lib.dart';
 import 'package:libela_practition/app/core/utils/assets/assets.dart';
 import 'package:libela_practition/app/core/utils/assets/local_assets.dart';
+import 'package:libela_practition/app/core/utils/extension/convert_local.dart';
 import 'package:libela_practition/app/features/home/presentation/pages/dashboard/controllers/dashboard_controller.dart';
-import 'package:libela_practition/app/routes/app_pages.dart';
 
 class VisitShedule extends StatelessWidget {
   const VisitShedule({super.key});
@@ -32,94 +32,94 @@ class VisitShedule extends StatelessWidget {
         const Visibility(visible: false, child: ScheduleNotAvailable()),
         const Visibility(visible: true, child: ScheduleAvailable()),
         Gap(12.h),
-        Row(
-          children: [
-            Expanded(
-                child: GestureDetector(
-              onTap: () {
-                Get.toNamed(Routes.INCOMING_REQUEST);
-              },
-              child: Container(
-                padding: theme.style.padding.allMedium,
-                decoration: BoxDecoration(
-                    borderRadius: theme.style.borderRadius.allSmall,
-                    color: kSofterGrey),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 30.r,
-                      width: 30.r,
-                      padding: theme.style.padding.allSmall,
-                      decoration: BoxDecoration(
-                          color: kInfoColorAccent,
-                          borderRadius: theme.style.borderRadius.allSmall),
-                      child: LocalAssets.svg(date),
-                    ),
-                    Gap(8.h),
-                    Row(
-                      children: [
-                        Text('Permintaan Masuk', style: theme.font.f12),
-                        Gap(4.w),
-                        CircleAvatar(
-                          radius: 8.r,
-                          backgroundColor: kSuccessColor,
-                          child: Text(
-                            '0',
-                            style: theme.font.f12.white.semibold,
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            )),
-            Gap(12.w),
-            Expanded(
-                child: GestureDetector(
-              onTap: () {
-                Get.toNamed(Routes.VISIT_IS_OVER);
-              },
-              child: Container(
-                padding: theme.style.padding.allMedium,
-                decoration: BoxDecoration(
-                    borderRadius: theme.style.borderRadius.allSmall,
-                    color: kSofterGrey),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 30.r,
-                      width: 30.r,
-                      padding: theme.style.padding.allSmall,
-                      decoration: BoxDecoration(
-                          color: kInfoColorAccent,
-                          borderRadius: theme.style.borderRadius.allSmall),
-                      child: LocalAssets.svg(akar),
-                    ),
-                    Gap(8.h),
-                    Row(
-                      children: [
-                        Text('Kunjungan Selesai', style: theme.font.f12),
-                        Gap(4.w),
-                        CircleAvatar(
-                          radius: 8.r,
-                          backgroundColor: kSuccessColor,
-                          child: Text(
-                            '0',
-                            style: theme.font.f12.white.semibold,
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ))
-          ],
-        ),
-        Gap(16.h)
+        // Row(
+        //   children: [
+        //     Expanded(
+        //         child: GestureDetector(
+        //       onTap: () {
+        //         Get.toNamed(Routes.INCOMING_REQUEST);
+        //       },
+        //       child: Container(
+        //         padding: theme.style.padding.allMedium,
+        //         decoration: BoxDecoration(
+        //             borderRadius: theme.style.borderRadius.allSmall,
+        //             color: kSofterGrey),
+        //         child: Column(
+        //           crossAxisAlignment: CrossAxisAlignment.start,
+        //           children: [
+        //             Container(
+        //               height: 30.r,
+        //               width: 30.r,
+        //               padding: theme.style.padding.allSmall,
+        //               decoration: BoxDecoration(
+        //                   color: kInfoColorAccent,
+        //                   borderRadius: theme.style.borderRadius.allSmall),
+        //               child: LocalAssets.svg(date),
+        //             ),
+        //             Gap(8.h),
+        //             Row(
+        //               children: [
+        //                 Text('Permintaan Masuk', style: theme.font.f12),
+        //                 Gap(4.w),
+        //                 CircleAvatar(
+        //                   radius: 8.r,
+        //                   backgroundColor: kSuccessColor,
+        //                   child: Text(
+        //                     '0',
+        //                     style: theme.font.f12.white.semibold,
+        //                   ),
+        //                 )
+        //               ],
+        //             )
+        //           ],
+        //         ),
+        //       ),
+        //     )),
+        //     Gap(12.w),
+        //     Expanded(
+        //         child: GestureDetector(
+        //       onTap: () {
+        //         Get.toNamed(Routes.VISIT_IS_OVER);
+        //       },
+        //       child: Container(
+        //         padding: theme.style.padding.allMedium,
+        //         decoration: BoxDecoration(
+        //             borderRadius: theme.style.borderRadius.allSmall,
+        //             color: kSofterGrey),
+        //         child: Column(
+        //           crossAxisAlignment: CrossAxisAlignment.start,
+        //           children: [
+        //             Container(
+        //               height: 30.r,
+        //               width: 30.r,
+        //               padding: theme.style.padding.allSmall,
+        //               decoration: BoxDecoration(
+        //                   color: kInfoColorAccent,
+        //                   borderRadius: theme.style.borderRadius.allSmall),
+        //               child: LocalAssets.svg(akar),
+        //             ),
+        //             Gap(8.h),
+        //             Row(
+        //               children: [
+        //                 Text('Kunjungan Selesai', style: theme.font.f12),
+        //                 Gap(4.w),
+        //                 CircleAvatar(
+        //                   radius: 8.r,
+        //                   backgroundColor: kSuccessColor,
+        //                   child: Text(
+        //                     '0',
+        //                     style: theme.font.f12.white.semibold,
+        //                   ),
+        //                 )
+        //               ],
+        //             )
+        //           ],
+        //         ),
+        //       ),
+        //     ))
+        //   ],
+        // ),
+        // Gap(16.h)
       ],
     );
   }
@@ -158,10 +158,15 @@ class ScheduleAvailable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<DashboardController>(
-        init: DashboardController(),
-        builder: (controller) {
-          return Container(
+    return GetBuilder<DashboardController>(builder: (controller) {
+      if (controller.isAppointmentLoading) {
+        return SizedBox(
+            height: 100.h,
+            child: Center(child: CupertinoActivityIndicator(color: kSoftGrey)));
+      } else {
+        return Visibility(
+          visible: controller.appointment != null,
+          child: Container(
             padding: theme.style.padding.allMedium,
             decoration: BoxDecoration(
                 borderRadius: theme.style.borderRadius.allSmall,
@@ -175,7 +180,7 @@ class ScheduleAvailable extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Pasien', style: theme.font.f12.white),
-                        Text('Zara Samantha',
+                        Text(controller.appointment?.patient?.name ?? '',
                             style: theme.font.f12.white.semibold),
                       ],
                     ),
@@ -215,7 +220,8 @@ class ScheduleAvailable extends StatelessWidget {
                       LocalAssets.svg(dateSchadule),
                       Gap(8.w),
                       Text(
-                        'Senin, 20 Feb 2024',
+                        controller.appointment?.startAt?.convertToLocaleDate ??
+                            '',
                         style: theme.font.f12.white,
                       ),
                       const Spacer(),
@@ -228,7 +234,7 @@ class ScheduleAvailable extends StatelessWidget {
                       LocalAssets.svg(time),
                       Gap(8.w),
                       Text(
-                        '09:00 - 10:00',
+                        '${controller.appointment?.startAt?.convertToLocaleTime ?? ''} - ${controller.appointment?.endAt?.convertToLocaleTime ?? ''}',
                         style: theme.font.f12.white,
                       ),
                     ],
@@ -236,7 +242,9 @@ class ScheduleAvailable extends StatelessWidget {
                 )
               ],
             ),
-          );
-        });
+          ),
+        );
+      }
+    });
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -30,9 +31,22 @@ class ProfileSection extends StatelessWidget {
                 Stack(
                   clipBehavior: Clip.none,
                   children: [
-                    CardImage.circle(
-                      size: 44.r,
-                      image: controller.userProfileData?.avatar,
+                    GestureDetector(
+                      onTap: () {
+                        Get.bottomSheet(
+                            enterBottomSheetDuration: 200.milliseconds,
+                            exitBottomSheetDuration: 200.milliseconds,
+                            PickerImages.double(
+                          onSelect: (path, filename) {
+                            controller.uploadImage(
+                                path: path, fileName: filename);
+                          },
+                        ));
+                      },
+                      child: CardImage.circle(
+                        size: 44.r,
+                        image: controller.userProfileData?.avatar,
+                      ),
                     ),
                     Positioned(
                         bottom: -0.5,
@@ -42,7 +56,7 @@ class ProfileSection extends StatelessWidget {
                           backgroundColor: kWhiteColor,
                           child: LocalAssets.svg(controller.userProfileData
                                       ?.isRegistrationComplete ==
-                                  false
+                                  true
                               ? verifyBadge
                               : waitingBadge),
                         )),
@@ -103,18 +117,69 @@ class ProfileSection extends StatelessWidget {
             ),
           ),
           Gap(16.h),
-          Text('Tentang Saya', style: theme.font.f14.semibold),
-          Gap(16.h),
-          Container(
-            padding: theme.style.padding.allMedium,
-            decoration: BoxDecoration(
-                borderRadius: theme.style.borderRadius.allMedium,
-                color: kWhiteColor,
-                border: theme.style.boder),
-            child: Text(
-                controller.userProfileData?.professions?.professionName ?? '',
-                style: theme.font.f14),
+          Row(
+            children: [
+              Text('Tentang Saya', style: theme.font.f14.semibold),
+              Gap(12.w),
+              Visibility(
+                visible: controller.isEditAboutme == false &&
+                        controller.userProfileData?.aboutme == null ||
+                    controller.userProfileData?.aboutme == "",
+                child: GestureDetector(
+                  onTap: () => controller.editAboutme(),
+                  child: Icon(
+                    Icons.edit,
+                    color: kPrimaryColor,
+                    size: 14.r,
+                  ),
+                ),
+              )
+            ],
           ),
+          Gap(12.h),
+          GestureDetector(
+            onTap: () => controller.editAboutme(),
+            child: Visibility(
+              visible: controller.isEditAboutme == false &&
+                  controller.userProfileData?.aboutme != null &&
+                  controller.userProfileData?.aboutme != '',
+              child: Container(
+                padding: theme.style.padding.allMedium,
+                decoration: BoxDecoration(
+                    borderRadius: theme.style.borderRadius.allMedium,
+                    color: kWhiteColor,
+                    border: theme.style.boder),
+                child: Text(controller.userProfileData?.aboutme ?? '',
+                    style: theme.font.f12),
+              ),
+            ),
+          ),
+          Visibility(
+              visible: controller.isEditAboutme,
+              child: Stack(
+                children: [
+                  AppForm(
+                      focusNode: controller.focusNode,
+                      controller: controller.aboutmeController,
+                      textArea: true,
+                      isTextSmall: true,
+                      hintText: 'Tuliskan tentangmu'),
+                  Visibility(
+                    visible: controller.isLoadingUpdateAboutme,
+                    child: Container(
+                        height: 70.h,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.r),
+                            color: kWhiteColor.withOpacity(0.8),
+                            border: theme.style.boder),
+                        child: Center(
+                          child: CupertinoActivityIndicator(
+                            color: kPrimaryColor,
+                          ),
+                        )),
+                  ),
+                ],
+              )),
           Gap(16.h)
         ],
       );

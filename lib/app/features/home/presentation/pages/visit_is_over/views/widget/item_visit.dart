@@ -3,14 +3,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:libela_practition/app/config/theme/font.dart';
 import 'package:libela_practition/app/config/theme/style.dart';
+import 'package:libela_practition/app/core/utils/extension/convert_local.dart';
 
 import '../../../../../../../config/theme/colors.dart';
 import '../../../../../../../config/theme/theme.dart';
+import '../../../../../../schedule/presentation/utils/model/typedef.dart';
 
 class ItemVisit extends StatelessWidget {
-  const ItemVisit({super.key, this.onTap});
+  const ItemVisit({super.key, this.onTap, required this.data});
 
   final Function()? onTap;
+  final Appointment data;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +53,8 @@ class ItemVisit extends StatelessWidget {
                     ],
                   ),
                   Gap(4.h),
-                  Text('Zara Samantha', style: theme.font.f12.semibold),
+                  Text(data.patient?.name ?? '',
+                      style: theme.font.f12.semibold),
                   Gap(8.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,7 +69,8 @@ class ItemVisit extends StatelessWidget {
                     ],
                   ),
                   Gap(4.h),
-                  Text('19/10/1989', style: theme.font.f12.semibold),
+                  Text(data.startAt!.convertToLocaleDate,
+                      style: theme.font.f12.semibold),
                 ])),
           ],
         ),

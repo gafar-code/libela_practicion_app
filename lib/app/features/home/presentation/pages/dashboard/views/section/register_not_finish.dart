@@ -55,7 +55,10 @@ class RegisterNotFinish extends StatelessWidget {
                             Gap(8.h),
                             GestureDetector(
                               onTap: () => Get.offAllNamed(Routes.REGISTER_FORM,
-                                  arguments: [controller.currentStepRegister]),
+                                  arguments: [
+                                    controller.currentStepRegister,
+                                    controller.userProfileData
+                                  ]),
                               child: Text('Lanjutkan Registrasi',
                                   style: theme.font.f12
                                       .copyWith(color: kInfoColor)),

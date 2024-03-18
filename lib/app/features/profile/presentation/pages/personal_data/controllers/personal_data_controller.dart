@@ -27,7 +27,6 @@ class PersonalDataController extends GetxController {
 
   setDataArgument(int index) {
     if (index == 1) {
-      editBiodataController.setDataBiodata(userProfileData);
     } else if (index == 2) {
       // editProfessionController.setDataProfession(userProfileData);
     }

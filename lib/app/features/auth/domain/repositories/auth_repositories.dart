@@ -13,7 +13,6 @@ import '../../../../core/error/error_imports.dart';
 import '../../presentation/utils/model/file_body.dart';
 import '../../presentation/utils/model/forgot_phone_body.dart';
 import '../../presentation/utils/model/forgot_phone_verify_body.dart';
-import '../../presentation/utils/model/image_body.dart';
 import '../../presentation/utils/model/login_body.dart';
 import '../../presentation/utils/model/new_phone_body.dart';
 import '../../presentation/utils/model/otp_body.dart';
@@ -23,7 +22,6 @@ import '../../presentation/utils/model/profession_body.dart';
 import '../../presentation/utils/model/register_body.dart';
 import '../entities/document_data.dart';
 import '../entities/file_upload.dart';
-import '../entities/image_upload.dart';
 import '../entities/personal_data.dart';
 import '../entities/professions.dart';
 import '../entities/provinces.dart';
@@ -53,8 +51,7 @@ abstract class AuthRepositories {
   Future<Either<RemoteFailure, List<SpecializationEntity>>> getSpecializations(
       ProfessionId id);
   Future<Either<RemoteFailure, List<ServiceAreaEntity>>> getServiceArea();
-  Future<Either<RemoteFailure, List<ImageUploadEntity>>> uploadImage(
-      ImageUploadBody body);
+
   Future<Either<RemoteFailure, UploadFileEntity>> uploadFile(
       FileUploadBody body);
   Future<Either<RemoteFailure, PersonalDataEntity>> updatePersonalData(

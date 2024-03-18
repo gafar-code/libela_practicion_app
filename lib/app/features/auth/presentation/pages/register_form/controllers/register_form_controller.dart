@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../../profile/presentation/utils/model/typedef.dart';
 
 class RegisterFormController extends GetxController {
   late PageController pageController;
   int currentIndex = 0;
+  UserProfileData? userProfileData;
 
   List<String> tabForm = [
     'Data Diri',
@@ -42,6 +44,16 @@ class RegisterFormController extends GetxController {
     if (Get.arguments[0] != null) {
       currentIndex = Get.arguments[0];
     }
+  }
+
+  bool get isBiodataNotNull {
+    return nullCheck(userProfileData?.firstName) &&
+        nullCheck(userProfileData?.lastName) &&
+        nullCheck(userProfileData?.address);
+  }
+
+  bool nullCheck(dynamic value) {
+    return value != null || value != '';
   }
 
   @override

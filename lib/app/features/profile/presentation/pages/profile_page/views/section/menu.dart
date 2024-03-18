@@ -19,6 +19,13 @@ class MenuSection extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (_, index) {
+          if (index == 1 ||
+              index == 2 ||
+              index == 3 ||
+              index == 4 ||
+              index == 5) {
+            return SizedBox.shrink();
+          }
           return GestureDetector(
             onTap: () => controller.actionMenu(index),
             child: Container(
@@ -47,6 +54,9 @@ class MenuSection extends StatelessWidget {
         },
         separatorBuilder: (_, i) {
           if (i != 0) {
+            if (i == 1 || i == 2 || i == 3 || i == 4 || i == 5) {
+              return SizedBox.shrink();
+            }
             return Gap(12.h);
           } else {
             return Padding(

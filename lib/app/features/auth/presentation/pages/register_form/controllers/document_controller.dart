@@ -2,6 +2,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:libela_practition/app/core/components/snackbar/app_snackbar.dart';
 import 'package:libela_practition/app/features/auth/domain/usecase/update_document_data.dart';
 import 'package:pdfx/pdfx.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -70,9 +71,10 @@ class RegisterDocumentController extends GetxController {
     update();
     final result = await _uploadFile(body);
     result.fold((error) {
-      SnackBarHelper.showSnackBarError(Get.context!, error.message);
+      AppSnackbar.show(message: error.message, type: SnackType.error);
     }, (data) {
       getImageFromPdf(path ?? '', fileName ?? '', type, data);
+      AppSnackbar.show(message: 'Berhasil upload file');
     });
     if (type == UploadType.str) {
       uploadedStr = null;

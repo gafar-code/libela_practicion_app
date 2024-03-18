@@ -16,7 +16,6 @@ import '../../../../core/network/upload_file_body.dart';
 import '../../presentation/utils/model/file_body.dart';
 import '../../presentation/utils/model/forgot_phone_body.dart';
 import '../../presentation/utils/model/forgot_phone_verify_body.dart';
-import '../../presentation/utils/model/image_body.dart';
 import '../../presentation/utils/model/new_phone_body.dart';
 import '../../presentation/utils/model/otp_body.dart';
 import '../../presentation/utils/model/personal_data_body.dart';
@@ -27,7 +26,6 @@ import '../../presentation/utils/model/register_body.dart';
 import '../../presentation/utils/model/typedef.dart';
 import '../models/document_data.dart';
 import '../models/file_upload.dart';
-import '../models/image_upload.dart';
 import '../models/onboarding.dart';
 import '../models/personal_data.dart';
 import '../models/provinces.dart';
@@ -151,16 +149,6 @@ class AuthRemoteDataSourcesImpl extends RemoteDataSourceImpl
     final response = await hitAPI(() => get(Endpoints.serviceArea));
     return List.from(response['data'])
         .map((e) => ServiceAreaModel.fromJson(e))
-        .toList();
-  }
-
-  @override
-  Future<List<UploadImageModel>> uploadImages(ImageUploadBody data) async {
-    var body = UploadImageBody(data.name ?? '', data.images);
-    final response =
-        await hitAPI(() => uploadImage(Endpoints.uploadImage, body));
-    return List.from(response['data'])
-        .map((e) => UploadImageModel.fromJson(e))
         .toList();
   }
 

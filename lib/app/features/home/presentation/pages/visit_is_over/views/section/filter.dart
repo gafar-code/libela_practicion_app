@@ -15,61 +15,45 @@ class FilterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<VisitIsOverController>(builder: (controller) {
-      return Column(children: [
-        AppForm(
-          controller: controller.searchController,
-          hintText: 'Cari...',
+      return SliverToBoxAdapter(
+        child: Padding(
+          padding: theme.style.padding.allLarge,
+          child: Column(children: [
+            AppForm(
+              controller: controller.searchController,
+              hintText: 'Cari...',
+              onChanged: controller.searchPatient,
+            ),
+            Gap(12.h),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Text('Lihat Berdasarkan', style: theme.font.f14),
+              PopupMenuButton<String>(
+                  color: kWhiteColor,
+                  surfaceTintColor: kWhiteColor,
+                  padding: theme.style.padding.horizontalMedium,
+                  shadowColor: kBlackColor.withOpacity(0.3),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: theme.style.borderRadius.allSmall),
+                  itemBuilder: (BuildContext context) => List.generate(
+                      controller.filters.length,
+                      (index) => PopupMenuItem<String>(
+                            value: controller.filters[index]['value'],
+                            padding: theme.style.padding.horizontalMedium,
+                            child: Text(
+                              controller.filters[index]['filter'],
+                              style: theme.font.f14,
+                            ),
+                          )),
+                  onSelected: controller.filterByDate,
+                  child: Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    color: kSoftGrey,
+                  ))
+            ]),
+            Gap(12.h)
+          ]),
         ),
-        Gap(12.h),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text('Lihat Berdasarkan', style: theme.font.f14),
-          PopupMenuButton<String>(
-              color: kWhiteColor,
-              surfaceTintColor: kWhiteColor,
-              padding: theme.style.padding.horizontalMedium,
-              shadowColor: kBlackColor.withOpacity(0.3),
-              shape: RoundedRectangleBorder(
-                  borderRadius: theme.style.borderRadius.allSmall),
-              itemBuilder: (BuildContext context) => [
-                    PopupMenuItem<String>(
-                      value: 'hariini',
-                      padding: theme.style.padding.horizontalMedium,
-                      child: Text(
-                        'Hari Ini',
-                        style: theme.font.f14,
-                      ),
-                    ),
-                    PopupMenuItem<String>(
-                      value: 'kemaren',
-                      padding: theme.style.padding.horizontalMedium,
-                      child: Text('Kemaren', style: theme.font.f14),
-                    ),
-                    PopupMenuItem<String>(
-                      value: 'terlama',
-                      padding: theme.style.padding.horizontalMedium,
-                      child: Text('Terlama', style: theme.font.f14),
-                    )
-                  ],
-              onSelected: (String value) {
-                switch (value) {
-                  case 'hariini':
-                    // controller.editRekening(index);
-                    break;
-                  case 'kemaren':
-                    // controller.confirmAction(index);
-                    break;
-                  case 'terlama':
-                    // controller.confirmAction(index);
-                    break;
-                }
-              },
-              child: Icon(
-                Icons.keyboard_arrow_down_rounded,
-                color: kSoftGrey,
-              ))
-        ]),
-        Gap(12.h)
-      ]);
+      );
     });
   }
 }

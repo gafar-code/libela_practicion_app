@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:libela_practition/app/core/constant/constant.dart';
 import 'package:libela_practition/app/core/network/param.dart';
@@ -173,14 +171,11 @@ class DioClient {
     required UploadImageBody body,
   }) async {
     try {
-      final images = body.image64;
-      final files = List.generate(
-        images.length,
-        (i) => MultipartFile.fromBytes(images[i],
-            filename: 'image-${body.name}-$i'),
-      );
-
-      final data = FormData.fromMap({"name": body.name, "images": files});
+      FormData formData = FormData.fromMap({
+        'avatar': body.fileName,
+        'file':
+            await MultipartFile.fromFile(body.path, filename: body.fileName),
+      });
       final options = BaseOptions(
         baseUrl: kBaseUrl,
         headers: {
@@ -195,7 +190,7 @@ class DioClient {
       );
       final dio = Dio(options)..interceptors.addAll(_interceptors);
 
-      final Response response = await dio.post(url, data: data);
+      final Response response = await dio.post(url, data: formData);
       return response;
     } catch (e) {
       rethrow;
@@ -224,9 +219,6 @@ class DioClient {
         receiveDataWhenStatusError: true,
         validateStatus: (status) => (status ?? 0) < 500,
       );
-      log(body.type);
-      log(body.path);
-      log(body.fileName);
 
       final dio = Dio(options)..interceptors.addAll(_interceptors);
 

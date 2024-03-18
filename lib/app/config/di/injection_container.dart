@@ -14,7 +14,8 @@ import 'package:libela_practition/app/features/auth/domain/usecase/update_email_
 import 'package:libela_practition/app/features/auth/domain/usecase/update_personal_data.dart';
 import 'package:libela_practition/app/features/auth/domain/usecase/update_profession_data.dart';
 import 'package:libela_practition/app/features/auth/domain/usecase/update_service_area.dart';
-import 'package:libela_practition/app/features/auth/domain/usecase/upload_image.dart';
+import 'package:libela_practition/app/features/profile/domain/usecase/update_profile.dart';
+import 'package:libela_practition/app/features/profile/domain/usecase/upload_image.dart';
 import 'package:libela_practition/app/features/auth/domain/usecase/verify_forgot_phone.dart';
 import 'package:libela_practition/app/features/home/domain/usecase/get_pending_appointment.dart';
 import 'package:libela_practition/app/features/profile/domain/usecase/get_user_profile.dart';
@@ -94,7 +95,6 @@ Future<void> initializeDepedencies() async {
   sl.registerSingleton<GetSpecialization>(GetSpecialization(sl()));
   sl.registerSingleton<GetServiceArea>(GetServiceArea(sl()));
 
-  sl.registerSingleton<UploadImage>(UploadImage(sl()));
   sl.registerSingleton<UploadFile>(UploadFile(sl()));
   sl.registerSingleton<UpdatePersonalData>(UpdatePersonalData(sl()));
   sl.registerSingleton<UpdateEmailData>(UpdateEmailData(sl()));
@@ -105,6 +105,8 @@ Future<void> initializeDepedencies() async {
 
   // Profile Use Case
   sl.registerSingleton<GetUserProfile>(GetUserProfile(sl()));
+  sl.registerSingleton<UploadImage>(UploadImage(sl()));
+  sl.registerSingleton<UpdateProfile>(UpdateProfile(sl()));
 
   // Schedule Use Case
   sl.registerSingleton<GetAppointments>(GetAppointments(sl()));

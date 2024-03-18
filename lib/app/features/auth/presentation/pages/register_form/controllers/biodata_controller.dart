@@ -8,6 +8,7 @@ import 'package:libela_practition/app/features/auth/presentation/pages/register_
 import 'package:libela_practition/app/features/auth/presentation/utils/model/personal_data_body.dart';
 
 import '../../../../../../core/components/components_lib.dart';
+import '../../../../../profile/presentation/utils/model/typedef.dart';
 import '../../../../domain/usecase/get_cities.dart';
 import '../../../../domain/usecase/get_provinces.dart';
 import '../../../utils/model/email_body.dart';
@@ -29,6 +30,8 @@ class RegisterBiodataController extends GetxController {
   TextEditingController ktpController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+
+  UserProfileData? userProfileData;
 
   // List Data
   ProvinciesList provincies = [];
@@ -141,6 +144,7 @@ class RegisterBiodataController extends GetxController {
       SnackBarHelper.showSnackBarError(Get.context!, error.message);
     }, (data) {
       provincies = data;
+      setProvinceData();
     });
     provincesLoading = false;
     update();
@@ -222,8 +226,75 @@ class RegisterBiodataController extends GetxController {
         selectedCities != null);
   }
 
+  void setBioData() {
+    if (Get.arguments[1] != null) {
+      userProfileData = Get.arguments[1];
+      if (isBiodataNotNull) {
+        firstnamaController.text = userProfileData?.firstName ?? "";
+        lastnamaController.text = userProfileData?.lastName ?? "";
+        ktpController.text = userProfileData?.identityNumber ?? "";
+        addressController.text = userProfileData?.address ?? "";
+        selectedDatePicker = userProfileData?.dateOfBirth ?? "";
+        selectedGender = userProfileData?.gender == "L" ? 0 : 1;
+        update();
+      }
+    }
+  }
+
+  void setEmailData() {
+    if (Get.arguments[1] != null) {
+      if (nullCheck(userProfileData?.email)) {
+        emailController.text = userProfileData?.email ?? "";
+        update();
+        isEmailValidated(true);
+      }
+    }
+  }
+
+  void setProvinceData() {
+    if (Get.arguments[1] != null) {
+      if (isProvinceNotNull) {
+        selectedProvincies =
+            provincies.firstWhere((e) => e.id == userProfileData?.provinceId);
+        getCities(selectedProvincies?.id ?? 0).whenComplete(() {
+          selectedCities =
+              cities.firstWhere((e) => e.id == userProfileData?.cityId);
+        });
+        ktpValidated(true);
+        addressValidated(true);
+        firstnamaValidated(true);
+        lastnamaValidated(true);
+        isEnableBioButton(true);
+      }
+      update();
+    }
+  }
+
+  bool get isBiodataNotNull {
+    return nullCheck(userProfileData?.firstName) &&
+        nullCheck(userProfileData?.lastName) &&
+        nullCheck(userProfileData?.address) &&
+        nullCheck(userProfileData?.identityNumber) &&
+        nullCheck(userProfileData?.dateOfBirth) &&
+        nullCheck(userProfileData?.gender);
+  }
+
+  bool get isProvinceNotNull {
+    return nullCheck(userProfileData?.provinceId) &&
+        nullCheck(userProfileData?.cityId);
+  }
+
+  bool nullCheck(dynamic value) {
+    return value != null &&
+        value != '' &&
+        value != 0 &&
+        !(value is List && value.isEmpty);
+  }
+
   @override
   void onInit() {
+    setBioData();
+    setEmailData();
     getProvinces();
     super.onInit();
   }

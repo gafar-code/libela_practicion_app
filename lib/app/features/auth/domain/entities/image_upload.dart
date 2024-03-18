@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../data/models/image_upload.dart';
+import '../../../profile/data/models/image_upload.dart';
 
 class ImageUploadEntity extends Equatable {
   final String? data;

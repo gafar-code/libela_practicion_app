@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:libela_practition/app/config/theme/colors.dart';
 import 'package:libela_practition/app/core/utils/screen_size.dart';

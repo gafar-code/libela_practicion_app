@@ -3,7 +3,9 @@ class UserProfileModel {
   String? email;
   String? firstName;
   String? lastName;
+  String? aboutme;
   String? practitionPhone;
+  String? identityNumber;
   String? dateOfBirth;
   String? address;
   String? avatar;
@@ -13,6 +15,8 @@ class UserProfileModel {
   String? userApprovalDate;
   String? gender;
   String? education;
+  int? provinceId;
+  int? cityId;
   ProfessionsUserModel? professions;
   List<RolesUserModel>? roles;
   List<PractitionerServiceAreaUserModel>? practitionerServiceArea;
@@ -25,7 +29,9 @@ class UserProfileModel {
       this.email,
       this.firstName,
       this.lastName,
+      this.aboutme,
       this.practitionPhone,
+      this.identityNumber,
       this.dateOfBirth,
       this.address,
       this.avatar,
@@ -37,6 +43,8 @@ class UserProfileModel {
       this.education,
       this.professions,
       this.roles,
+      this.provinceId,
+      this.cityId,
       this.practitionerServiceArea,
       this.practititonerServiceSkill,
       this.isRegistrationComplete,
@@ -47,7 +55,9 @@ class UserProfileModel {
     email = json['email'];
     firstName = json['firstName'];
     lastName = json['lastName'];
+    aboutme = json['aboutme'];
     practitionPhone = json['practitionPhone'];
+    identityNumber = json['identityNumber'];
     dateOfBirth = json['dateOfBirth'];
     address = json['address'];
     avatar = json['avatar'];
@@ -57,6 +67,8 @@ class UserProfileModel {
     userApprovalDate = json['userApprovalDate'];
     gender = json['gender'];
     education = json['education'];
+    provinceId = json['provinceId'];
+    cityId = json['cityId'];
     professions = json['professions'] != null
         ? ProfessionsUserModel.fromJson(json['professions'])
         : null;
@@ -93,6 +105,9 @@ class UserProfileModel {
     data['firstName'] = firstName;
     data['lastName'] = lastName;
     data['practitionPhone'] = practitionPhone;
+    data['identityNumber'] = identityNumber;
+    data['provinceId'] = provinceId;
+    data['cityId'] = cityId;
     data['dateOfBirth'] = dateOfBirth;
     data['address'] = address;
     data['avatar'] = avatar;

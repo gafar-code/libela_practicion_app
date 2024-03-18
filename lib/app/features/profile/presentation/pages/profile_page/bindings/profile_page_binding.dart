@@ -7,7 +7,7 @@ class ProfilePageBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<ProfilePageController>(
-      () => ProfilePageController(sl()),
+      () => ProfilePageController(sl(), sl(), sl()),
     );
   }
 }

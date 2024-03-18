@@ -1,15 +1,13 @@
-import 'dart:typed_data';
-
 import 'param.dart';
 
 class UploadImageBody extends RequestBody {
-  final String name;
-  final List<Uint8List> image64;
+  final String fileName;
+  final String path;
 
-  UploadImageBody(this.name, this.image64);
+  UploadImageBody(this.fileName, this.path);
 
   @override
-  Map<String, dynamic> toJson() => {'name': name, 'image': image64.first};
+  Map<String, dynamic> toJson() => {'fileName': fileName, 'file': path};
 }
 
 class UploadFileBody extends RequestBody {

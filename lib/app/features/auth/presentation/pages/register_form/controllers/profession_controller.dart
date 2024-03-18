@@ -5,6 +5,7 @@ import 'package:libela_practition/app/features/auth/domain/usecase/update_profes
 
 import '../../../../../../core/utils/app_storage/app_storage.dart';
 import '../../../../../../core/utils/snackbar_helper.dart';
+import '../../../../../profile/presentation/utils/model/typedef.dart';
 import '../../../../domain/usecase/get_profession.dart';
 import '../../../../domain/usecase/get_specialization.dart';
 import '../../../utils/model/profession_body.dart';
@@ -19,6 +20,8 @@ class RegisterProfessionController extends GetxController {
   RegisterProfessionController(
       this._getProfession, this._getSpecialization, this._updateProfessionData);
   final registerController = Get.find<RegisterFormController>();
+
+  UserProfileData? userProfileData;
 
   // List Data
   ProffesionList proffesion = [];
@@ -43,7 +46,7 @@ class RegisterProfessionController extends GetxController {
     selectedProffesion = value;
     selectedSpecialization = null;
     update();
-    // getSpecialization(selectedProffesion?.id ?? '');
+    getSpecialization(selectedProffesion?.id ?? '');
   }
 
   void selectSpecialization(Specialization value) {
@@ -64,6 +67,7 @@ class RegisterProfessionController extends GetxController {
       print(error.message);
     }, (data) {
       proffesion = data;
+      setProfessionData();
     });
     proffesionLoading = false;
     update();
@@ -103,6 +107,31 @@ class RegisterProfessionController extends GetxController {
 
     uploadProfessionDataLoading = false;
     update();
+  }
+
+  void setProfessionData() {
+    if (Get.arguments[1] != null) {
+      userProfileData = Get.arguments[1];
+      if (isProfessionNotNull) {
+        selectedEducation = userProfileData?.education ?? "";
+        selectedProffesion = proffesion
+            .firstWhere((e) => e.id == userProfileData?.professions?.id);
+        update();
+        getSpecialization(selectedProffesion?.id ?? '');
+      }
+    }
+  }
+
+  bool get isProfessionNotNull {
+    return nullCheck(userProfileData?.education) &&
+        nullCheck(userProfileData?.professions?.id);
+  }
+
+  bool nullCheck(dynamic value) {
+    return value != null &&
+        value != '' &&
+        value != 0 &&
+        !(value is List && value.isEmpty);
   }
 
   @override

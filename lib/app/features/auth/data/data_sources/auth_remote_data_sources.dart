@@ -15,7 +15,6 @@ import 'package:libela_practition/app/features/auth/presentation/utils/model/pro
 import '../../presentation/utils/model/file_body.dart';
 import '../../presentation/utils/model/forgot_phone_body.dart';
 import '../../presentation/utils/model/forgot_phone_verify_body.dart';
-import '../../presentation/utils/model/image_body.dart';
 import '../../presentation/utils/model/login_body.dart';
 import '../../presentation/utils/model/new_phone_body.dart';
 import '../../presentation/utils/model/otp_body.dart';
@@ -25,7 +24,6 @@ import '../../presentation/utils/model/register_body.dart';
 import '../../presentation/utils/model/typedef.dart';
 import '../models/document_data.dart';
 import '../models/file_upload.dart';
-import '../models/image_upload.dart';
 import '../models/login_response.dart';
 import '../models/service_area_data.dart';
 
@@ -48,7 +46,7 @@ abstract class AuthRemoteDataSource {
   Future<List<ProfessionsModel>> getProfessions();
   Future<List<SpecializationModel>> getSpecializations(ProfessionId id);
   Future<List<ServiceAreaModel>> getServiceArea();
-  Future<List<UploadImageModel>> uploadImages(ImageUploadBody body);
+
   Future<UploadFileModel> uploadFiles(FileUploadBody body);
   Future<PersonalDataModel> updatePersonalData(PersonalDataBody body);
   Future<PersonalDataModel> updateEmailData(EmailBody body);

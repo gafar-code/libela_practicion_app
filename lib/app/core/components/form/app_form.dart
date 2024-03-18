@@ -10,6 +10,7 @@ class AppForm extends StatelessWidget {
     this.icon,
     this.isError = false,
     this.hintText,
+    this.isTextSmall = false,
     this.textAlign,
     this.type = AppFormType.normal,
     this.textArea = false,
@@ -18,12 +19,14 @@ class AppForm extends StatelessWidget {
     this.inputFormatters,
     this.onChanged,
     this.onEditingComplete,
+    this.onFieldSubmitted,
   });
 
   final TextEditingController controller;
   final String? label;
   final String? icon;
   final bool isError;
+  final bool isTextSmall;
   final String? hintText;
   final TextAlign? textAlign;
   final AppFormType type;
@@ -33,6 +36,7 @@ class AppForm extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final Function(String)? onChanged;
   final Function()? onEditingComplete;
+  final Function(String)? onFieldSubmitted;
   @override
   Widget build(BuildContext context) {
     return type == AppFormType.normal
@@ -48,16 +52,19 @@ class AppForm extends StatelessWidget {
           focusNode: focusNode,
           controller: controller,
           cursorColor: kPrimaryColor,
-          style: theme.font.f14.black,
+          style: isTextSmall ? theme.font.f12.black : theme.font.f14.black,
           maxLines: textArea ? 5 : 1,
           textAlign: textAlign ?? TextAlign.left,
           onChanged: onChanged,
           keyboardType: keyboardType,
           inputFormatters: inputFormatters,
           onEditingComplete: onEditingComplete,
+          onFieldSubmitted: onFieldSubmitted,
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: theme.font.f14.copyWith(color: kSoftGrey),
+            hintStyle: isTextSmall
+                ? theme.font.f12.copyWith(color: kSoftGrey)
+                : theme.font.f14.copyWith(color: kSoftGrey),
             filled: true,
             fillColor: kWhiteColor,
             border: border,

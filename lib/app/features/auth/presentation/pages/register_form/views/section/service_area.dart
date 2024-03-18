@@ -4,10 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:libela_practition/app/config/theme/font.dart';
-import 'package:libela_practition/app/config/theme/style.dart';
-import 'package:libela_practition/app/features/auth/presentation/utils/model/typedef.dart';
-
-import '../../../../../../../config/theme/colors.dart';
 import '../../../../../../../config/theme/theme.dart';
 import '../../../../../../../core/components/components_lib.dart';
 import '../../controllers/service_area.dart';
@@ -23,38 +19,18 @@ class ServiceAreaSection extends StatelessWidget {
           Text('Daerah mana yang ingin kamu jangkau?',
               style: theme.font.f14.regular),
           Gap(6.h),
-          Container(
-            height: 44.h,
-            padding: theme.style.padding.allMedium,
-            decoration: BoxDecoration(
-                borderRadius: theme.style.borderRadius.allSmall,
-                color: kWhiteColor,
-                border: theme.style.boder),
-            child: controller.serviceAreaLoading
-                ? const Center(
-                    child: CupertinoActivityIndicator(
-                    color: kPrimaryAccentColor,
-                  ))
-                : DropdownButton<ServiceArea>(
-                    value: controller.selectedServiceArea,
-                    isExpanded: true,
-                    underline: const SizedBox.shrink(),
-                    style: theme.font.f14.regular,
-                    hint: Text(
-                      'Pilih Service Area',
-                      style: theme.font.f14.copyWith(color: kSoftGrey),
-                    ),
-                    icon: Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                      color: kSoftGrey,
-                      size: 22.r,
-                    ),
-                    items: controller.serviceArea
-                        .map((e) => DropdownMenuItem<ServiceArea>(
-                            value: e, child: Text(e.name ?? '')))
-                        .toList(),
-                    onChanged: (value) => controller.selectServiceArea(value!)),
-          ),
+          Wrap(
+              spacing: 12.w,
+              runSpacing: 12.h,
+              children: List.generate(
+                  controller.serviceArea.length,
+                  (index) => SelectButton(
+                        onTap: () => controller
+                            .selectServiceArea(controller.serviceArea[index]),
+                        iSelected: controller.selectedServiceArea
+                            .contains(controller.serviceArea[index]),
+                        text: controller.serviceArea[index].name ?? '',
+                      ))),
           Gap(26.h),
           Text('Layanan apa yang menarik buat kamu?',
               style: theme.font.f14.regular),
@@ -66,9 +42,9 @@ class ServiceAreaSection extends StatelessWidget {
                   controller.specialization.length,
                   (index) => SelectButton(
                         onTap: () => controller.selectSpecializationServiceArea(
-                            controller.specialization[index]),
+                            controller.specialization[index].id ?? ''),
                         iSelected: controller.selectedSpecializationServiceArea
-                            .contains(controller.specialization[index]),
+                            .contains(controller.specialization[index].id),
                         text: controller
                                 .specialization[index].subProfessionName ??
                             '',
@@ -79,7 +55,7 @@ class ServiceAreaSection extends StatelessWidget {
             textLeft: 'Kembali',
             textRight: 'Selanjutnya',
             onPressedLeft: () => controller.previous(),
-            onPressedRight: controller.selectedServiceArea != null &&
+            onPressedRight: controller.selectedServiceArea.isNotEmpty &&
                     controller.selectedSpecializationServiceArea.isNotEmpty
                 ? () => controller.updateServiceArea()
                 : null,

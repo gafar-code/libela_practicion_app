@@ -51,6 +51,22 @@ class BiodataSection extends StatelessWidget {
             keyboardType: TextInputType.number,
             onChanged: (value) => controller.listenKtpForm(value),
           ),
+          Obx(
+            () => Visibility(
+              visible: controller.ktpValidated.isFalse,
+              child: Padding(
+                padding: theme.style.padding.topSmall,
+                child: Row(children: [
+                  Icon(Icons.info_rounded, size: 12.r, color: kErrorColor),
+                  Gap(6.w),
+                  Text(
+                    'Nomor KTP harus 16 digit',
+                    style: theme.font.f10.red,
+                  ),
+                ]),
+              ),
+            ),
+          ),
           Gap(12.h),
           Text('Tanggal Lahir', style: theme.font.f14.regular),
           Gap(8.h),
@@ -187,7 +203,7 @@ class BiodataSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Alamat Tinggal', style: theme.font.f14.regular),
-              LocalAssets.svg(maps)
+              // LocalAssets.svg(maps)
             ],
           ),
           Gap(6.h),

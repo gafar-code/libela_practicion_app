@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:libela_practition/app/core/utils/app_storage/app_storage.dart';
 import 'package:libela_practition/app/features/auth/domain/usecase/update_service_area.dart';
 
+import '../../../../../profile/presentation/utils/model/typedef.dart';
 import '../../../../domain/usecase/get_service_area.dart';
 import '../../../../domain/usecase/get_specialization.dart';
 import '../../../utils/model/personal_service_area_body.dart';
@@ -23,6 +24,8 @@ class RegisterServiceAreaController extends GetxController {
   final registerController = Get.find<RegisterFormController>();
   final professionController = Get.find<RegisterProfessionController>();
 
+  UserProfileData? userProfileData;
+
   String? professionId;
 
   // List Data
@@ -37,10 +40,10 @@ class RegisterServiceAreaController extends GetxController {
 
   // Selected Data
 
-  Specializations selectedSpecializationServiceArea = [];
-  ServiceArea? selectedServiceArea;
+  List<String> selectedSpecializationServiceArea = [];
+  List<ServiceArea> selectedServiceArea = [];
 
-  void selectSpecializationServiceArea(Specialization value) {
+  void selectSpecializationServiceArea(String value) {
     if (selectedSpecializationServiceArea.contains(value)) {
       selectedSpecializationServiceArea.remove(value);
     } else {
@@ -50,7 +53,11 @@ class RegisterServiceAreaController extends GetxController {
   }
 
   void selectServiceArea(ServiceArea value) {
-    selectedServiceArea = value;
+    if (selectedServiceArea.contains(value)) {
+      selectedServiceArea.remove(value);
+    } else {
+      selectedServiceArea.add(value);
+    }
     update();
   }
 
@@ -90,6 +97,7 @@ class RegisterServiceAreaController extends GetxController {
 
   void getProfessionId() async {
     professionId = await AppStorage().getProfessionId();
+    log('Profession : $professionId');
     getSpecialization(professionId ?? '');
   }
 
@@ -97,9 +105,10 @@ class RegisterServiceAreaController extends GetxController {
     uploadServiceAreaDataLoading = true;
     update();
     var body = PersonalServiceAreaBody(
-      serviceAreaIds: [selectedServiceArea?.id ?? 0],
+      serviceAreaIds: List.generate(selectedServiceArea.length,
+          (index) => selectedServiceArea[index].id ?? 0),
       serviceSpecializations:
-          selectedSpecializationServiceArea.map((e) => {'id': e.id}).toList(),
+          selectedSpecializationServiceArea.map((e) => {'id': e}).toList(),
     );
     final response = await _updateServiceAreaData(body);
     response.fold((error) {
@@ -111,9 +120,43 @@ class RegisterServiceAreaController extends GetxController {
     update();
   }
 
+  void setServiceAreaData() {
+    if (Get.arguments[1] != null) {
+      userProfileData = Get.arguments[1];
+      if (isServiceAreaNotNull) {
+        selectedServiceArea = List.generate(
+            userProfileData?.practitionerServiceArea?.length ?? 0,
+            (index) => serviceArea.firstWhere((e) =>
+                e.id ==
+                userProfileData
+                    ?.practitionerServiceArea?[index].serviceAreasId));
+        List<String> data = List.generate(
+            userProfileData?.practititonerServiceSkill?.length ?? 0,
+            (index) =>
+                userProfileData?.practititonerServiceSkill?[index].skillsId ??
+                '');
+        selectedSpecializationServiceArea = data;
+        update();
+      }
+    }
+  }
+
+  bool get isServiceAreaNotNull {
+    return nullCheck(userProfileData?.practitionerServiceArea?.length);
+  }
+
+  bool nullCheck(dynamic value) {
+    return value != null &&
+        value != '' &&
+        value != 0 &&
+        !(value is List && value.isEmpty);
+  }
+
   @override
   void onInit() {
-    getServiceArea();
+    getServiceArea().whenComplete(() {
+      setServiceAreaData();
+    });
     log("Init Terpanggil");
     getProfessionId();
     // getSpecialization(professionController.selectedProffesion?.id ?? '');

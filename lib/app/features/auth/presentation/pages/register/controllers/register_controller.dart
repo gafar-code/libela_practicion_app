@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -86,12 +87,13 @@ class RegisterController extends GetxController {
   Future<void> sendOtp() async {
     Get.back();
     registerLoading(true);
+    final tokenFcm = await FirebaseMessaging.instance.getToken();
     var body = RegisterBody(
-      phoneNumber: '62${numberController.text}',
-      via: "${verificationMethode[selectedVerification ?? 0]['prefix']}"
-          .toLowerCase(),
-      referralCode: referralCodeController.text,
-    );
+        phoneNumber: '62${numberController.text}',
+        via: "${verificationMethode[selectedVerification ?? 0]['prefix']}"
+            .toLowerCase(),
+        referralCode: referralCodeController.text,
+        fcmToken: tokenFcm);
     final response = await _register(body);
     response.fold((error) {
       print(error.message);

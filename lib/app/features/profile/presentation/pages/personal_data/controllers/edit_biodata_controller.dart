@@ -1,14 +1,18 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:libela_practition/app/core/components/snackbar/app_snackbar.dart';
 import 'package:libela_practition/app/core/utils/snackbar_helper.dart';
 import 'package:libela_practition/app/features/auth/domain/usecase/update_personal_data.dart';
 import 'package:libela_practition/app/features/auth/presentation/utils/model/personal_data_body.dart';
+import 'package:libela_practition/app/features/profile/presentation/pages/profile_page/controllers/profile_page_controller.dart';
 import '../../../../../../core/components/components_lib.dart';
 import '../../../../../auth/domain/usecase/get_cities.dart';
 import '../../../../../auth/domain/usecase/get_provinces.dart';
 import '../../../../../auth/presentation/utils/model/typedef.dart';
-import '../../../utils/model/typedef.dart';
+import '../../../../domain/entities/user_profile.dart';
 import '../views/widget/picker_date.dart';
 
 class EditBiodataController extends GetxController {
@@ -22,6 +26,8 @@ class EditBiodataController extends GetxController {
   TextEditingController lastnamaController = TextEditingController();
   TextEditingController ktpController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+
+  UserProfileEntity? userProfileData;
 
   // List Data
   ProvinciesList provincies = [];
@@ -117,6 +123,7 @@ class EditBiodataController extends GetxController {
       SnackBarHelper.showSnackBarError(Get.context!, error.message);
     }, (data) {
       provincies = data;
+      setProvinceData();
     });
     provincesLoading = false;
     update();
@@ -160,10 +167,16 @@ class EditBiodataController extends GetxController {
         provinceId: selectedProvincies?.id ?? 0,
         cityId: selectedCities?.id ?? 0,
         address: addressController.text);
+    log(body.toJson().toString());
     final response = await _updatePersonalData(body);
     response.fold((error) {
       SnackBarHelper.showSnackBarError(Get.context!, error.message);
-    }, (data) {});
+      AppSnackbar.show(message: error.message, type: SnackType.error);
+    }, (data) {
+      AppSnackbar.show(
+          message: 'Berhasil update personal data', type: SnackType.success);
+      Get.find<ProfilePageController>().getUserProfile();
+    });
     uploadPersonalDataLoading = false;
     update();
   }
@@ -178,17 +191,61 @@ class EditBiodataController extends GetxController {
         selectedCities != null);
   }
 
-  setDataBiodata(UserProfileData? userProfileData) {
-    firstnamaController.text = userProfileData?.firstName ?? '';
-    lastnamaController.text = userProfileData?.lastName ?? '';
-    addressController.text = userProfileData?.address ?? '';
-    selectedGender = userProfileData?.gender == 'L' ? 0 : 1;
-    selectedBirtDay = userProfileData?.dateOfBirth ?? '';
-    update();
+  void setBioData() {
+    if (Get.arguments != null) {
+      userProfileData = Get.arguments;
+      if (isBiodataNotNull) {
+        firstnamaController.text = userProfileData?.firstName ?? "";
+        lastnamaController.text = userProfileData?.lastName ?? "";
+        ktpController.text = userProfileData?.identityNumber ?? "";
+        addressController.text = userProfileData?.address ?? "";
+        selectedDatePicker = userProfileData?.dateOfBirth ?? "";
+        selectedGender = userProfileData?.gender == "L" ? 0 : 1;
+        update();
+      }
+    }
+  }
+
+  void setProvinceData() {
+    if (Get.arguments != null) {
+      if (isProvinceNotNull) {
+        selectedProvincies =
+            provincies.firstWhere((e) => e.id == userProfileData?.provinceId);
+        getCities(selectedProvincies?.id ?? 0).whenComplete(() {
+          selectedCities =
+              cities.firstWhere((e) => e.id == userProfileData?.cityId);
+        });
+        ktpValidated(true);
+        addressValidated(true);
+        firstnamaValidated(true);
+        lastnamaValidated(true);
+        isEnableBioButton(true);
+      }
+      update();
+    }
+  }
+
+  bool get isBiodataNotNull {
+    return nullCheck(userProfileData?.firstName) &&
+        nullCheck(userProfileData?.lastName) &&
+        nullCheck(userProfileData?.address) &&
+        nullCheck(userProfileData?.identityNumber) &&
+        nullCheck(userProfileData?.dateOfBirth) &&
+        nullCheck(userProfileData?.gender);
+  }
+
+  bool get isProvinceNotNull {
+    return nullCheck(userProfileData?.provinceId) &&
+        nullCheck(userProfileData?.cityId);
+  }
+
+  bool nullCheck(dynamic value) {
+    return value != null && value != '' && !(value is List && value.isEmpty);
   }
 
   @override
   void onInit() {
+    setBioData();
     getProvinces();
     super.onInit();
   }

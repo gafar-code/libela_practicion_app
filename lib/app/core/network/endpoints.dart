@@ -35,7 +35,8 @@ class Endpoints {
   static const String appointmentsPending =
       'appointments/pending/need-acceptations';
 
-  static const String uploadImage = 'internal/tools/upload/file';
+// uploader
+  static const String uploadAvatar = 'internal/tools/upload/avatar';
   static const String uploadFile = 'internal/tools/upload/file';
   static const String userProfile = 'practitioner/profile';
 

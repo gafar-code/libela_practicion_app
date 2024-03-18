@@ -2,7 +2,6 @@ import 'package:fpdart/fpdart.dart';
 import 'package:libela_practition/app/features/auth/data/data_sources/auth_remote_data_sources.dart';
 import 'package:libela_practition/app/features/auth/domain/entities/cities.dart';
 import 'package:libela_practition/app/features/auth/domain/entities/country.dart';
-import 'package:libela_practition/app/features/auth/domain/entities/image_upload.dart';
 import 'package:libela_practition/app/features/auth/domain/entities/login_entity.dart';
 import 'package:libela_practition/app/features/auth/domain/entities/professions.dart';
 import 'package:libela_practition/app/features/auth/domain/entities/service_area.dart';
@@ -23,7 +22,6 @@ import '../../domain/repositories/auth_repositories.dart';
 import '../../presentation/utils/model/file_body.dart';
 import '../../presentation/utils/model/forgot_phone_body.dart';
 import '../../presentation/utils/model/forgot_phone_verify_body.dart';
-import '../../presentation/utils/model/image_body.dart';
 import '../../presentation/utils/model/new_phone_body.dart';
 import '../../presentation/utils/model/otp_body.dart';
 import '../../presentation/utils/model/personal_data_body.dart';
@@ -197,18 +195,6 @@ class AuthRepositoriesImpl implements AuthRepositories {
       final serviceArea =
           data.map((e) => ServiceAreaEntity.fromModel(e)).toList();
       return Right(serviceArea);
-    } on ServerException catch (e) {
-      return Left(RemoteFailure(e));
-    }
-  }
-
-  @override
-  Future<Either<RemoteFailure, List<ImageUploadEntity>>> uploadImage(
-      ImageUploadBody body) async {
-    try {
-      final data = await _authRemoteDataSource.uploadImages(body);
-      final image = data.map((e) => ImageUploadEntity.fromModel(e)).toList();
-      return Right(image);
     } on ServerException catch (e) {
       return Left(RemoteFailure(e));
     }

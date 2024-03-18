@@ -1,16 +1,16 @@
 // ignore_for_file: avoid_print
 
 import 'package:get/get.dart';
+import 'package:libela_practition/app/core/components/snackbar/app_snackbar.dart';
 import 'package:libela_practition/app/features/auth/domain/usecase/update_profession_data.dart';
+import 'package:libela_practition/app/features/profile/presentation/pages/profile_page/controllers/profile_page_controller.dart';
 
 import '../../../../../../core/utils/app_storage/app_storage.dart';
-import '../../../../../../core/utils/snackbar_helper.dart';
-import '../../../../../auth/domain/entities/professions.dart';
 import '../../../../../auth/domain/usecase/get_profession.dart';
 import '../../../../../auth/domain/usecase/get_specialization.dart';
 import '../../../../../auth/presentation/utils/model/profession_body.dart';
 import '../../../../../auth/presentation/utils/model/typedef.dart';
-import '../../../utils/model/typedef.dart';
+import '../../../../domain/entities/user_profile.dart';
 
 class EditProfessionController extends GetxController {
   final GetProfession _getProfession;
@@ -19,6 +19,8 @@ class EditProfessionController extends GetxController {
 
   EditProfessionController(
       this._getProfession, this._getSpecialization, this._updateProfessionData);
+
+  UserProfileEntity? userProfileData;
 
   // List Data
   ProffesionList proffesion = [];
@@ -41,9 +43,8 @@ class EditProfessionController extends GetxController {
 
   void selectProffesion(Proffesion value) {
     selectedProffesion = value;
-    selectedSpecialization = null;
+    print(value.id);
     update();
-    // getSpecialization(selectedProffesion?.id ?? '');
   }
 
   void selectSpecialization(Specialization value) {
@@ -64,6 +65,7 @@ class EditProfessionController extends GetxController {
       print(error.message);
     }, (data) {
       proffesion = data;
+      setProfessionData();
     });
     proffesionLoading = false;
     update();
@@ -91,21 +93,38 @@ class EditProfessionController extends GetxController {
     print(body.toJson());
     final response = await _updateProfessionData(body);
     response.fold((error) {
-      SnackBarHelper.showSnackBarError(Get.context!, error.message);
+      AppSnackbar.show(message: error.message, type: SnackType.error);
     }, (data) {
-      AppStorage().saveProfessionId(selectedProffesion?.id ?? '');
+      AppStorage().saveProfessionId(data.id ?? '');
+      AppSnackbar.show(
+          message: 'Berhasil update profesi', type: SnackType.success);
+      Get.find<ProfilePageController>().getUserProfile();
     });
 
     uploadProfessionDataLoading = false;
     update();
   }
 
-  setDataProfession(UserProfileData? userProfileData) {
-    selectedEducation = userProfileData?.education;
-    selectedProffesion = ProfessionsEntity(
-        id: userProfileData?.professions?.id,
-        professionName: userProfileData?.professions?.professionName);
-    update();
+  void setProfessionData() {
+    if (Get.arguments != null) {
+      userProfileData = Get.arguments;
+      if (isProfessionNotNull) {
+        selectedEducation = userProfileData?.education ?? "";
+        selectedProffesion = proffesion
+            .firstWhere((e) => e.id == userProfileData?.professions?.id);
+        update();
+        getSpecialization(selectedProffesion?.id ?? '');
+      }
+    }
+  }
+
+  bool get isProfessionNotNull {
+    return nullCheck(userProfileData?.education) &&
+        nullCheck(userProfileData?.professions?.id);
+  }
+
+  bool nullCheck(dynamic value) {
+    return value != null && value != '' && !(value is List && value.isEmpty);
   }
 
   @override

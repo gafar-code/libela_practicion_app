@@ -8,7 +8,9 @@ class UserProfileEntity extends Equatable {
   final String? email;
   final String? firstName;
   final String? lastName;
+  final String? aboutme;
   final String? practitionPhone;
+  final String? identityNumber;
   final String? dateOfBirth;
   final String? address;
   final String? avatar;
@@ -18,6 +20,8 @@ class UserProfileEntity extends Equatable {
   final String? userApprovalDate;
   final String? gender;
   final String? education;
+  final int? provinceId;
+  final int? cityId;
   final ProfessionsUserEntity? professions;
   final List<RolesUserEntity>? roles;
   final List<PractitionerServiceAreaUserEntity>? practitionerServiceArea;
@@ -30,7 +34,9 @@ class UserProfileEntity extends Equatable {
       this.email,
       this.firstName,
       this.lastName,
+      this.aboutme,
       this.practitionPhone,
+      this.identityNumber,
       this.dateOfBirth,
       this.address,
       this.avatar,
@@ -42,6 +48,8 @@ class UserProfileEntity extends Equatable {
       this.education,
       this.professions,
       this.roles,
+      this.provinceId,
+      this.cityId,
       this.practitionerServiceArea,
       this.practititonerServiceSkill,
       this.isRegistrationComplete,
@@ -55,7 +63,9 @@ class UserProfileEntity extends Equatable {
       email: model.email,
       firstName: model.firstName,
       lastName: model.lastName,
+      aboutme: model.aboutme,
       practitionPhone: model.practitionPhone,
+      identityNumber: model.identityNumber,
       dateOfBirth: model.dateOfBirth,
       address: model.address,
       avatar: model.avatar,
@@ -65,6 +75,8 @@ class UserProfileEntity extends Equatable {
       userApprovalDate: model.userApprovalDate,
       gender: model.gender,
       education: model.education,
+      provinceId: model.provinceId,
+      cityId: model.cityId,
       professions: model.professions != null
           ? ProfessionsUserEntity.fromModel(model.professions!)
           : null,
@@ -89,12 +101,72 @@ class UserProfileEntity extends Equatable {
     );
   }
 
+  // create function copyWith
+  UserProfileEntity copyWith({
+    String? id,
+    String? email,
+    String? firstName,
+    String? lastName,
+    String? aboutme,
+    String? practitionPhone,
+    String? identityNumber,
+    String? dateOfBirth,
+    String? address,
+    String? avatar,
+    int? isEmailVerified,
+    String? userLoginLast,
+    int? isApproved,
+    String? userApprovalDate,
+    String? gender,
+    String? education,
+    int? provinceId,
+    int? cityId,
+    ProfessionsUserEntity? professions,
+    List<RolesUserEntity>? roles,
+    List<PractitionerServiceAreaUserEntity>? practitionerServiceArea,
+    List<PractititonerServiceSkillUserEntity>? practititonerServiceSkill,
+    bool? isRegistrationComplete,
+    RegistrationCompletionEntity? registrationCompletion,
+  }) {
+    return UserProfileEntity(
+      id: id ?? this.id,
+      email: email ?? this.email,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      aboutme: aboutme ?? this.aboutme,
+      practitionPhone: practitionPhone ?? this.practitionPhone,
+      identityNumber: identityNumber ?? this.identityNumber,
+      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
+      address: address ?? this.address,
+      avatar: avatar ?? this.avatar,
+      isEmailVerified: isEmailVerified ?? this.isEmailVerified,
+      userLoginLast: userLoginLast ?? this.userLoginLast,
+      isApproved: isApproved ?? this.isApproved,
+      userApprovalDate: userApprovalDate ?? this.userApprovalDate,
+      gender: gender ?? this.gender,
+      education: education ?? this.education,
+      provinceId: provinceId ?? this.provinceId,
+      cityId: cityId ?? this.cityId,
+      professions: professions ?? this.professions,
+      roles: roles ?? this.roles,
+      practitionerServiceArea:
+          practitionerServiceArea ?? this.practitionerServiceArea,
+      practititonerServiceSkill:
+          practititonerServiceSkill ?? this.practititonerServiceSkill,
+      isRegistrationComplete:
+          isRegistrationComplete ?? this.isRegistrationComplete,
+      registrationCompletion:
+          registrationCompletion ?? this.registrationCompletion,
+    );
+  }
+
   @override
   List<Object?> get props => [
         id,
         email,
         firstName,
         lastName,
+        aboutme,
         practitionPhone,
         dateOfBirth,
         address,

@@ -11,6 +11,7 @@ import 'package:libela_practition/app/config/theme/theme.dart';
 import 'package:libela_practition/app/core/components/components_lib.dart';
 import 'package:libela_practition/app/core/utils/assets/assets.dart';
 import 'package:libela_practition/app/core/utils/assets/local_assets.dart';
+import 'package:libela_practition/app/features/profile/presentation/pages/profile_page/controllers/profile_page_controller.dart';
 
 import '../controllers/main_pages_controller.dart';
 
@@ -61,24 +62,26 @@ class MainPagesView extends GetView<MainPagesController> {
         label != 'Profile'
             ? LocalAssets.svg(icon,
                 color: isSelected ? kPrimaryColor : kSoftGrey.withOpacity(0.5))
-            : Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  // Container(
-                  //   height: 32.r,
-                  //   width: 32.r,
-                  //   decoration: BoxDecoration(
-                  //       shape: BoxShape.circle,
-                  //       color: kWhiteColor,
-                  //       border: theme.style.boder),
-                  // ),
-                  CardImage.circle(size: 17.r, image: image),
-                  Positioned(
-                      top: -3,
-                      right: -3,
-                      child: LocalAssets.svg(waitingBadge, height: 14.h)),
-                ],
-              ),
+            : GetBuilder<ProfilePageController>(builder: (controller) {
+                return Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    CardImage.circle(
+                        size: 17.r,
+                        image: controller.userProfileData?.avatar ?? ''),
+                    Positioned(
+                        top: -3,
+                        right: -3,
+                        child: LocalAssets.svg(
+                            controller.userProfileData
+                                        ?.isRegistrationComplete ==
+                                    true
+                                ? verifyBadge
+                                : waitingBadge,
+                            height: 14.h)),
+                  ],
+                );
+              }),
         const Spacer(),
         Text(
           label,

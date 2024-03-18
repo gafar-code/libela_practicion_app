@@ -7,28 +7,28 @@ import 'package:libela_practition/app/config/theme/font.dart';
 import 'package:libela_practition/app/config/theme/theme.dart';
 import 'package:libela_practition/app/core/utils/assets/assets.dart';
 import 'package:libela_practition/app/core/utils/assets/local_assets.dart';
-import 'package:libela_practition/app/features/profile/presentation/pages/profile_page/controllers/profile_page_controller.dart';
-import 'package:libela_practition/app/routes/app_pages.dart';
+import 'package:libela_practition/app/features/wallet/presentation/pages/wallet_page/controllers/wallet_page_controller.dart';
+import '../../../../../../../routes/app_pages.dart';
 
-class AppBarDashboard extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarDashboard({Key? key}) : super(key: key);
+class AppBarWallet extends StatelessWidget implements PreferredSizeWidget {
+  const AppBarWallet({Key? key, required this.controller}) : super(key: key);
+
+  final WalletPageController controller;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: kWhiteColor,
-      title: GetBuilder<ProfilePageController>(builder: (controller) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-                'Hallo, ${controller.userProfileData?.firstName ?? '..'} ${controller.userProfileData?.lastName ?? '..'}',
-                style: theme.font.f16.semibold),
-            Gap(3.h),
-            Text('Ayo mulai atur pertemuan hari ini!', style: theme.font.f14)
-          ],
-        );
-      }),
+      surfaceTintColor: kWhiteColor,
+      elevation: 2,
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Wallet', style: theme.font.f16.medium),
+          Gap(3.h),
+          Text('Ajukan withdraw dengan mudah', style: theme.font.f14)
+        ],
+      ),
       actions: [
         GestureDetector(
           onTap: () => Get.toNamed(Routes.NOTIFICATION_PAGE),
