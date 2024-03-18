@@ -76,7 +76,7 @@ class ProfileSection extends StatelessWidget {
                       'Skills',
                       style: theme.font.f14.regular,
                     ),
-                    Gap(12.h),
+                    Gap(8.h),
                     SizedBox(
                       width: getWidthScale(1.6),
                       child: Wrap(

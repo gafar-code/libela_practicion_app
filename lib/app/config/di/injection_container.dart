@@ -14,6 +14,9 @@ import 'package:libela_practition/app/features/auth/domain/usecase/update_email_
 import 'package:libela_practition/app/features/auth/domain/usecase/update_personal_data.dart';
 import 'package:libela_practition/app/features/auth/domain/usecase/update_profession_data.dart';
 import 'package:libela_practition/app/features/auth/domain/usecase/update_service_area.dart';
+import 'package:libela_practition/app/features/profile/domain/usecase/change_phone.dart';
+import 'package:libela_practition/app/features/profile/domain/usecase/change_phone_verify.dart';
+import 'package:libela_practition/app/features/profile/domain/usecase/update_email.dart';
 import 'package:libela_practition/app/features/profile/domain/usecase/update_profile.dart';
 import 'package:libela_practition/app/features/profile/domain/usecase/upload_image.dart';
 import 'package:libela_practition/app/features/auth/domain/usecase/verify_forgot_phone.dart';
@@ -107,6 +110,9 @@ Future<void> initializeDepedencies() async {
   sl.registerSingleton<GetUserProfile>(GetUserProfile(sl()));
   sl.registerSingleton<UploadImage>(UploadImage(sl()));
   sl.registerSingleton<UpdateProfile>(UpdateProfile(sl()));
+  sl.registerSingleton<ChangePhoneRequest>(ChangePhoneRequest(sl()));
+  sl.registerSingleton<ChangePhoneVerify>(ChangePhoneVerify(sl()));
+  sl.registerSingleton<UpdateEmail>(UpdateEmail(sl()));
 
   // Schedule Use Case
   sl.registerSingleton<GetAppointments>(GetAppointments(sl()));

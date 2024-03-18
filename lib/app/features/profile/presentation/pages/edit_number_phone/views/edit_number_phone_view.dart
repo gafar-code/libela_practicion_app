@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:libela_practition/app/features/profile/presentation/pages/edit_number_phone/views/section/verification_otp.dart';
 
 import '../controllers/edit_number_phone_controller.dart';
-import 'section/email_form.dart';
+import 'section/phone_form.dart';
 
 class EditNumberPhoneView extends GetView<EditNumberPhoneController> {
   const EditNumberPhoneView({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class EditNumberPhoneView extends GetView<EditNumberPhoneController> {
     return WillPopScope(
       onWillPop: () async {
         if (controller.pageController.page == 1) {
-          controller.backToEmailForm();
+          controller.backToPhoneForm();
           return false;
         } else {
           return true;
@@ -27,7 +27,7 @@ class EditNumberPhoneView extends GetView<EditNumberPhoneController> {
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (_, index) {
             if (index == 0) {
-              return const EmailForm();
+              return const PhoneForm();
             } else {
               return const VerificationOtp();
             }

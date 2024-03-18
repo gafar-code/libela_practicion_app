@@ -38,7 +38,16 @@ class Endpoints {
 // uploader
   static const String uploadAvatar = 'internal/tools/upload/avatar';
   static const String uploadFile = 'internal/tools/upload/file';
+
+  // profile
   static const String userProfile = 'practitioner/profile';
+  static const String changePhoneRequest =
+      'auths/practitioner/change-phone/request';
+  static const String changePhoneVerify =
+      'auths/practitioner/change-phone/verify';
+
+  // bank
+  static const String bankAccount = 'practitioner/bank/account';
 
   // notification
   static const String notifications = 'notifications';

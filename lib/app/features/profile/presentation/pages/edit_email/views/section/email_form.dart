@@ -29,6 +29,7 @@ class EmailForm extends StatelessWidget {
           ),
           Gap(32.h),
           Obx(() => PrimaryButton(
+                isLoading: controller.isLoading.value,
                 text: 'Kirim Instruksi',
                 onPressed: controller.isEmailValidated.value
                     ? () => controller.toConfirmEmail()

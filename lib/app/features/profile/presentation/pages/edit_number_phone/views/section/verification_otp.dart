@@ -19,6 +19,9 @@ class VerificationOtp extends StatelessWidget {
     return GetBuilder<EditNumberPhoneController>(builder: (controller) {
       return Scaffold(
         appBar: const AppBarEditNumberPhone(title: 'Masukkan Kode Otp'),
+        // floatingActionButton: FloatingActionButton(onPressed: () {
+        //   controller.isLoading(false);
+        // }),
         body: ListView(
           padding: theme.style.padding.allLarge,
           children: [
@@ -54,7 +57,8 @@ class VerificationOtp extends StatelessWidget {
                       Visibility(
                           visible: !controller.isCountdownSendOtpRun.value,
                           child: GestureDetector(
-                              onTap: () {},
+                              onTap: () =>
+                                  controller.toVerifyOtp(isResend: true),
                               child: Text('Kirim Ulang',
                                   textAlign: TextAlign.center,
                                   style: theme.font.f14
@@ -66,11 +70,16 @@ class VerificationOtp extends StatelessWidget {
                   ),
                 )),
             Gap(26.h),
-            PrimaryButton(
-              isExpanded: true,
-              text: 'Lanjutkan',
-              onPressed: controller.enableButton ? () {} : null,
-            ),
+            Obx(() {
+              return PrimaryButton(
+                isLoading: controller.isLoading.value,
+                isExpanded: true,
+                text: 'Lanjut',
+                onPressed: controller.enableButton
+                    ? () => controller.verifyOtp()
+                    : null,
+              );
+            }),
           ],
         ),
       );

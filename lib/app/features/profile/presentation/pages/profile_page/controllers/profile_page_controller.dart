@@ -7,6 +7,7 @@ import 'package:libela_practition/app/features/profile/domain/usecase/get_user_p
 import 'package:libela_practition/app/features/profile/domain/usecase/update_profile.dart';
 import 'package:libela_practition/app/features/profile/presentation/utils/model/profile_body.dart';
 import 'package:libela_practition/app/routes/app_pages.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../../core/components/snackbar/app_snackbar.dart';
@@ -23,6 +24,7 @@ class ProfilePageController extends GetxController {
 
   TextEditingController aboutmeController = TextEditingController();
   final FocusNode focusNode = FocusNode();
+  RefreshController refreshController = RefreshController();
 
   bool isEditAboutme = false;
   bool isLoadingUpdateAboutme = false;
@@ -158,6 +160,18 @@ class ProfilePageController extends GetxController {
     if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
       throw Exception('Could not launch $_url');
     }
+  }
+
+  void onRefresh() async {
+    await Future.delayed(1.seconds, () {
+      getUserProfile();
+    });
+    refreshController.refreshCompleted();
+  }
+
+  void onLoading() async {
+    await Future.delayed(1.seconds);
+    if (isClosed) refreshController.loadComplete();
   }
 
   @override

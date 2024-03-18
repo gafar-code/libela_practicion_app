@@ -1,10 +1,20 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:libela_practition/app/core/components/snackbar/app_snackbar.dart';
+import 'package:libela_practition/app/features/profile/domain/usecase/change_phone.dart';
+import 'package:libela_practition/app/features/profile/domain/usecase/change_phone_verify.dart';
+import 'package:libela_practition/app/features/profile/presentation/pages/profile_page/controllers/profile_page_controller.dart';
+import 'package:libela_practition/app/features/profile/presentation/utils/model/change_phone_request_body.dart';
+
+import '../../../utils/model/change_phone_verify_body.dart';
 
 class EditNumberPhoneController extends GetxController {
+  final ChangePhoneRequest changePhoneRequest;
+  final ChangePhoneVerify changePhoneVerify;
+
+  EditNumberPhoneController(this.changePhoneRequest, this.changePhoneVerify);
   PageController pageController = PageController();
   TextEditingController numberController = TextEditingController();
 
@@ -13,7 +23,8 @@ class EditNumberPhoneController extends GetxController {
   var enableButton = false;
 
   var isPhoneValidated = false.obs;
-  var isLoadingPage = false.obs;
+  var isLoading = false.obs;
+  String? otpToken;
 
   var countdownSendOtp = ''.obs;
   var isCountdownSendOtpRun = false.obs;
@@ -81,24 +92,54 @@ class EditNumberPhoneController extends GetxController {
 
   // Page Transition
 
-  void toVerifyOtp() async {
-    // isLoadingPage(true);
-    pageController.nextPage(
-        duration: 10.milliseconds, curve: Curves.slowMiddle);
-    update();
-    // await Future.delayed(100.milliseconds, () {
-    //   isLoadingPage(false);
-    // });
+  void toVerifyOtp({bool isResend = false}) async {
+    if (isResend == false) {
+      otpToken = null;
+      isLoading(true);
+    }
+    var body = ChangePhoneRequestBody("62${numberController.text}");
+    final result = await changePhoneRequest(body);
+    result.fold((error) {
+      AppSnackbar.show(message: error.message, type: SnackType.error);
+    }, (data) {
+      AppSnackbar.show(
+          message: 'OTP terkirim : ${data.otpCode}', type: SnackType.success);
+      otpToken = data.otpToken;
+      pageController.nextPage(
+          duration: 10.milliseconds, curve: Curves.slowMiddle);
+      startCountdown();
+      update();
+    });
+    if (isResend == false) {
+      isLoading(false);
+    }
   }
 
-  void backToEmailForm() async {
-    // isLoadingPage(true);
+  void verifyOtp() async {
+    isLoading(true);
+    List<String> otpNumber = [];
+    for (var otp in otpControllers) {
+      otpNumber.add(otp.text);
+    }
+    var body = ChangePhoneVerifyBody(
+        "62${numberController.text}", otpNumber.join(), otpToken);
+    final result = await changePhoneVerify(body);
+    result.fold((error) {
+      AppSnackbar.show(message: error.message, type: SnackType.error);
+    }, (data) {
+      Get.find<ProfilePageController>().getUserProfile();
+      Get.back();
+      Get.back();
+      AppSnackbar.show(
+          message: 'Berhasil update nomor telepon', type: SnackType.success);
+    });
+    isLoading(false);
+  }
+
+  void backToPhoneForm() async {
     pageController.previousPage(
         duration: 10.milliseconds, curve: Curves.slowMiddle);
     update();
-    // await Future.delayed(100.milliseconds, () {
-    //   isLoadingPage(false);
-    // });
   }
 
   @override

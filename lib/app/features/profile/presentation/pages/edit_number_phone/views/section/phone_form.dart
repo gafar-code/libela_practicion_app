@@ -12,8 +12,8 @@ import '../../../../../../../config/theme/colors.dart';
 import '../../../../../../../core/components/components_lib.dart';
 import '../../../../../../../core/utils/assets/local_assets.dart';
 
-class EmailForm extends StatelessWidget {
-  const EmailForm({super.key});
+class PhoneForm extends StatelessWidget {
+  const PhoneForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +48,9 @@ class EmailForm extends StatelessWidget {
             Gap(36.h),
             Obx(() {
               return PrimaryButton(
-                isLoading: false,
+                isLoading: controller.isLoading.value,
                 isExpanded: true,
-                text: 'Lanjutkan',
+                text: 'Kirim Instruksi',
                 onPressed: controller.isPhoneValidated.value
                     ? () => controller.toVerifyOtp()
                     : null,
