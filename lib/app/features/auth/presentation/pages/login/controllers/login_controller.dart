@@ -66,7 +66,7 @@ class LoginController extends GetxController {
     var body = LoginBody('62${numberController.text}', "whatsapp", tokenFcm);
     final response = await _login(body);
     response.fold((error) {
-      print(error.message);
+      AppSnackbar.show(message: error.message, type: SnackType.error);
     }, (data) {
       AppSnackbar.show(message: "OTP : ${data.otpCode}");
       Get.offAllNamed(Routes.LOGIN_OTP, arguments: [body, data]);

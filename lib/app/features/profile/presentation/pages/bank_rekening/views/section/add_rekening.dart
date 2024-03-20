@@ -8,7 +8,7 @@ import 'package:libela_practition/app/config/theme/style.dart';
 import 'package:libela_practition/app/config/theme/theme.dart';
 import 'package:libela_practition/app/core/components/components_lib.dart';
 import 'package:libela_practition/app/core/utils/screen_size.dart';
-
+import 'package:libela_practition/app/features/profile/domain/entities/banks.dart';
 import '../../controllers/bank_rekening_controller.dart';
 import 'app_bar.dart';
 
@@ -32,7 +32,7 @@ class AddBankRekening extends StatelessWidget {
                     borderRadius: theme.style.borderRadius.allSmall,
                     color: kWhiteColor,
                     border: theme.style.boder),
-                child: DropdownButton<String>(
+                child: DropdownButton<BanksEntity>(
                     value: controller.selectedBank,
                     isExpanded: true,
                     underline: const SizedBox.shrink(),
@@ -46,11 +46,11 @@ class AddBankRekening extends StatelessWidget {
                       color: kSoftGrey,
                       size: 22.r,
                     ),
-                    items: controller.listBank
-                        .map((e) => DropdownMenuItem<String>(
+                    items: controller.banks
+                        .map((e) => DropdownMenuItem<BanksEntity>(
                             value: e,
                             child: Text(
-                              e,
+                              e.bankName ?? '',
                               style: theme.font.f14,
                             )))
                         .toList(),
@@ -62,6 +62,7 @@ class AddBankRekening extends StatelessWidget {
                 controller: controller.placeHolderController,
                 label: 'Nama Pemilik Rekening',
                 hintText: 'Isi nama pemilik rekening',
+                onChanged: (value) => controller.validatePlaceholder(value),
               ),
               Gap(12.h),
               AppForm(
@@ -69,6 +70,8 @@ class AddBankRekening extends StatelessWidget {
                 controller: controller.rekeningNumberController,
                 label: 'No. Rekening',
                 hintText: 'Isi nomor rekening',
+                keyboardType: TextInputType.number,
+                onChanged: (value) => controller.validateRekeningNumber(value),
               ),
               Gap(12.h),
               AppForm(
@@ -76,6 +79,9 @@ class AddBankRekening extends StatelessWidget {
                 controller: controller.confirmRekeningNumberController,
                 label: 'Re-enter No. Rekening',
                 hintText: 'Konfirmasi nomor rekening',
+                keyboardType: TextInputType.number,
+                onChanged: (value) =>
+                    controller.validateRekeningNumberConfirm(value),
               ),
               Gap(22.h),
               Container(
@@ -85,6 +91,7 @@ class AddBankRekening extends StatelessWidget {
                     borderRadius: theme.style.borderRadius.allMedium,
                     color: kInfoColorAccent),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Icon(
                       Icons.info_rounded,
@@ -102,8 +109,14 @@ class AddBankRekening extends StatelessWidget {
               ),
               Gap(32.h),
               PrimaryButton(
+                isLoading: controller.isLoadingAddBank,
                 text: 'Tambah',
-                onPressed: () => controller.addRekening(),
+                onPressed: controller.selectedBank != null &&
+                        controller.isPlaceholderValidate &&
+                        controller.isRekeningNumberValidate &&
+                        controller.isRekeningNumberConfirmValidate
+                    ? () => controller.createBankAccount()
+                    : null,
               )
             ],
           ));

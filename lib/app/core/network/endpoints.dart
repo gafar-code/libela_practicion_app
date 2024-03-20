@@ -47,7 +47,14 @@ class Endpoints {
       'auths/practitioner/change-phone/verify';
 
   // bank
+  static const String banks = 'internal/master/banks';
   static const String bankAccount = 'practitioner/bank/account';
+
+  // wallet
+  static const String wallet = 'wallet';
+  static const String walletWithdraw = 'wallet/withdraw';
+  static const String transactionsHistory = 'wallet/transactions/history';
+  static const String transactionsLine = 'wallet/transactions/line';
 
   // notification
   static const String notifications = 'notifications';

@@ -29,6 +29,10 @@ abstract class RemoteDataSourceImpl {
     return _client.delete(path, queryParameters: query);
   }
 
+  Future<Response> delWithBody(String path, [RequestBody? body]) {
+    return _client.delete(path, body: body);
+  }
+
   Future<Response> bulkDelete(String path,
       {required List<dynamic> queries, required String queryKey}) {
     return _client.bulkDelete(path, queries: queries, queryKey: queryKey);

@@ -127,6 +127,7 @@ class DioClient {
   Future<Response> delete(
     String url, {
     QueryParam? queryParameters,
+    RequestBody? body,
     Options? options,
     CancelToken? cancelToken,
   }) async {
@@ -134,6 +135,7 @@ class DioClient {
       final Response response = await _dio.delete(
         url,
         queryParameters: queryParameters?.toJson(),
+        data: body?.toJson(),
         options: options,
         cancelToken: cancelToken,
       );

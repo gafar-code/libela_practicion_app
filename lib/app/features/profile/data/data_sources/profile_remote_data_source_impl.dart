@@ -1,5 +1,6 @@
 import 'package:libela_practition/app/features/profile/data/models/update_profile.dart';
 import 'package:libela_practition/app/features/profile/data/models/user_profile.dart';
+import 'package:libela_practition/app/features/profile/presentation/utils/model/bank_account_body.dart';
 import 'package:libela_practition/app/features/profile/presentation/utils/model/change_phone_request_body.dart';
 import 'package:libela_practition/app/features/profile/presentation/utils/model/profile_body.dart';
 
@@ -8,8 +9,11 @@ import '../../../../core/network/remote_data_source_impl.dart';
 import '../../../../core/network/request_remote.dart';
 import '../../../../core/network/upload_file_body.dart';
 import '../../presentation/utils/model/change_phone_verify_body.dart';
+import '../../presentation/utils/model/delete_bank_account_body.dart';
 import '../../presentation/utils/model/image_body.dart';
 import '../../presentation/utils/model/update_email_body.dart';
+import '../models/bank_account.dart';
+import '../models/banks.dart';
 import '../models/change_phone.dart';
 import 'profile_remote_data_source.dart';
 
@@ -55,6 +59,35 @@ class ProfileRemoteDataSourcesImpl extends RemoteDataSourceImpl
   Future<bool> updateEmail(UpdateEmailBody body) async {
     final response =
         await hitAPI(() => put(Endpoints.personalEmail, body: body));
+    return response['code'] == 200;
+  }
+
+  @override
+  Future<List<BanksModel>> getListBank() async {
+    final response = await hitAPI(() => get(Endpoints.banks));
+    return List.from(response['data'])
+        .map((e) => BanksModel.fromJson(e))
+        .toList();
+  }
+
+  @override
+  Future<List<BankAccountModel>> getBankAccount() async {
+    final response = await hitAPI(() => get(Endpoints.bankAccount));
+    return List.from(response['data'])
+        .map((e) => BankAccountModel.fromJson(e))
+        .toList();
+  }
+
+  @override
+  Future<bool> createBankAccount(BankAccountBody body) async {
+    final response = await hitAPI(() => post(Endpoints.bankAccount, body));
+    return response['code'] == 200;
+  }
+
+  @override
+  Future<bool> deleteBankAccount(DeleteBankAccountBody body) async {
+    final response =
+        await hitAPI(() => delWithBody(Endpoints.bankAccount, body));
     return response['code'] == 200;
   }
 }

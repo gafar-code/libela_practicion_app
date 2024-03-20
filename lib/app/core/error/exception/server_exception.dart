@@ -152,8 +152,30 @@ class ServerException extends Equatable implements Exception {
             break;
         }
       } else if (error is Response) {
-        final message = error.data['message'];
-        final code = error.data['code'];
+        String message;
+        String code;
+        if (error.data['message'] != null) {
+          message = error.data['message'];
+        } else if (error.data['error'] != null) {
+          List<dynamic> errorList = error.data['error'];
+          List<String> errorValues = [];
+          for (var item in errorList) {
+            if (item is Map) {
+              List<String> values =
+                  item.values.map((value) => value.toString()).toList();
+              errorValues.addAll(values);
+            }
+          }
+          message = errorValues.join(" & ");
+        } else {
+          message = "Unknown error";
+        }
+
+        if (error.data['code'] != null) {
+          code = error.data['code'];
+        } else {
+          code = 'Error';
+        }
         serverException = ServerException._(message: '$code - $message');
       } else {
         serverException = ServerException._(
@@ -169,6 +191,7 @@ class ServerException extends Equatable implements Exception {
           exceptionType: ServerExceptionType.unexpectedError,
           message: 'Unexpected error-3');
     }
+
     return serverException;
   }
 

@@ -14,7 +14,7 @@ class MainPagesBinding extends Bindings {
       () => MainPagesController(),
     );
     Get.put(DashboardController(sl()));
-    Get.put(WalletPageController());
+    Get.put(WalletPageController(sl(), sl()));
     Get.put(SchedulePageController(sl(), sl(), sl()));
     Get.put(ProfilePageController(sl(), sl(), sl()));
   }

@@ -96,7 +96,7 @@ class RegisterController extends GetxController {
         fcmToken: tokenFcm);
     final response = await _register(body);
     response.fold((error) {
-      print(error.message);
+      AppSnackbar.show(message: error.message, type: SnackType.error);
     }, (data) {
       final newRegisterPhoneData = RegisterPhoneEntity(
           otpCode: data.otpCode,

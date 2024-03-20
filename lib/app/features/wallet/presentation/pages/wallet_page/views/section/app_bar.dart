@@ -24,7 +24,7 @@ class AppBarWallet extends StatelessWidget implements PreferredSizeWidget {
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Wallet', style: theme.font.f16.medium),
+          Text('Wallet', style: theme.font.f16.semibold),
           Gap(3.h),
           Text('Ajukan withdraw dengan mudah', style: theme.font.f14)
         ],

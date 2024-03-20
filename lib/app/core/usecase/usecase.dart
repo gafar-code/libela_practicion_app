@@ -7,6 +7,10 @@ abstract class UseCase<Type, Argument> {
   Future<Either<RemoteFailure, Type>> call(Argument argument);
 }
 
+abstract class UseCaseDio<Type, Argument> {
+  Future<Either<RemoteFailureDio, Type>> call(Argument argument);
+}
+
 abstract class UseCaseWithBulkQuery<Type, int, List, String> {
   Future<Either<RemoteFailure, Type>> call(
       int identifier, List queries, String queryKey);

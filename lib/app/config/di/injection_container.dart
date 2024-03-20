@@ -16,6 +16,10 @@ import 'package:libela_practition/app/features/auth/domain/usecase/update_profes
 import 'package:libela_practition/app/features/auth/domain/usecase/update_service_area.dart';
 import 'package:libela_practition/app/features/profile/domain/usecase/change_phone.dart';
 import 'package:libela_practition/app/features/profile/domain/usecase/change_phone_verify.dart';
+import 'package:libela_practition/app/features/profile/domain/usecase/create_bank_account.dart';
+import 'package:libela_practition/app/features/profile/domain/usecase/delete_bank_acount.dart';
+import 'package:libela_practition/app/features/profile/domain/usecase/get_bank_account.dart';
+import 'package:libela_practition/app/features/profile/domain/usecase/get_list_bank.dart';
 import 'package:libela_practition/app/features/profile/domain/usecase/update_email.dart';
 import 'package:libela_practition/app/features/profile/domain/usecase/update_profile.dart';
 import 'package:libela_practition/app/features/profile/domain/usecase/upload_image.dart';
@@ -27,6 +31,13 @@ import 'package:libela_practition/app/features/schedule/domain/usecase/confirm_a
 import 'package:libela_practition/app/features/schedule/domain/usecase/get_detail_appointment.dart';
 import 'package:libela_practition/app/features/schedule/domain/usecase/reject_appointment.dart';
 import 'package:libela_practition/app/features/schedule/domain/usecase/set_reminder.dart';
+import 'package:libela_practition/app/features/wallet/domain/usecase/create_bank_account.dart';
+import 'package:libela_practition/app/features/wallet/domain/usecase/get_bank_account.dart';
+import 'package:libela_practition/app/features/wallet/domain/usecase/get_list_bank.dart';
+import 'package:libela_practition/app/features/wallet/domain/usecase/get_transaction_history.dart';
+import 'package:libela_practition/app/features/wallet/domain/usecase/get_transaction_line.dart';
+import 'package:libela_practition/app/features/wallet/domain/usecase/get_wallet.dart';
+import 'package:libela_practition/app/features/wallet/domain/usecase/withdraw_request.dart';
 import '../../features/auth/data/data_sources/auth_remote_data_sources.dart';
 import '../../features/auth/data/repositories/auth_repositories_impl.dart';
 import '../../features/auth/domain/repositories/auth_repositories.dart';
@@ -55,6 +66,10 @@ import '../../features/schedule/data/repositories/schedule_repositories_impl.dar
 import '../../features/schedule/domain/repositories/schedule_repositories.dart';
 import '../../features/schedule/domain/usecase/get_appointments.dart';
 import '../../features/schedule/domain/usecase/start_session_appointment.dart';
+import '../../features/wallet/data/data_sources/wallet_remote_data_sources.dart';
+import '../../features/wallet/data/data_sources/wallet_remote_data_sources_impl.dart';
+import '../../features/wallet/data/repositories/wallet_repositories.dart';
+import '../../features/wallet/domain/repositories/wallet_repositories.dart';
 
 final sl = GetIt.instance;
 
@@ -82,6 +97,10 @@ Future<void> initializeDepedencies() async {
   sl.registerSingleton<HomeRemoteDataSource>(
       HomeRemoteDataSourcesImpl(DioClient()));
   sl.registerSingleton<HomeRepositories>(HomeRepositoriesImpl(sl()));
+
+  sl.registerSingleton<WalletRemoteDataSource>(
+      WalletRemoteDataSourcesImpl(DioClient()));
+  sl.registerSingleton<WalletRepositories>(WalletRepositoriesImpl(sl()));
 
   // Auth Use Case
   sl.registerSingleton<ForgotPhoneNumber>(ForgotPhoneNumber(sl()));
@@ -113,6 +132,10 @@ Future<void> initializeDepedencies() async {
   sl.registerSingleton<ChangePhoneRequest>(ChangePhoneRequest(sl()));
   sl.registerSingleton<ChangePhoneVerify>(ChangePhoneVerify(sl()));
   sl.registerSingleton<UpdateEmail>(UpdateEmail(sl()));
+  sl.registerSingleton<GetListBank>(GetListBank(sl()));
+  sl.registerSingleton<GetBankAccounts>(GetBankAccounts(sl()));
+  sl.registerSingleton<CreateBankAccount>(CreateBankAccount(sl()));
+  sl.registerSingleton<DeleteBankAccount>(DeleteBankAccount(sl()));
 
   // Schedule Use Case
   sl.registerSingleton<GetAppointments>(GetAppointments(sl()));
@@ -128,4 +151,13 @@ Future<void> initializeDepedencies() async {
 
   // Notification Use Case
   sl.registerSingleton<GetNotifications>(GetNotifications(sl()));
+
+  // Wallet Use Case
+  sl.registerSingleton<GetWallet>(GetWallet(sl()));
+  sl.registerSingleton<GetTransactionHistory>(GetTransactionHistory(sl()));
+  sl.registerSingleton<GetTransactionLine>(GetTransactionLine(sl()));
+  sl.registerSingleton<WithdrawRequest>(WithdrawRequest(sl()));
+  sl.registerSingleton<GetListBankWallet>(GetListBankWallet(sl()));
+  sl.registerSingleton<GetBankAccountsWallet>(GetBankAccountsWallet(sl()));
+  sl.registerSingleton<CreateBankAccountWallet>(CreateBankAccountWallet(sl()));
 }

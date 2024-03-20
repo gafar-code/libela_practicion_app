@@ -22,15 +22,18 @@ class CardImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
+      cacheManager: CacheManager(
+          Config('images_key', maxNrOfCacheObjects: 20, stalePeriod: 3.days)),
       imageUrl: image ?? '',
       imageBuilder: (context, imageProvider) {
-        if (image!.toLowerCase().endsWith('.svg')) {
-          return isCircle ? _svgCircle(image!) : _svgRectangle(image!);
-        } else {
-          return isCircle
-              ? _imageCircle(imageProvider)
-              : _imageRectangle(imageProvider);
-        }
+        // if (image!.toLowerCase().endsWith('.svg')) {
+        //   return isCircle ? _svgCircle(image!) : _svgRectangle(image!);
+        // } else {
+
+        // }
+        return isCircle
+            ? _imageCircle(imageProvider)
+            : _imageRectangle(imageProvider);
       },
       placeholder: (context, url) => CircleAvatar(
         radius: size.r,
@@ -44,19 +47,19 @@ class CardImage extends StatelessWidget {
     );
   }
 
-  Widget _svgCircle(String svgUrl) {
-    return CircleAvatar(
-      radius: size.r,
-      backgroundColor: kSoftGrey,
-      child: SvgPicture.network(
-        svgUrl,
-        height: size.r,
-        width: size.r,
-        placeholderBuilder: (BuildContext context) =>
-            const CupertinoActivityIndicator(color: kPrimaryAccentColor),
-      ),
-    );
-  }
+  // Widget _svgCircle(String svgUrl) {
+  //   return CircleAvatar(
+  //     radius: size.r,
+  //     backgroundColor: kSoftGrey,
+  //     child: SvgPicture.network(
+  //       svgUrl,
+  //       height: size.r,
+  //       width: size.r,
+  //       placeholderBuilder: (BuildContext context) =>
+  //           const CupertinoActivityIndicator(color: kPrimaryAccentColor),
+  //     ),
+  //   );
+  // }
 
   Widget _imageCircle(ImageProvider<Object> imageProvider) {
     return CircleAvatar(
@@ -80,25 +83,25 @@ class CardImage extends StatelessWidget {
     );
   }
 
-  Widget _svgRectangle(String svgUrl) {
-    return SvgPicture.network(
-      svgUrl,
-      width: size.r,
-      height: size.r,
-      placeholderBuilder: (BuildContext context) => _rectanglePlaceholder,
-    );
-  }
+  // Widget _svgRectangle(String svgUrl) {
+  //   return SvgPicture.network(
+  //     svgUrl,
+  //     width: size.r,
+  //     height: size.r,
+  //     placeholderBuilder: (BuildContext context) => _rectanglePlaceholder,
+  //   );
+  // }
 
-  Widget get _rectanglePlaceholder {
-    return Container(
-      width: size.r,
-      height: size.r,
-      color: kSoftGrey,
-      child: const Center(
-        child: CupertinoActivityIndicator(color: kPrimaryAccentColor),
-      ),
-    );
-  }
+  // Widget get _rectanglePlaceholder {
+  //   return Container(
+  //     width: size.r,
+  //     height: size.r,
+  //     color: kSoftGrey,
+  //     child: const Center(
+  //       child: CupertinoActivityIndicator(color: kPrimaryAccentColor),
+  //     ),
+  //   );
+  // }
 
   Widget _imageRectangle(ImageProvider<Object> imageProvider) {
     return ClipRRect(
