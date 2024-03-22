@@ -225,12 +225,10 @@ class AuthRepositoriesImpl implements AuthRepositories {
   }
 
   @override
-  Future<Either<RemoteFailure, PersonalDataEntity>> updateEmailData(
-      EmailBody body) async {
+  Future<Either<RemoteFailure, String>> updateEmailData(EmailBody body) async {
     try {
       final data = await _authRemoteDataSource.updateEmailData(body);
-      final personalData = PersonalDataEntity.fromModel(data);
-      return Right(personalData);
+      return Right(data);
     } on ServerException catch (e) {
       return Left(RemoteFailure(e));
     }

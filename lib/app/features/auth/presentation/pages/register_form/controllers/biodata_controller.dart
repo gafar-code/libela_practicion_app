@@ -227,18 +227,31 @@ class RegisterBiodataController extends GetxController {
   }
 
   void setBioData() {
-    if (Get.arguments[1] != null) {
-      userProfileData = Get.arguments[1];
-      if (isBiodataNotNull) {
-        firstnamaController.text = userProfileData?.firstName ?? "";
-        lastnamaController.text = userProfileData?.lastName ?? "";
-        ktpController.text = userProfileData?.identityNumber ?? "";
-        addressController.text = userProfileData?.address ?? "";
-        selectedDatePicker = userProfileData?.dateOfBirth ?? "";
-        selectedGender = userProfileData?.gender == "L" ? 0 : 1;
-        update();
+    if (Get.arguments != null) {
+      if (Get.arguments[1] != null) {
+        userProfileData = Get.arguments[1];
+        if (isBiodataNotNull) {
+          firstnamaController.text = userProfileData?.firstName ?? "";
+          lastnamaController.text = userProfileData?.lastName ?? "";
+          ktpController.text = userProfileData?.identityNumber ?? "";
+          addressController.text = userProfileData?.address ?? "";
+          selectedDatePicker = userProfileData?.dateOfBirth ?? "";
+          selectedBirtDay = formatDate(userProfileData?.dateOfBirth ?? "");
+          selectedGender = userProfileData?.gender == "L" ? 0 : 1;
+          update();
+        }
       }
     }
+  }
+
+  String formatDate(String dateString) {
+    DateFormat inputFormat = DateFormat('dd-MM-yyyy');
+    DateFormat outputFormat = DateFormat('yyyy-MM-dd');
+
+    DateTime parsedDate = inputFormat.parse(dateString);
+    String formattedDate = outputFormat.format(parsedDate);
+
+    return formattedDate;
   }
 
   void setEmailData() {

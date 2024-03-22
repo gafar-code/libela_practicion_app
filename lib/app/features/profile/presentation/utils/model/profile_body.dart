@@ -19,5 +19,5 @@ class ProfileBody extends RequestBody {
         'lastName': lastName,
         'avatar': avatar,
         'aboutme': aboutme
-      }..removeWhere((key, value) => value == null);
+      }..removeWhere((key, value) => value == null || value == "");
 }

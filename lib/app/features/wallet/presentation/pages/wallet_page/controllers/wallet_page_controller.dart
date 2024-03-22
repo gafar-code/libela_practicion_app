@@ -78,12 +78,12 @@ class WalletPageController extends GetxController {
 
   @override
   void onInit() {
-    getWalletData();
+    // getWalletData();
     // pagingController = PagingController(firstPageKey: 1);
     // pagingController.addPageRequestListener((pageKey) {
     //   getTransactionHistory(pageKey);
     // });
-    setDummy();
+    // setDummy();
     super.onInit();
   }
 }

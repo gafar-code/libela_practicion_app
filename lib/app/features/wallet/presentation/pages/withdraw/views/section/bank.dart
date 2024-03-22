@@ -102,13 +102,20 @@ class BankSection extends StatelessWidget {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
-                                    height: 32.h,
-                                    width: 56.w,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            theme.style.borderRadius.allSmall,
-                                        color: kWhiteColor)),
+                                // Container(
+                                //     height: 32.h,
+                                //     width: 56.w,
+                                //     decoration: BoxDecoration(
+                                //         borderRadius:
+                                //             theme.style.borderRadius.allSmall,
+                                //         color: kWhiteColor)),
+                                CircleAvatar(
+                                  radius: 16.r,
+                                  backgroundColor: kWhiteColor,
+                                  child: Icon(
+                                    Icons.account_balance_outlined,
+                                  ),
+                                ),
                                 Gap(12.w),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,7 +185,7 @@ class BankSection extends StatelessWidget {
             PrimaryButton(
               isExpanded: true,
               text: 'Lanjutkan',
-              onPressed: () {},
+              onPressed: () => controller.openDetailWithdraw(),
             )
           ],
         ),

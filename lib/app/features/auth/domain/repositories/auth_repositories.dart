@@ -56,8 +56,7 @@ abstract class AuthRepositories {
       FileUploadBody body);
   Future<Either<RemoteFailure, PersonalDataEntity>> updatePersonalData(
       PersonalDataBody body);
-  Future<Either<RemoteFailure, PersonalDataEntity>> updateEmailData(
-      EmailBody body);
+  Future<Either<RemoteFailure, String>> updateEmailData(EmailBody body);
 
   Future<Either<RemoteFailure, PersonalDataEntity>> updateProfessionData(
       ProfessionBody body);

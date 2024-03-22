@@ -96,7 +96,6 @@ class RegisterProfessionController extends GetxController {
     var body = ProfessionBody(
         professionId: selectedProffesion?.id ?? '',
         education: selectedEducation ?? '');
-    print(body.toJson());
     final response = await _updateProfessionData(body);
     response.fold((error) {
       SnackBarHelper.showSnackBarError(Get.context!, error.message);
@@ -110,14 +109,16 @@ class RegisterProfessionController extends GetxController {
   }
 
   void setProfessionData() {
-    if (Get.arguments[1] != null) {
-      userProfileData = Get.arguments[1];
-      if (isProfessionNotNull) {
-        selectedEducation = userProfileData?.education ?? "";
-        selectedProffesion = proffesion
-            .firstWhere((e) => e.id == userProfileData?.professions?.id);
-        update();
-        getSpecialization(selectedProffesion?.id ?? '');
+    if (Get.arguments != null) {
+      if (Get.arguments[1] != null) {
+        userProfileData = Get.arguments[1];
+        if (isProfessionNotNull) {
+          selectedEducation = userProfileData?.education ?? "";
+          selectedProffesion = proffesion
+              .firstWhere((e) => e.id == userProfileData?.professions?.id);
+          update();
+          getSpecialization(selectedProffesion?.id ?? '');
+        }
       }
     }
   }

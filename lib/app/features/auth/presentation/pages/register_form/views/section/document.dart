@@ -14,9 +14,12 @@ class DocumentSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<RegisterDocumentController>(builder: (controller) {
-      bool isUploadedStr = controller.uploadedStr?.file != null;
-      bool isUploadedSip = controller.uploadedSip?.file != null;
-      bool isUploadedKtp = controller.uploadedKtp?.file != null;
+      bool isUploadedStr = controller.uploadedStr?.isSuccessUpload ?? false;
+      bool isUploadedSip = controller.uploadedSip?.isSuccessUpload ?? false;
+      bool isUploadedKtp = controller.uploadedKtp?.isSuccessUpload ?? false;
+      bool isUploadStrVailed = controller.uploadedStr?.isVailedUpload ?? false;
+      bool isUploadSipVailed = controller.uploadedSip?.isVailedUpload ?? false;
+      bool isUploadKtpVailed = controller.uploadedKtp?.isVailedUpload ?? false;
       bool enableButton = isUploadedStr && isUploadedSip && isUploadedKtp;
 
       return ListView(
@@ -26,6 +29,7 @@ class DocumentSection extends StatelessWidget {
             label: 'STR (Surat Tanda Registrasi)',
             isUploaded: isUploadedStr,
             file: controller.uploadedStr,
+            isVailed: isUploadStrVailed,
             isLoading: controller.uploadedStrLoading,
             onTap: () {
               Get.bottomSheet(
@@ -47,6 +51,7 @@ class DocumentSection extends StatelessWidget {
             isUploaded: isUploadedSip,
             file: controller.uploadedSip,
             isLoading: controller.uploadedSipLoading,
+            isVailed: isUploadSipVailed,
             onTap: () {
               Get.bottomSheet(
                   enterBottomSheetDuration: 200.milliseconds,
@@ -67,6 +72,7 @@ class DocumentSection extends StatelessWidget {
             isUploaded: isUploadedKtp,
             file: controller.uploadedKtp,
             isLoading: controller.uploadedKtpLoading,
+            isVailed: isUploadKtpVailed,
             onTap: () {
               Get.bottomSheet(
                   enterBottomSheetDuration: 200.milliseconds,

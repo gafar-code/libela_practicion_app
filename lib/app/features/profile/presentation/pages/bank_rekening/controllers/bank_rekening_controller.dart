@@ -132,7 +132,7 @@ class BankRekeningController extends GetxController {
       },
       (data) {
         AppSnackbar.show(message: 'Berhasil hapus rekening bank');
-        bankAccounts.removeWhere((e) => e.bankId == bank.bankId);
+        bankAccounts.removeWhere((e) => e.bankAccount == bank.bankAccount);
         update();
       },
     );

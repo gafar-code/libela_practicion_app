@@ -6,6 +6,7 @@ import 'package:libela_practition/app/config/theme/colors.dart';
 import 'package:libela_practition/app/config/theme/font.dart';
 import 'package:libela_practition/app/config/theme/style.dart';
 import 'package:libela_practition/app/config/theme/theme.dart';
+import 'package:libela_practition/app/core/components/components_lib.dart';
 import 'package:libela_practition/app/core/utils/screen_size.dart';
 import 'package:libela_practition/app/features/wallet/presentation/pages/withdraw/controllers/withdraw_controller.dart';
 
@@ -64,22 +65,12 @@ class WalletSection extends StatelessWidget {
                 ),
               ),
               Gap(16.h),
-              Text('Nominal Penarikan', style: theme.font.f14),
-              Gap(8.h),
-              Container(
-                width: getWidthScale(1),
-                padding: theme.style.padding.horizontalMedium,
-                height: 40.h,
-                decoration: BoxDecoration(
-                    borderRadius: theme.style.borderRadius.allSmall,
-                    border: theme.style.boder),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    'Rp. 5000',
-                    style: theme.font.f14.copyWith(color: kSoftGrey),
-                  ),
-                ),
+              AppForm(
+                controller: controller.amountController,
+                type: AppFormType.withLabel,
+                label: 'Nominal Penarikan',
+                hintText: 'Masukkan nominal penarikan',
+                keyboardType: TextInputType.number,
               ),
               Gap(12.h),
               Row(

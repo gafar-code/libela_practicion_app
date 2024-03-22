@@ -145,6 +145,7 @@ class ProfileSection extends StatelessWidget {
                   controller.userProfileData?.aboutme != '',
               child: Container(
                 padding: theme.style.padding.allMedium,
+                width: getWidthScale(1),
                 decoration: BoxDecoration(
                     borderRadius: theme.style.borderRadius.allMedium,
                     color: kWhiteColor,

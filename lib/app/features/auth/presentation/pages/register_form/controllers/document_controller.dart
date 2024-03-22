@@ -43,14 +43,21 @@ class RegisterDocumentController extends GetxController {
       UploadType? type,
       String? message}) {
     if (message == null) {
-      String typeUpload = type == UploadType.str
-          ? 'str'
-          : type == UploadType.sip
-              ? 'sip'
-              : 'ktp';
-      var body = FileUploadBody(fileName, typeUpload, path);
-      uploadFile(body, path, fileName, type);
-      update();
+      if (path != null && path != '') {
+        String typeUpload = type == UploadType.str
+            ? 'str'
+            : type == UploadType.sip
+                ? 'sip'
+                : 'ktp';
+        var body = FileUploadBody(fileName, typeUpload, path);
+
+        update();
+        getImageFromPdf(path, fileName ?? '', type, null);
+        uploadFile(body, path, fileName, type);
+        update();
+      } else {
+        AppSnackbar.show(message: 'File Tidak Valid', type: SnackType.error);
+      }
     } else {
       SnackBarHelper.showSnackBarError(Get.context!, message);
     }
@@ -68,29 +75,66 @@ class RegisterDocumentController extends GetxController {
       uploadedKtp = null;
       uploadedKtpLoading = true;
     }
+
     update();
     final result = await _uploadFile(body);
     result.fold((error) {
+      if (type == UploadType.str) {
+        uploadedStr = uploadedStr?.copyWith(
+            presingedUrl: uploadedStr?.presingedUrl,
+            key: uploadedStr?.key,
+            isVailedUpload: true,
+            isSuccessUpload: false);
+      } else if (type == UploadType.sip) {
+        uploadedSip = uploadedSip?.copyWith(
+            presingedUrl: uploadedStr?.presingedUrl,
+            key: uploadedStr?.key,
+            isVailedUpload: true,
+            isSuccessUpload: false);
+      } else {
+        uploadedKtp = uploadedKtp?.copyWith(
+            presingedUrl: uploadedStr?.presingedUrl,
+            key: uploadedStr?.key,
+            isVailedUpload: true,
+            isSuccessUpload: false);
+      }
+      update();
       AppSnackbar.show(message: error.message, type: SnackType.error);
     }, (data) {
-      getImageFromPdf(path ?? '', fileName ?? '', type, data);
+      if (type == UploadType.str) {
+        uploadedStr = uploadedStr?.copyWith(
+            presingedUrl: data.presingedUrl,
+            key: data.key,
+            isVailedUpload: false,
+            isSuccessUpload: true);
+      } else if (type == UploadType.sip) {
+        uploadedSip = uploadedSip?.copyWith(
+            presingedUrl: data.presingedUrl,
+            key: data.key,
+            isVailedUpload: false,
+            isSuccessUpload: true);
+      } else {
+        uploadedKtp = uploadedKtp?.copyWith(
+            presingedUrl: data.presingedUrl,
+            key: data.key,
+            isVailedUpload: false,
+            isSuccessUpload: true);
+      }
+      update();
       AppSnackbar.show(message: 'Berhasil upload file');
     });
     if (type == UploadType.str) {
-      uploadedStr = null;
       uploadedStrLoading = false;
     } else if (type == UploadType.sip) {
-      uploadedSip = null;
       uploadedSipLoading = false;
     } else {
-      uploadedKtp = null;
       uploadedKtpLoading = false;
     }
     update();
   }
 
   Future<void> getImageFromPdf(String path, String fileName, UploadType? type,
-      UploadFileEntity data) async {
+      UploadFileEntity? data) async {
     if (await Permission.storage.request().isGranted) {
       final documentFromPath = await PdfDocument.openFile(path);
       final page = await documentFromPath.getPage(1);
@@ -104,20 +148,20 @@ class RegisterDocumentController extends GetxController {
         uploadedStr = UploadedStr(
             file: image?.bytes,
             fileName: fileName,
-            presingedUrl: data.presingedUrl,
-            key: data.key);
+            presingedUrl: data?.presingedUrl,
+            key: data?.key);
       } else if (type == UploadType.sip) {
         uploadedSip = UploadedSip(
             file: image?.bytes,
             fileName: fileName,
-            presingedUrl: data.presingedUrl,
-            key: data.key);
+            presingedUrl: data?.presingedUrl,
+            key: data?.key);
       } else {
         uploadedKtp = UploadedKtp(
             file: image?.bytes,
             fileName: fileName,
-            presingedUrl: data.presingedUrl,
-            key: data.key);
+            presingedUrl: data?.presingedUrl,
+            key: data?.key);
       }
       update();
     } else {
@@ -137,9 +181,9 @@ class RegisterDocumentController extends GetxController {
     uploadDocumentDataLoading = true;
     update();
     var body = PersonalDocumentBody(
-      str: uploadedStr?.key ?? '',
-      sip: uploadedSip?.key ?? '',
-      ktp: uploadedKtp?.key ?? '',
+      str: uploadedStr?.presingedUrl ?? '',
+      sip: uploadedSip?.presingedUrl ?? '',
+      ktp: uploadedKtp?.presingedUrl ?? '',
     );
     final result = await _updateDocumentData(body);
     result.fold((error) {

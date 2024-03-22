@@ -16,7 +16,7 @@ class PersonalDataController extends GetxController {
   List<dynamic> listMenu = [
     {'title': 'Personal Data', 'icon': personalDataLine},
     {'title': 'Profesi', 'icon': doctorLine},
-    {'title': 'Area Layanan', 'icon': maps}
+    {'title': 'Area Layanan', 'icon': locationLine}
   ];
 
   void actionMenu(int index) {

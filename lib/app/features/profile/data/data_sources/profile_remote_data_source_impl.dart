@@ -15,6 +15,7 @@ import '../../presentation/utils/model/update_email_body.dart';
 import '../models/bank_account.dart';
 import '../models/banks.dart';
 import '../models/change_phone.dart';
+import '../models/faq.dart';
 import 'profile_remote_data_source.dart';
 
 class ProfileRemoteDataSourcesImpl extends RemoteDataSourceImpl
@@ -89,5 +90,13 @@ class ProfileRemoteDataSourcesImpl extends RemoteDataSourceImpl
     final response =
         await hitAPI(() => delWithBody(Endpoints.bankAccount, body));
     return response['code'] == 200;
+  }
+
+  @override
+  Future<List<FaqModel>> getFaq() async {
+    final response = await hitAPI(() => get(Endpoints.faq));
+    return List.from(response['data'])
+        .map((e) => FaqModel.fromJson(e))
+        .toList();
   }
 }

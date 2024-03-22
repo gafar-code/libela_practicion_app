@@ -12,6 +12,7 @@ import '../../presentation/utils/model/profile_body.dart';
 import '../../presentation/utils/model/typedef.dart';
 import '../../presentation/utils/model/update_email_body.dart';
 import '../entities/change_phone.dart';
+import '../entities/faq.dart';
 
 abstract class ProfileRepositories {
   Future<Either<RemoteFailure, UserProfileEntity>> getUserProfile();
@@ -29,4 +30,5 @@ abstract class ProfileRepositories {
   Future<Either<RemoteFailure, bool>> createBankAccount(BankAccountBody body);
   Future<Either<RemoteFailure, bool>> deleteBankAccount(
       DeleteBankAccountBody body);
+  Future<Either<RemoteFailure, List<FaqEntity>>> getFaq();
 }

@@ -45,6 +45,7 @@ class Endpoints {
       'auths/practitioner/change-phone/request';
   static const String changePhoneVerify =
       'auths/practitioner/change-phone/verify';
+  static const String faq = 'internal/master/faq';
 
   // bank
   static const String banks = 'internal/master/banks';

@@ -13,12 +13,12 @@ class WalletPageView extends GetView<WalletPageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWallet(controller: controller),
-      body: CustomScrollView(
-        slivers: [
-          WalletSection(),
-          WalletHistorySection(controller: controller)
-        ],
-      ),
+      // body: CustomScrollView(
+      //   slivers: [
+      //     WalletSection(),
+      //     WalletHistorySection(controller: controller)
+      //   ],
+      // ),
     );
   }
 }

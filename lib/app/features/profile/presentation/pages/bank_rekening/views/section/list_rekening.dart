@@ -41,15 +41,26 @@ class ListBankRekening extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                height: 42.h,
-                                width: 56.w,
-                                padding: theme.style.padding.allMedium,
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        theme.style.borderRadius.allSmall,
-                                    color: kWhiteColor,
-                                    border: theme.style.boder),
+                              // Container(
+                              //   height: 42.h,
+                              //   width: 56.w,
+                              //   padding: theme.style.padding.allMedium,
+                              //   decoration: BoxDecoration(
+                              //       borderRadius:
+                              //           theme.style.borderRadius.allSmall,
+                              //       color: kWhiteColor,
+                              //       border: theme.style.boder),
+                              // ),
+                              // Gap(12.w),
+                              CircleAvatar(
+                                radius: 20.r,
+                                backgroundColor:
+                                    kInfoColorAccent.withOpacity(0.4),
+                                child: Icon(
+                                  Icons.account_balance_outlined,
+                                  size: 20.r,
+                                  color: kPrimaryColor,
+                                ),
                               ),
                               Gap(12.w),
                               Expanded(
@@ -82,19 +93,22 @@ class ListBankRekening extends StatelessWidget {
                                     visible: controller.bankAccounts[index]
                                             .isPrimaryBank ==
                                         1,
-                                    child: Container(
-                                      height: 28.h,
-                                      padding:
-                                          theme.style.padding.horizontalMedium,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            theme.style.borderRadius.allLarge,
-                                        color: kSuccessColor.withOpacity(0.2),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          'Utama',
-                                          style: theme.font.f12.green,
+                                    child: Padding(
+                                      padding: theme.style.padding.leftSmall,
+                                      child: Container(
+                                        height: 28.h,
+                                        padding: theme
+                                            .style.padding.horizontalMedium,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              theme.style.borderRadius.allLarge,
+                                          color: kSuccessColor.withOpacity(0.2),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'Utama',
+                                            style: theme.font.f12.green,
+                                          ),
                                         ),
                                       ),
                                     ),

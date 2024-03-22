@@ -60,7 +60,6 @@ class ProfilePageController extends GetxController {
       AppSnackbar.show(message: error.message, type: SnackType.error);
     }, (data) {
       updateProfile(data);
-      AppSnackbar.show(message: 'Berhasil upload avatar');
     });
   }
 
@@ -76,13 +75,10 @@ class ProfilePageController extends GetxController {
     result.fold((error) {
       AppSnackbar.show(message: error.message, type: SnackType.error);
     }, (data) {
-      userProfileData = userProfileData?.copyWith(
-        avatar: data.avatar,
-        aboutme: data.aboutme,
-      );
       isEditAboutme = false;
       isLoadingUpdateAboutme = false;
       update();
+      getUserProfile();
       AppSnackbar.show(message: 'Berhasil update profile');
     });
   }
@@ -113,6 +109,7 @@ class ProfilePageController extends GetxController {
     switch (index) {
       case 0:
         Get.toNamed(Routes.PERSONAL_DATA, arguments: userProfileData);
+        print(userProfileData.toString());
         break;
       case 1:
         Get.toNamed(Routes.BANK_REKENING);

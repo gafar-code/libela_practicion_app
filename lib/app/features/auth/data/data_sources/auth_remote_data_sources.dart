@@ -49,7 +49,7 @@ abstract class AuthRemoteDataSource {
 
   Future<UploadFileModel> uploadFiles(FileUploadBody body);
   Future<PersonalDataModel> updatePersonalData(PersonalDataBody body);
-  Future<PersonalDataModel> updateEmailData(EmailBody body);
+  Future<String> updateEmailData(EmailBody body);
   Future<PersonalDataModel> updateProfessionData(ProfessionBody body);
   Future<List<ServiceAreaDataModel>> updateServiceAreaData(
       PersonalServiceAreaBody body);

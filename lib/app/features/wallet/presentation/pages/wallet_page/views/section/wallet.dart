@@ -99,7 +99,7 @@ class WalletSection extends StatelessWidget {
                   style: theme.font.f14.semibold,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () => Get.toNamed(Routes.HISTORY_WITHDRAW),
                   child: Text(
                     'Lihat semua',
                     style: theme.font.f12.blue,

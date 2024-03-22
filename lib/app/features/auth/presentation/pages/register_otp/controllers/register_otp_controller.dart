@@ -43,7 +43,7 @@ class RegisterOtpController extends GetxController {
     final response = await _registerVerifyOtp(body);
     response.fold((error) {}, (data) {
       storage.saveAuthData(data: data);
-      Get.offAllNamed(Routes.REGISTER_FORM, arguments: [0]);
+      Get.offAllNamed(Routes.REGISTER_FORM, arguments: [null, null]);
     });
     isLoading = false;
     update();

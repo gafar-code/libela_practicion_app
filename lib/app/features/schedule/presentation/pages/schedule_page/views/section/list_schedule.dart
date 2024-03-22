@@ -38,32 +38,32 @@ class ListSchedule extends StatelessWidget {
       child: GetBuilder<SchedulePageController>(builder: (controller) {
         return CustomScrollView(
           slivers: [
-            SliverPadding(
-                padding: theme.style.padding.allLarge,
-                sliver: PagedSliverList.separated(
-                    pagingController: controller.pagingController,
-                    builderDelegate: PagedChildBuilderDelegate<Appointment>(
-                      itemBuilder: (context, item, index) {
-                        return ItemSchedule(
-                          tab: tab,
-                          data: item,
-                          setReminder: () => controller.setReminder(
-                              appointmentCode: item.appointmentCode ?? '',
-                              activateReminder: item.setReminder ?? 0),
-                          toDetail: () => controller
-                              .toDetailAppointment(item.appointmentCode ?? ''),
-                          confirmAppointment: () =>
-                              controller.openDialogConfirmationAppointment(
-                                  item.appointmentCode ?? ''),
-                        );
-                      },
-                      newPageProgressIndicatorBuilder: InfinitiPage.progress,
-                      firstPageProgressIndicatorBuilder: InfinitiPage.progress,
-                      noItemsFoundIndicatorBuilder: (_) =>
-                          InfinitiPage.empty(_, 'Appointment'),
-                      firstPageErrorIndicatorBuilder: InfinitiPage.error,
-                    ),
-                    separatorBuilder: (_, i) => Gap(12.h))),
+            // SliverPadding(
+            //     padding: theme.style.padding.allLarge,
+            //     sliver: PagedSliverList.separated(
+            //         pagingController: controller.pagingController,
+            //         builderDelegate: PagedChildBuilderDelegate<Appointment>(
+            //           itemBuilder: (context, item, index) {
+            //             return ItemSchedule(
+            //               tab: tab,
+            //               data: item,
+            //               setReminder: () => controller.setReminder(
+            //                   appointmentCode: item.appointmentCode ?? '',
+            //                   activateReminder: item.setReminder ?? 0),
+            //               toDetail: () => controller
+            //                   .toDetailAppointment(item.appointmentCode ?? ''),
+            //               confirmAppointment: () =>
+            //                   controller.openDialogConfirmationAppointment(
+            //                       item.appointmentCode ?? ''),
+            //             );
+            //           },
+            //           newPageProgressIndicatorBuilder: InfinitiPage.progress,
+            //           firstPageProgressIndicatorBuilder: InfinitiPage.progress,
+            //           noItemsFoundIndicatorBuilder: (_) =>
+            //               InfinitiPage.empty(_, 'Appointment'),
+            //           firstPageErrorIndicatorBuilder: InfinitiPage.error,
+            //         ),
+            //         separatorBuilder: (_, i) => Gap(12.h))),
           ],
         );
       }),

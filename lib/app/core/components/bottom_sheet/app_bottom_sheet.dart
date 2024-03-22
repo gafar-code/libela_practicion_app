@@ -6,6 +6,7 @@ class AppBottomSheet extends StatelessWidget {
       required this.textButton,
       required this.child,
       this.isFooter = true,
+      this.isLoading = false,
       this.gapBottom,
       this.onPressed});
   const AppBottomSheet.witoutFooter(
@@ -13,12 +14,14 @@ class AppBottomSheet extends StatelessWidget {
       this.textButton = "",
       required this.child,
       this.isFooter = false,
+      this.isLoading = false,
       this.gapBottom,
       this.onPressed});
 
   final String textButton;
   final Widget child;
   final bool isFooter;
+  final bool isLoading;
   final double? gapBottom;
   final Function()? onPressed;
 
@@ -65,7 +68,9 @@ class AppBottomSheet extends StatelessWidget {
                                 decoration:
                                     const BoxDecoration(color: kWhiteColor),
                                 child: PrimaryButton(
-                                    text: textButton, onPressed: onPressed),
+                                    isLoading: isLoading,
+                                    text: textButton,
+                                    onPressed: onPressed),
                               )))
                       : const SizedBox(),
                 ],

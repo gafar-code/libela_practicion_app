@@ -60,6 +60,7 @@ import '../../features/profile/data/data_sources/profile_remote_data_source.dart
 import '../../features/profile/data/data_sources/profile_remote_data_source_impl.dart';
 import '../../features/profile/data/repositories/profile_repositories_impl.dart';
 import '../../features/profile/domain/repositories/profile_repositories.dart';
+import '../../features/profile/domain/usecase/get_faq.dart';
 import '../../features/schedule/data/data_source/schedule_remote_data_sources.dart';
 import '../../features/schedule/data/data_source/schedule_remote_data_sources_impl.dart';
 import '../../features/schedule/data/repositories/schedule_repositories_impl.dart';
@@ -136,6 +137,7 @@ Future<void> initializeDepedencies() async {
   sl.registerSingleton<GetBankAccounts>(GetBankAccounts(sl()));
   sl.registerSingleton<CreateBankAccount>(CreateBankAccount(sl()));
   sl.registerSingleton<DeleteBankAccount>(DeleteBankAccount(sl()));
+  sl.registerSingleton<GetFaq>(GetFaq(sl()));
 
   // Schedule Use Case
   sl.registerSingleton<GetAppointments>(GetAppointments(sl()));

@@ -31,9 +31,11 @@ class CustomExpansion extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      title ?? 'Title',
-                      style: theme.font.f14.semibold,
+                    Expanded(
+                      child: Text(
+                        title ?? 'Title',
+                        style: theme.font.f14.semibold,
+                      ),
                     ),
                     Icon(
                       isExpanded

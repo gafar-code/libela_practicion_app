@@ -10,6 +10,7 @@ import '../../presentation/utils/model/image_body.dart';
 import '../../presentation/utils/model/profile_body.dart';
 import '../../presentation/utils/model/update_email_body.dart';
 import '../models/change_phone.dart';
+import '../models/faq.dart';
 import '../models/update_profile.dart';
 
 abstract class ProfileRemoteDataSource {
@@ -23,4 +24,5 @@ abstract class ProfileRemoteDataSource {
   Future<List<BankAccountModel>> getBankAccount();
   Future<bool> createBankAccount(BankAccountBody body);
   Future<bool> deleteBankAccount(DeleteBankAccountBody body);
+  Future<List<FaqModel>> getFaq();
 }

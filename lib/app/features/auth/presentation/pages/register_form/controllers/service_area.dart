@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:libela_practition/app/core/utils/app_storage/app_storage.dart';
 import 'package:libela_practition/app/features/auth/domain/usecase/update_service_area.dart';
 
+import '../../../../../../core/components/snackbar/app_snackbar.dart';
 import '../../../../../profile/presentation/utils/model/typedef.dart';
 import '../../../../domain/usecase/get_service_area.dart';
 import '../../../../domain/usecase/get_specialization.dart';
@@ -53,12 +54,16 @@ class RegisterServiceAreaController extends GetxController {
   }
 
   void selectServiceArea(ServiceArea value) {
-    if (selectedServiceArea.contains(value)) {
-      selectedServiceArea.remove(value);
+    if (selectedServiceArea.length == 3) {
+      AppSnackbar.show(message: 'Maksimal 3', type: SnackType.error);
     } else {
-      selectedServiceArea.add(value);
+      if (selectedServiceArea.contains(value)) {
+        selectedServiceArea.remove(value);
+      } else {
+        selectedServiceArea.add(value);
+      }
+      update();
     }
-    update();
   }
 
   Future<void> getServiceArea() async {
@@ -121,22 +126,24 @@ class RegisterServiceAreaController extends GetxController {
   }
 
   void setServiceAreaData() {
-    if (Get.arguments[1] != null) {
-      userProfileData = Get.arguments[1];
-      if (isServiceAreaNotNull) {
-        selectedServiceArea = List.generate(
-            userProfileData?.practitionerServiceArea?.length ?? 0,
-            (index) => serviceArea.firstWhere((e) =>
-                e.id ==
-                userProfileData
-                    ?.practitionerServiceArea?[index].serviceAreasId));
-        List<String> data = List.generate(
-            userProfileData?.practititonerServiceSkill?.length ?? 0,
-            (index) =>
-                userProfileData?.practititonerServiceSkill?[index].skillsId ??
-                '');
-        selectedSpecializationServiceArea = data;
-        update();
+    if (Get.arguments != null) {
+      if (Get.arguments[1] != null) {
+        userProfileData = Get.arguments[1];
+        if (isServiceAreaNotNull) {
+          selectedServiceArea = List.generate(
+              userProfileData?.practitionerServiceArea?.length ?? 0,
+              (index) => serviceArea.firstWhere((e) =>
+                  e.id ==
+                  userProfileData
+                      ?.practitionerServiceArea?[index].serviceAreasId));
+          List<String> data = List.generate(
+              userProfileData?.practititonerServiceSkill?.length ?? 0,
+              (index) =>
+                  userProfileData?.practititonerServiceSkill?[index].skillsId ??
+                  '');
+          selectedSpecializationServiceArea = data;
+          update();
+        }
       }
     }
   }

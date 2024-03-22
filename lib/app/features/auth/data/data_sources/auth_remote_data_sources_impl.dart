@@ -168,10 +168,10 @@ class AuthRemoteDataSourcesImpl extends RemoteDataSourceImpl
   }
 
   @override
-  Future<PersonalDataModel> updateEmailData(EmailBody body) async {
+  Future<String> updateEmailData(EmailBody body) async {
     final response =
         await hitAPI(() => put(Endpoints.personalEmail, body: body));
-    return PersonalDataModel.fromJson(response['data']);
+    return response['data']['email'];
   }
 
   @override

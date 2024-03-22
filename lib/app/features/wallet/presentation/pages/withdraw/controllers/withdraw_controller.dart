@@ -1,5 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:libela_practition/app/core/components/components_lib.dart';
 import 'package:libela_practition/app/features/wallet/domain/usecase/get_bank_account.dart';
+import 'package:libela_practition/app/features/wallet/presentation/pages/wallet_page/controllers/wallet_page_controller.dart';
+import 'package:libela_practition/app/features/wallet/presentation/pages/withdraw/views/widget/detail_withdraw.dart';
 
 import '../../../../../../core/components/snackbar/app_snackbar.dart';
 import '../../../../../../routes/app_pages.dart';
@@ -12,6 +16,7 @@ class WithdrawController extends GetxController {
   final GetWallet getWallet;
   final GetBankAccountsWallet getBankAccountWallet;
   WithdrawController(this.getWallet, this.getBankAccountWallet);
+  TextEditingController amountController = TextEditingController();
 
   WalletEntity? wallet;
   BankAccounts bankAccounts = [];
@@ -20,6 +25,7 @@ class WithdrawController extends GetxController {
   var isHideSaldo = false;
   var isSwitch = false;
   var isChoiceRekening = false;
+  var isLoading = false;
 
   Future<void> getWalletData() async {
     final result = await getWallet();
@@ -67,10 +73,27 @@ class WithdrawController extends GetxController {
   }
 
   void selectBank(BankAccountEntity value) {
-    print("Jalan");
     selectedBank = value;
     isChoiceRekening = !isChoiceRekening;
     update();
+  }
+
+  void openDetailWithdraw() {
+    CustomBottomSheet.show(child: DetailWithdraw());
+  }
+
+  Future<void> withdraw() async {
+    isLoading = true;
+    update();
+    // Get.find<WalletPageController>().getWalletData();
+    // Get.find<WalletPageController>().pagingController.refresh();
+
+    await Future.delayed(2.seconds, () {
+      Get.back();
+      isLoading = false;
+      update();
+      Get.offNamed(Routes.WAITING_WITHDRAW);
+    });
   }
 
   @override

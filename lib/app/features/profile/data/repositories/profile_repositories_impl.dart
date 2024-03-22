@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fpdart/fpdart.dart';
 import 'package:libela_practition/app/features/profile/domain/entities/bank_account.dart';
 import 'package:libela_practition/app/features/profile/domain/entities/banks.dart';
@@ -8,6 +6,7 @@ import 'package:libela_practition/app/features/profile/presentation/utils/model/
 
 import '../../../../core/error/error_imports.dart';
 import '../../domain/entities/change_phone.dart';
+import '../../domain/entities/faq.dart';
 import '../../domain/entities/user_profile.dart';
 import '../../domain/repositories/profile_repositories.dart';
 import '../../presentation/utils/model/change_phone_request_body.dart';
@@ -130,7 +129,16 @@ class ProfileRepositoriesImpl implements ProfileRepositories {
       final data = await _profileRemoteDataSource.deleteBankAccount(body);
       return Right(data);
     } on ServerException catch (e) {
-      log(e.message);
+      return Left(RemoteFailure(e));
+    }
+  }
+
+  Future<Either<RemoteFailure, List<FaqEntity>>> getFaq() async {
+    try {
+      final data = await _profileRemoteDataSource.getFaq();
+      final faqs = data.map((e) => FaqEntity.fromModel(e)).toList();
+      return Right(faqs);
+    } on ServerException catch (e) {
       return Left(RemoteFailure(e));
     }
   }

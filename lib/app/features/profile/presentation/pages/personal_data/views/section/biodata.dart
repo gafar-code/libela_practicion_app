@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,10 +20,7 @@ class BiodataSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log("Class Rebuild");
     return GetBuilder<EditBiodataController>(builder: (controller) {
-      log("Builder Rebuild");
-
       return ListView(
         padding: theme.style.padding.allLarge,
         children: [
