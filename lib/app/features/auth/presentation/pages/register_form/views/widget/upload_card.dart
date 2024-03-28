@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -51,6 +51,24 @@ class UploadCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // Container(
+                      //   height: 100.r,
+                      //   width: 100.r,
+                      //   padding:
+                      //       theme.style.padding.allSmall.copyWith(bottom: 0),
+                      //   decoration: BoxDecoration(
+                      //       borderRadius: theme.style.borderRadius.allSmall,
+                      //       color: kSofterGrey),
+                      //   child: ClipRRect(
+                      //     borderRadius: theme.style.borderRadius.allSmall,
+                      //     child: file?.file != null
+                      //         ? Image.memory(
+                      //             file?.file ?? Uint8List(0),
+                      //             fit: BoxFit.cover,
+                      //           )
+                      //         : null,
+                      //   ),
+                      // ),
                       Container(
                         height: 100.r,
                         width: 100.r,
@@ -59,14 +77,15 @@ class UploadCard extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: theme.style.borderRadius.allSmall,
                             color: kSofterGrey),
-                        child: ClipRRect(
-                          borderRadius: theme.style.borderRadius.allSmall,
-                          child: file?.file != null
-                              ? Image.memory(
-                                  file?.file ?? Uint8List(0),
-                                  fit: BoxFit.cover,
-                                )
-                              : null,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: theme.style.borderRadius.allSmall,
+                              image: file != null && file?.path != null
+                                  ? DecorationImage(
+                                      image: FileImage(File(file!.path!)),
+                                      fit: BoxFit.cover,
+                                    )
+                                  : null),
                         ),
                       ),
                       Gap(8.h),
@@ -109,14 +128,16 @@ class UploadCard extends StatelessWidget {
                             decoration: BoxDecoration(
                                 borderRadius: theme.style.borderRadius.allSmall,
                                 color: kSofterGrey),
-                            child: ClipRRect(
-                              borderRadius: theme.style.borderRadius.allSmall,
-                              child: file?.file != null
-                                  ? Image.memory(
-                                      file?.file ?? Uint8List(0),
-                                      fit: BoxFit.cover,
-                                    )
-                                  : null,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      theme.style.borderRadius.allSmall,
+                                  image: file != null && file?.path != null
+                                      ? DecorationImage(
+                                          image: FileImage(File(file!.path!)),
+                                          fit: BoxFit.cover,
+                                        )
+                                      : null),
                             ),
                           ),
                           Gap(16.w),
@@ -189,12 +210,15 @@ class UploadCard extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: theme.style.borderRadius.allSmall,
                       color: kSofterGrey),
-                  child: ClipRRect(
-                    borderRadius: theme.style.borderRadius.allSmall,
-                    child: Image.memory(
-                      file?.file ?? Uint8List(0),
-                      fit: BoxFit.cover,
-                    ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: theme.style.borderRadius.allSmall,
+                        image: file != null && file?.path != null
+                            ? DecorationImage(
+                                image: FileImage(File(file!.path!)),
+                                fit: BoxFit.cover,
+                              )
+                            : null),
                   ),
                 ),
                 Gap(8.h),

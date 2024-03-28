@@ -1,6 +1,7 @@
 part of components_lib;
 
-typedef OnImagePickerCallBack = Function(String path, String? filename);
+typedef OnImagePickerCallBack = Function(
+    String path, String? filename, String? message);
 
 class PickerImages extends StatelessWidget {
   const PickerImages.single(
@@ -80,9 +81,33 @@ class PickerImages extends StatelessWidget {
     Permission.camera.request().then((status) async {
       if (status.isGranted) {
         Get.back();
-        var image = await ImagePicker().pickImage(
-            source: ImageSource.camera, maxHeight: 1200, maxWidth: 1200);
-        if (image != null) onSelect!(image.path, image.name);
+        final ImagePicker picker = ImagePicker();
+        final XFile? image = await picker.pickImage(
+          source: ImageSource.camera,
+          maxHeight: 1200,
+          maxWidth: 1200,
+        );
+
+        if (image != null) {
+          var splitter = image.path.split('/').last.split('.');
+          bool isContains(String format) => splitter.last.contains(format);
+          if (isContains('jpg') || isContains('jpeg') || isContains('png')) {
+            File imageFile = File(image.path);
+            int fileSize = await imageFile.length();
+            // Check if file size is greater than 5MB
+            if (fileSize > 5 * 1024 * 1024) {
+              onSelect!('', '', 'Ukuran file lebih dari 5 MB');
+            } else {
+              onSelect!(image.path, image.name, null);
+            }
+          } else {
+            // ignore: use_build_context_synchronously
+            // context.showError('Format Gambar harus JPG/JPEG/PNG');
+            AppSnackbar.show(
+                message: 'Format Gambar harus JPG/JPEG/PNG',
+                type: SnackType.error);
+          }
+        }
       } else {
         openAppSettings();
         // context.showConfirmDialog(
@@ -115,10 +140,20 @@ class PickerImages extends StatelessWidget {
           var splitter = image.path.split('/').last.split('.');
           bool isContains(String format) => splitter.last.contains(format);
           if (isContains('jpg') || isContains('jpeg') || isContains('png')) {
-            onSelect!(image.path, image.name);
+            File imageFile = File(image.path);
+            int fileSize = await imageFile.length();
+            // Check if file size is greater than 5MB
+            if (fileSize > 5 * 1024 * 1024) {
+              onSelect!('', '', 'Ukuran file lebih dari 5 MB');
+            } else {
+              onSelect!(image.path, image.name, null);
+            }
           } else {
             // ignore: use_build_context_synchronously
             // context.showError('Format Gambar harus JPG/JPEG/PNG');
+            AppSnackbar.show(
+                message: 'Format Gambar harus JPG/JPEG/PNG',
+                type: SnackType.error);
           }
         }
       } else {

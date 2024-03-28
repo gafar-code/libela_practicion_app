@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:libela_practition/app/core/components/components_lib.dart';
 import 'package:libela_practition/app/features/wallet/domain/usecase/get_bank_account.dart';
-import 'package:libela_practition/app/features/wallet/presentation/pages/wallet_page/controllers/wallet_page_controller.dart';
+// import 'package:libela_practition/app/features/wallet/presentation/pages/wallet_page/controllers/wallet_page_controller.dart';
 import 'package:libela_practition/app/features/wallet/presentation/pages/withdraw/views/widget/detail_withdraw.dart';
 
 import '../../../../../../core/components/snackbar/app_snackbar.dart';

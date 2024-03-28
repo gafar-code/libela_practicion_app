@@ -37,7 +37,7 @@ class ProfileSection extends StatelessWidget {
                             enterBottomSheetDuration: 200.milliseconds,
                             exitBottomSheetDuration: 200.milliseconds,
                             PickerImages.double(
-                          onSelect: (path, filename) {
+                          onSelect: (path, filename, message) {
                             controller.uploadImage(
                                 path: path, fileName: filename);
                           },

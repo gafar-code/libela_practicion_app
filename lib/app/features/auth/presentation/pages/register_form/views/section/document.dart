@@ -34,7 +34,8 @@ class DocumentSection extends StatelessWidget {
             onTap: () {
               Get.bottomSheet(
                   enterBottomSheetDuration: 200.milliseconds,
-                  exitBottomSheetDuration: 200.milliseconds, PickerFile(
+                  exitBottomSheetDuration: 200.milliseconds,
+                  PickerImages.double(
                 onSelect: (filePath, filename, message) {
                   controller.onSelectFile(
                       path: filePath,
@@ -55,7 +56,8 @@ class DocumentSection extends StatelessWidget {
             onTap: () {
               Get.bottomSheet(
                   enterBottomSheetDuration: 200.milliseconds,
-                  exitBottomSheetDuration: 200.milliseconds, PickerFile(
+                  exitBottomSheetDuration: 200.milliseconds,
+                  PickerImages.double(
                 onSelect: (filePath, filename, message) {
                   controller.onSelectFile(
                       path: filePath,
@@ -76,7 +78,8 @@ class DocumentSection extends StatelessWidget {
             onTap: () {
               Get.bottomSheet(
                   enterBottomSheetDuration: 200.milliseconds,
-                  exitBottomSheetDuration: 200.milliseconds, PickerFile(
+                  exitBottomSheetDuration: 200.milliseconds,
+                  PickerImages.double(
                 onSelect: (filePath, filename, message) {
                   controller.onSelectFile(
                       path: filePath,
@@ -99,7 +102,7 @@ class DocumentSection extends StatelessWidget {
               Gap(6.w),
               Expanded(
                 child: Text(
-                    'Pastikan file tidak lebih dari 5 MB Upload file harus dalam bentuk pdf',
+                    'Pastikan file tidak lebih dari 5 MB dan Upload file yang di terima dalam bentuk *.jpg, *.jpeg atau *.png',
                     style: theme.font.f12.copyWith(color: kInfoColor)),
               ),
             ],

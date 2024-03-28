@@ -1,7 +1,6 @@
 library components_lib;
 
 // Imports
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -18,6 +17,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:libela_practition/app/config/theme/font.dart';
 import 'package:libela_practition/app/config/theme/style.dart';
+import 'package:libela_practition/app/core/components/snackbar/app_snackbar.dart';
 import 'package:libela_practition/app/core/utils/assets/local_assets.dart';
 import 'package:permission_handler/permission_handler.dart';
 

@@ -4,8 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:libela_practition/app/core/components/snackbar/app_snackbar.dart';
 import 'package:libela_practition/app/features/auth/domain/usecase/update_document_data.dart';
-import 'package:pdfx/pdfx.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../../../core/utils/snackbar_helper.dart';
 import '../../../../../../routes/app_pages.dart';
@@ -52,7 +50,7 @@ class RegisterDocumentController extends GetxController {
         var body = FileUploadBody(fileName, typeUpload, path);
 
         update();
-        getImageFromPdf(path, fileName ?? '', type, null);
+        setImageThumbnile(path, fileName ?? '', type, null);
         uploadFile(body, path, fileName, type);
         update();
       } else {
@@ -66,13 +64,13 @@ class RegisterDocumentController extends GetxController {
   Future<void> uploadFile(FileUploadBody body, String? path, String? fileName,
       UploadType? type) async {
     if (type == UploadType.str) {
-      uploadedStr = null;
+      // uploadedStr = null;
       uploadedStrLoading = true;
     } else if (type == UploadType.sip) {
-      uploadedSip = null;
+      // uploadedSip = null;
       uploadedSipLoading = true;
     } else {
-      uploadedKtp = null;
+      // uploadedKtp = null;
       uploadedKtpLoading = true;
     }
 
@@ -133,41 +131,65 @@ class RegisterDocumentController extends GetxController {
     update();
   }
 
-  Future<void> getImageFromPdf(String path, String fileName, UploadType? type,
+  Future<void> setImageThumbnile(String path, String fileName, UploadType? type,
       UploadFileEntity? data) async {
-    if (await Permission.storage.request().isGranted) {
-      final documentFromPath = await PdfDocument.openFile(path);
-      final page = await documentFromPath.getPage(1);
-      final image = await page.render(
-        width: page.width * 3,
-        height: page.height * 3,
-        format: PdfPageImageFormat.jpeg,
-        backgroundColor: '#ffffff',
-      );
-      if (type == UploadType.str) {
-        uploadedStr = UploadedStr(
-            file: image?.bytes,
-            fileName: fileName,
-            presingedUrl: data?.presingedUrl,
-            key: data?.key);
-      } else if (type == UploadType.sip) {
-        uploadedSip = UploadedSip(
-            file: image?.bytes,
-            fileName: fileName,
-            presingedUrl: data?.presingedUrl,
-            key: data?.key);
-      } else {
-        uploadedKtp = UploadedKtp(
-            file: image?.bytes,
-            fileName: fileName,
-            presingedUrl: data?.presingedUrl,
-            key: data?.key);
-      }
-      update();
+    if (type == UploadType.str) {
+      uploadedStr = UploadedStr(
+          path: path,
+          fileName: fileName,
+          presingedUrl: data?.presingedUrl,
+          key: data?.key);
+    } else if (type == UploadType.sip) {
+      uploadedSip = UploadedSip(
+          path: path,
+          fileName: fileName,
+          presingedUrl: data?.presingedUrl,
+          key: data?.key);
     } else {
-      print('Izin akses ke penyimpanan tidak diberikan.');
+      uploadedKtp = UploadedKtp(
+          path: path,
+          fileName: fileName,
+          presingedUrl: data?.presingedUrl,
+          key: data?.key);
     }
+    update();
   }
+
+  // Future<void> getImageFromPdf(String path, String fileName, UploadType? type,
+  //     UploadFileEntity? data) async {
+  //   if (await Permission.storage.request().isGranted) {
+  //     final documentFromPath = await PdfDocument.openFile(path);
+  //     final page = await documentFromPath.getPage(1);
+  //     final image = await page.render(
+  //       width: page.width * 3,
+  //       height: page.height * 3,
+  //       format: PdfPageImageFormat.jpeg,
+  //       backgroundColor: '#ffffff',
+  //     );
+  //     if (type == UploadType.str) {
+  //       uploadedStr = UploadedStr(
+  //           file: image?.bytes,
+  //           fileName: fileName,
+  //           presingedUrl: data?.presingedUrl,
+  //           key: data?.key);
+  //     } else if (type == UploadType.sip) {
+  //       uploadedSip = UploadedSip(
+  //           file: image?.bytes,
+  //           fileName: fileName,
+  //           presingedUrl: data?.presingedUrl,
+  //           key: data?.key);
+  //     } else {
+  //       uploadedKtp = UploadedKtp(
+  //           file: image?.bytes,
+  //           fileName: fileName,
+  //           presingedUrl: data?.presingedUrl,
+  //           key: data?.key);
+  //     }
+  //     update();
+  //   } else {
+  //     print('Izin akses ke penyimpanan tidak diberikan.');
+  //   }
+  // }
 
   void next() {
     registerController.next();

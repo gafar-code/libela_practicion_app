@@ -1,8 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 class UploadedFile extends Equatable {
-  final Uint8List? file;
+  final String? path;
   final String? fileName;
   final String? presingedUrl;
   final String? key;
@@ -10,7 +9,7 @@ class UploadedFile extends Equatable {
   final bool? isVailedUpload;
 
   const UploadedFile(
-      {this.file,
+      {this.path,
       this.fileName,
       this.presingedUrl,
       this.key,
@@ -18,7 +17,7 @@ class UploadedFile extends Equatable {
       this.isVailedUpload});
 
   UploadedFile copyWith({
-    Uint8List? file,
+    String? path,
     String? fileName,
     String? presingedUrl,
     String? key,
@@ -26,7 +25,7 @@ class UploadedFile extends Equatable {
     bool? isVailedUpload,
   }) {
     return UploadedFile(
-        file: file ?? this.file,
+        path: path ?? this.path,
         fileName: fileName ?? this.fileName,
         presingedUrl: presingedUrl ?? this.presingedUrl,
         key: key ?? this.key,
@@ -36,5 +35,5 @@ class UploadedFile extends Equatable {
 
   @override
   List<Object?> get props =>
-      [file, fileName, presingedUrl, key, isSuccessUpload, isVailedUpload];
+      [path, fileName, presingedUrl, key, isSuccessUpload, isVailedUpload];
 }

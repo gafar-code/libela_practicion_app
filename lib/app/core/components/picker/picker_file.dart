@@ -51,7 +51,6 @@ class PickerFile extends StatelessWidget {
         String? filePath = result.files.single.path;
         String? fileName = result.files.single.name;
         // Uint8List fileBytes = result.files.single.bytes ?? Uint8List(0);
-        log("TERSELECT");
         if (file.size != null && file.size > 5 * 1024 * 1024) {
           onSelect('', '', 'Ukuran file lebih dari 5 MB');
         } else {

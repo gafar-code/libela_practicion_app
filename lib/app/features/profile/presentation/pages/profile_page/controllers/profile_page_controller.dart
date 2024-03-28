@@ -66,7 +66,7 @@ class ProfilePageController extends GetxController {
   Future<void> updateProfile(String? imageUrl) async {
     var body = ProfileBody(
       firstName: userProfileData?.firstName ?? "",
-      lastName: userProfileData?.firstName ?? "",
+      lastName: userProfileData?.lastName ?? "",
       avatar: imageUrl,
       aboutme: aboutmeController.text,
     );
@@ -109,7 +109,6 @@ class ProfilePageController extends GetxController {
     switch (index) {
       case 0:
         Get.toNamed(Routes.PERSONAL_DATA, arguments: userProfileData);
-        print(userProfileData.toString());
         break;
       case 1:
         Get.toNamed(Routes.BANK_REKENING);
